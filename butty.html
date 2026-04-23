@@ -1,0 +1,1792 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>BUTTY — 팀장의 성장을 돕습니다</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F2F1EE;
+    --bg-hero: #1A1A1A;
+    --bg-card: #FFFFFF;
+    --bg-card2: #E8E7E3;
+    --accent: #C8F075;
+    --accent-dim: rgba(200,240,117,0.15);
+    --accent-border: rgba(200,240,117,0.4);
+    --text: #1A1A1A;
+    --text-hero: #FAF8F5;
+    --text-muted: rgba(26,26,26,0.55);
+    --text-hint: rgba(26,26,26,0.35);
+    --border: rgba(0,0,0,0.08);
+    --border-light: rgba(0,0,0,0.05);
+
+    /* 카테고리별 포인트 컬러 */
+    --c-b2b: #3B7DD8;
+    --c-b2b-dim: rgba(59,125,216,0.09);
+    --c-b2b-border: rgba(59,125,216,0.25);
+
+    --c-ad: #E8722A;
+    --c-ad-dim: rgba(232,114,42,0.09);
+    --c-ad-border: rgba(232,114,42,0.25);
+
+    --c-book: #2E9E6B;
+    --c-book-dim: rgba(46,158,107,0.09);
+    --c-book-border: rgba(46,158,107,0.25);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+  html, body {
+    background: #E8E7E3;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    font-family: 'Noto Sans KR', sans-serif;
+  }
+
+  .site {
+    width: 100%;
+    max-width: 430px;
+    background: var(--bg);
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+  }
+
+  /* ── VIEWS ── */
+  .view { display: none; }
+  .view.active { display: block; }
+
+  /* ── HERO ── */
+  .hero {
+    background: var(--bg-hero);
+    padding: 60px 28px 52px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-orb {
+    position: absolute; top: -80px; right: -80px;
+    width: 280px; height: 280px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(200,240,117,0.18) 0%, transparent 65%);
+    pointer-events: none;
+  }
+  .hero-orb2 {
+    position: absolute; bottom: -60px; left: -50px;
+    width: 200px; height: 200px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(200,240,117,0.07) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-chip {
+    display: inline-flex; align-items: center; gap: 7px;
+    background: var(--accent-dim); border: 1px solid var(--accent-border);
+    color: var(--accent); font-size: 10px; font-weight: 700;
+    letter-spacing: 2px; padding: 6px 13px; border-radius: 100px;
+    margin-bottom: 22px; text-transform: uppercase;
+  }
+  .chip-dot {
+    width: 5px; height: 5px; border-radius: 50%;
+    background: var(--accent); animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+
+  .hero-title {
+    font-family: 'DM Serif Display', serif; font-size: 48px;
+    color: #FAF8F5; line-height: 1.05; margin-bottom: 16px;
+    animation: fadeUp 0.7s ease both;
+  }
+  .hero-title em { font-style: italic; color: var(--accent); }
+  .hero-sub {
+    font-size: 14px; color: rgba(250,248,245,0.55); line-height: 1.75;
+    font-weight: 300; animation: fadeUp 0.7s 0.1s ease both;
+  }
+  .hero-cta {
+    display: flex; align-items: center; gap: 16px; margin-top: 32px;
+    animation: fadeUp 0.7s 0.2s ease both;
+  }
+  .btn-primary {
+    background: var(--accent); color: #1A1A1A; border: none;
+    padding: 14px 24px; border-radius: 100px; font-size: 13px;
+    font-weight: 700; font-family: 'Noto Sans KR', sans-serif; cursor: pointer;
+    box-shadow: 0 6px 24px rgba(200,240,117,0.3);
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+  .btn-primary:active { transform: scale(0.97); box-shadow: 0 3px 12px rgba(200,240,117,0.2); }
+  .btn-ghost {
+    color: rgba(250,248,245,0.55); font-size: 13px; font-weight: 400;
+    font-family: 'Noto Sans KR', sans-serif; cursor: pointer;
+    background: none; border: none; transition: color 0.2s;
+  }
+  .btn-ghost:active { color: #FAF8F5; }
+  @keyframes fadeUp { from{opacity:0;transform:translateY(18px)} to{opacity:1;transform:translateY(0)} }
+
+  /* ── NAV TABS ── */
+  .nav-wrap {
+    position: sticky; top: 0; z-index: 100;
+    background: var(--bg); border-bottom: 1px solid var(--border);
+  }
+  .nav-tabs {
+    display: flex; padding: 0 20px;
+    overflow-x: auto; scrollbar-width: none;
+  }
+  .nav-tabs::-webkit-scrollbar { display: none; }
+  .nav-tab {
+    flex-shrink: 0; padding: 15px 14px; font-size: 12px; font-weight: 500;
+    color: var(--text-hint); border-bottom: 2px solid transparent; cursor: pointer;
+    font-family: 'Noto Sans KR', sans-serif; background: none;
+    border-top: none; border-left: none; border-right: none;
+    white-space: nowrap; transition: color 0.2s, border-color 0.2s;
+  }
+  .nav-tab.active { color: #1A1A1A; border-bottom-color: #1A1A1A; }
+
+  /* ── SECTIONS ── */
+  .section { padding: 32px 20px 8px; }
+  .section-label {
+    font-size: 10px; font-weight: 700; letter-spacing: 2.5px;
+    color: var(--text-hint); text-transform: uppercase; margin-bottom: 6px;
+  }
+  .section-title {
+    font-family: 'DM Serif Display', serif; font-size: 28px;
+    color: var(--text); line-height: 1.2; margin-bottom: 22px;
+  }
+
+  /* ── PRODUCT CARDS ── */
+  .product-card {
+    background: var(--bg-card); border-radius: 20px; padding: 20px;
+    margin-bottom: 10px; border: 1px solid var(--border);
+    position: relative; overflow: hidden;
+    transition: border-color 0.2s, transform 0.15s, box-shadow 0.2s; cursor: pointer;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  }
+  .product-card:active { transform: scale(0.99); box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+  .card-arrow {
+    position: absolute; top: 20px; right: 18px;
+    color: var(--text-hint); font-size: 18px; line-height: 1;
+  }
+  .card-stripe {
+    position: absolute; top: 0; left: 0;
+    width: 3px; height: 100%;
+    opacity: 0.8;
+  }
+  .card-stripe.dim { opacity: 0.45; }
+  /* 카테고리별 stripe 색상 */
+  .b2b-card .card-stripe { background: var(--c-b2b); }
+  .ad-card  .card-stripe { background: var(--c-ad); }
+  .book-card .card-stripe { background: var(--c-book); }
+
+  .card-header {
+    display: flex; justify-content: space-between;
+    align-items: flex-start; margin-bottom: 12px;
+  }
+  .card-badge {
+    font-size: 9px; font-weight: 700; letter-spacing: 1.5px;
+    padding: 4px 10px; border-radius: 100px; text-transform: uppercase;
+  }
+  /* 카테고리별 badge */
+  .b2b-card .card-badge { background: var(--c-b2b-dim); color: var(--c-b2b); border: 1px solid var(--c-b2b-border); }
+  .ad-card  .card-badge { background: var(--c-ad-dim);  color: var(--c-ad);  border: 1px solid var(--c-ad-border); }
+  .book-card .card-badge { background: var(--c-book-dim); color: var(--c-book); border: 1px solid var(--c-book-border); }
+
+  .card-icon {
+    width: 36px; height: 36px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 17px;
+  }
+  /* 카테고리별 icon bg */
+  .b2b-card .card-icon { background: var(--c-b2b-dim); }
+  .ad-card  .card-icon { background: var(--c-ad-dim); }
+  .book-card .card-icon { background: var(--c-book-dim); }
+
+  .card-name { font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 8px; padding-right: 20px; }
+  .card-desc { font-size: 12px; color: var(--text-muted); line-height: 1.7; margin-bottom: 14px; }
+  .card-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; }
+  .tag {
+    font-size: 11px; color: var(--text-hint);
+    background: rgba(0,0,0,0.04); padding: 3px 10px;
+    border-radius: 100px; border: 1px solid var(--border);
+  }
+  .card-price-row {
+    display: flex; justify-content: space-between; align-items: center;
+    padding-top: 13px; border-top: 1px solid var(--border-light);
+  }
+  .price-main { font-size: 14px; font-weight: 700; }
+  .b2b-card .price-main { color: var(--c-b2b); }
+  .ad-card  .price-main { color: var(--c-ad); }
+  .book-card .price-main { color: var(--c-book); }
+
+  .price-note { font-size: 11px; color: var(--text-hint); margin-top: 2px; }
+  .price-cta {
+    padding: 8px 15px; border-radius: 100px; font-size: 11px; font-weight: 700;
+    font-family: 'Noto Sans KR', sans-serif; cursor: pointer; transition: background 0.15s; border: 1px solid;
+  }
+  .b2b-card .price-cta { background: var(--c-b2b-dim); color: var(--c-b2b); border-color: var(--c-b2b-border); }
+  .b2b-card .price-cta:active { background: rgba(59,125,216,0.18); }
+  .ad-card  .price-cta { background: var(--c-ad-dim);  color: var(--c-ad);  border-color: var(--c-ad-border); }
+  .ad-card  .price-cta:active { background: rgba(232,114,42,0.18); }
+  .book-card .price-cta { background: var(--c-book-dim); color: var(--c-book); border-color: var(--c-book-border); }
+  .book-card .price-cta:active { background: rgba(46,158,107,0.18); }
+
+  /* ── BAND ── */
+  .band {
+    margin: 24px 0 0; background: var(--bg-card2);
+    border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+    padding: 30px 20px; position: relative; overflow: hidden;
+  }
+  .band-orb {
+    position: absolute; top: -40px; right: -40px;
+    width: 180px; height: 180px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(200,240,117,0.15) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .band-title {
+    font-family: 'DM Serif Display', serif; font-size: 24px;
+    color: var(--text); line-height: 1.3; margin-bottom: 22px;
+  }
+  .band-title em { color: var(--c-b2b); font-style: italic; }
+  .stats-row { display: flex; gap: 8px; }
+  .stat-box {
+    flex: 1; background: rgba(59,125,216,0.07);
+    border: 1px solid rgba(59,125,216,0.15); border-radius: 16px;
+    padding: 16px 10px; text-align: center;
+  }
+  .stat-num { font-family: 'DM Serif Display', serif; font-size: 22px; color: var(--c-b2b); display: block; }
+  .stat-label { font-size: 10px; color: var(--text-hint); margin-top: 4px; display: block; }
+
+  /* ── DIVIDER ── */
+  .divider { height: 1px; background: var(--border); margin: 8px 20px 0; }
+
+  /* ── FOOTER ── */
+  .footer { background: #1A1A1A; padding: 32px 20px 48px; text-align: center; margin-top: 8px; }
+  .footer-logo { font-family: 'DM Serif Display', serif; font-size: 32px; color: #FAF8F5; letter-spacing: 3px; margin-bottom: 8px; }
+  .footer-logo span { color: var(--accent); }
+  .footer-tagline { font-size: 13px; color: rgba(250,248,245,0.35); line-height: 1.7; margin-bottom: 24px; }
+  .btn-footer {
+    background: var(--accent); color: #1A1A1A; border: none;
+    padding: 15px 0; border-radius: 100px; font-size: 14px; font-weight: 700;
+    font-family: 'Noto Sans KR', sans-serif; cursor: pointer; width: 100%;
+    margin-bottom: 20px; box-shadow: 0 4px 24px rgba(200,240,117,0.25);
+    transition: transform 0.15s;
+  }
+  .btn-footer:active { transform: scale(0.98); }
+  .footer-links { display: flex; justify-content: center; gap: 24px; }
+  .footer-link { font-size: 11px; color: rgba(250,248,245,0.3); text-decoration: none; }
+
+  /* ── SECTION VISIBILITY ── */
+  .content-section { display: block; }
+  .content-section.hidden { display: none; }
+
+  /* ── SUB PAGE ── */
+  .sub-page {
+    min-height: 100vh; background: var(--bg);
+    animation: slideIn 0.28s cubic-bezier(0.25,0.46,0.45,0.94) both;
+  }
+  @keyframes slideIn { from{transform:translateX(40px);opacity:0} to{transform:translateX(0);opacity:1} }
+
+  .sub-topbar {
+    display: flex; align-items: center; gap: 12px;
+    padding: 16px 20px; border-bottom: 1px solid var(--border);
+    position: sticky; top: 0; background: var(--bg); z-index: 50;
+  }
+  .back-btn {
+    width: 34px; height: 34px; border-radius: 50%;
+    background: rgba(0,0,0,0.06); border: 1px solid var(--border);
+    color: var(--text); font-size: 18px; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; transition: background 0.15s; font-family: sans-serif;
+  }
+  .back-btn:active { background: rgba(0,0,0,0.12); }
+  .sub-topbar-label { font-size: 12px; font-weight: 500; color: var(--text-muted); }
+
+  .home-btn {
+    width: 34px; height: 34px; border-radius: 50%;
+    background: rgba(0,0,0,0.06); border: 1px solid var(--border);
+    color: var(--text); font-size: 16px; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; transition: background 0.15s;
+    margin-left: auto;
+  }
+  .home-btn:active { background: rgba(0,0,0,0.12); }
+  .home-btn-dark {
+    background: rgba(255,255,255,0.08);
+    border-color: rgba(255,255,255,0.15);
+    color: #FAF8F5;
+  }
+  .home-btn-dark:active { background: rgba(255,255,255,0.15); }
+  .home-btn svg { display: block; }
+
+  .sub-hero {
+    padding: 30px 24px 26px; position: relative;
+    overflow: hidden; border-bottom: 1px solid var(--border);
+    background: var(--bg-card);
+  }
+  .sub-hero-orb {
+    position: absolute; top: -60px; right: -60px;
+    width: 220px; height: 220px; border-radius: 50%;
+    pointer-events: none; opacity: 0.5;
+  }
+  .b2b-sub .sub-hero-orb { background: radial-gradient(circle, rgba(59,125,216,0.18) 0%, transparent 65%); }
+  .ad-sub  .sub-hero-orb { background: radial-gradient(circle, rgba(232,114,42,0.18) 0%, transparent 65%); }
+  .book-sub .sub-hero-orb { background: radial-gradient(circle, rgba(46,158,107,0.18) 0%, transparent 65%); }
+
+  .sub-badge {
+    display: inline-block; font-size: 9px; font-weight: 700;
+    letter-spacing: 1.5px; padding: 4px 12px; border-radius: 100px;
+    text-transform: uppercase; margin-bottom: 14px; border: 1px solid;
+  }
+  .b2b-sub .sub-badge { background: var(--c-b2b-dim); color: var(--c-b2b); border-color: var(--c-b2b-border); }
+  .ad-sub  .sub-badge { background: var(--c-ad-dim);  color: var(--c-ad);  border-color: var(--c-ad-border); }
+  .book-sub .sub-badge { background: var(--c-book-dim); color: var(--c-book); border-color: var(--c-book-border); }
+
+  .sub-title {
+    font-family: 'DM Serif Display', serif; font-size: 26px;
+    color: var(--text); line-height: 1.25; margin-bottom: 4px;
+  }
+  .sub-price-big { font-size: 22px; font-weight: 700; margin-top: 18px; }
+  .b2b-sub .sub-price-big { color: var(--c-b2b); }
+  .ad-sub  .sub-price-big { color: var(--c-ad); }
+  .book-sub .sub-price-big { color: var(--c-book); }
+  .sub-price-note { font-size: 12px; color: var(--text-hint); margin-top: 4px; }
+
+  .sub-body { padding: 24px 24px 8px; }
+  .sub-section-title {
+    font-size: 10px; font-weight: 700; letter-spacing: 2.5px;
+    color: var(--text-hint); text-transform: uppercase;
+    margin-bottom: 12px; margin-top: 28px;
+  }
+  .sub-section-title:first-child { margin-top: 0; }
+  .sub-desc { font-size: 13px; color: var(--text-muted); line-height: 1.85; }
+
+  .sub-tags { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 4px; }
+  .sub-tag {
+    font-size: 11px; color: var(--text-hint);
+    background: rgba(0,0,0,0.04); padding: 5px 12px;
+    border-radius: 100px; border: 1px solid var(--border);
+  }
+  .sub-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .sub-list li {
+    font-size: 13px; color: var(--text-muted); line-height: 1.65;
+    padding-left: 16px; position: relative;
+  }
+  .sub-list li::before {
+    content: ''; position: absolute; left: 0; top: 8px;
+    width: 5px; height: 5px; border-radius: 50%; opacity: 0.7;
+  }
+  .b2b-sub .sub-list li::before { background: var(--c-b2b); }
+  .ad-sub  .sub-list li::before { background: var(--c-ad); }
+  .book-sub .sub-list li::before { background: var(--c-book); }
+
+  .placeholder-block {
+    background: rgba(0,0,0,0.03);
+    border: 1px dashed rgba(0,0,0,0.12);
+    border-radius: 14px; padding: 28px 20px;
+    text-align: center; color: var(--text-hint);
+    font-size: 12px; line-height: 1.7;
+  }
+
+  .sub-cta-area { padding: 24px 24px 52px; display: flex; flex-direction: column; gap: 10px; }
+  .btn-sub-primary {
+    border: none; padding: 16px; border-radius: 100px; font-size: 14px; font-weight: 700;
+    font-family: 'Noto Sans KR', sans-serif; cursor: pointer; width: 100%;
+    transition: transform 0.15s, opacity 0.15s;
+    text-decoration: none; display: block; text-align: center; color: #fff;
+  }
+  .b2b-sub .btn-sub-primary { background: var(--c-b2b); box-shadow: 0 4px 20px rgba(59,125,216,0.3); }
+  .ad-sub  .btn-sub-primary { background: var(--c-ad);  box-shadow: 0 4px 20px rgba(232,114,42,0.3); }
+  .book-sub .btn-sub-primary { background: var(--c-book); box-shadow: 0 4px 20px rgba(46,158,107,0.3); }
+  .btn-sub-primary:active { transform: scale(0.98); opacity: 0.9; }
+  .btn-sub-secondary {
+    background: rgba(0,0,0,0.04); color: var(--text-muted);
+    border: 1px solid var(--border); padding: 15px; border-radius: 100px;
+    font-size: 14px; font-weight: 500; font-family: 'Noto Sans KR', sans-serif;
+    cursor: pointer; width: 100%; transition: background 0.15s;
+  }
+  .btn-sub-secondary:active { background: rgba(0,0,0,0.08); }
+
+  /* ── HAMBURGER BUTTON ── */
+  .hamburger-btn {
+    position: absolute;
+    top: 22px; right: 22px;
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.15);
+    cursor: pointer;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 5px;
+    z-index: 10;
+    transition: background 0.2s;
+  }
+  .hamburger-btn:active { background: rgba(255,255,255,0.2); }
+  .hamburger-btn span {
+    display: block;
+    width: 18px; height: 1.5px;
+    background: #FAF8F5;
+    border-radius: 2px;
+    transition: transform 0.25s, opacity 0.2s;
+  }
+
+  /* ── DRAWER OVERLAY ── */
+  .drawer-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.45);
+    z-index: 500;
+  }
+  .drawer-overlay.open { display: block; }
+
+  /* ── DRAWER PANEL ── */
+  .drawer {
+    position: fixed;
+    top: 0; right: 0;
+    width: 280px; height: 100%;
+    background: #1A1A1A;
+    z-index: 501;
+    transform: translateX(100%);
+    transition: transform 0.3s cubic-bezier(0.25,0.46,0.45,0.94);
+    display: flex; flex-direction: column;
+    overflow-y: auto;
+  }
+  .drawer.open { transform: translateX(0); }
+
+  .drawer-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 24px 24px 20px;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+  }
+  .drawer-logo {
+    font-family: 'DM Serif Display', serif;
+    font-size: 22px; color: #FAF8F5; letter-spacing: 2px;
+  }
+  .drawer-logo span { color: var(--accent); }
+  .drawer-close {
+    width: 32px; height: 32px; border-radius: 50%;
+    background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.1);
+    color: #FAF8F5; font-size: 16px; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: background 0.15s;
+  }
+  .drawer-close:active { background: rgba(255,255,255,0.15); }
+
+  .drawer-nav {
+    flex: 1;
+    padding: 16px 0;
+  }
+  .drawer-item {
+    display: flex; align-items: center; gap: 14px;
+    padding: 16px 24px;
+    cursor: pointer;
+    transition: background 0.15s;
+    text-decoration: none;
+    border: none; background: none; width: 100%; text-align: left;
+  }
+  .drawer-item:active { background: rgba(255,255,255,0.06); }
+  .drawer-item-icon {
+    width: 36px; height: 36px; border-radius: 10px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.08);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px; flex-shrink: 0;
+  }
+  .drawer-item-text { flex: 1; }
+  .drawer-item-label {
+    font-size: 14px; font-weight: 500; color: #FAF8F5;
+    display: block; font-family: 'Noto Sans KR', sans-serif;
+  }
+  .drawer-item-sub {
+    font-size: 11px; color: rgba(250,248,245,0.35);
+    display: block; margin-top: 2px; font-family: 'Noto Sans KR', sans-serif;
+  }
+  .drawer-item-arrow {
+    font-size: 14px; color: rgba(250,248,245,0.25);
+  }
+  .drawer-divider {
+    height: 1px; background: rgba(255,255,255,0.06);
+    margin: 8px 24px;
+  }
+
+  .drawer-insta {
+    margin: 8px 24px 32px;
+    display: flex; align-items: center; gap: 12px;
+    padding: 14px 16px;
+    background: rgba(200,240,117,0.07);
+    border: 1px solid rgba(200,240,117,0.18);
+    border-radius: 14px;
+    text-decoration: none;
+    transition: background 0.15s;
+  }
+  .drawer-insta:active { background: rgba(200,240,117,0.12); }
+  .drawer-insta-icon {
+    width: 34px; height: 34px; border-radius: 9px;
+    background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .drawer-insta-icon svg { width: 18px; height: 18px; fill: #fff; }
+  .drawer-insta-text { flex: 1; }
+  .drawer-insta-label {
+    font-size: 13px; font-weight: 700; color: var(--accent);
+    display: block; font-family: 'Noto Sans KR', sans-serif;
+  }
+  .drawer-insta-sub {
+    font-size: 11px; color: rgba(250,248,245,0.35);
+    display: block; margin-top: 1px; font-family: 'Noto Sans KR', sans-serif;
+  }
+</style>
+</head>
+<body>
+<div class="site">
+
+  <!-- ══════════════ MAIN HOME ══════════════ -->
+  <div id="view-main" class="view active">
+
+    <!-- TOP BAR -->
+    <div style="background:#1A1A1A;display:flex;align-items:center;justify-content:space-between;padding:16px 20px;position:sticky;top:0;z-index:100;">
+      <div style="font-family:'DM Serif Display',serif;font-size:26px;color:#FAF8F5;letter-spacing:3px;">BUT<span style="color:var(--accent);">T</span>Y</div>
+      <button class="hamburger-btn" onclick="openDrawer()" aria-label="메뉴 열기" style="position:static;margin:0;">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+
+    <!-- HERO BANNER -->
+    <div style="background:#1A1A1A;padding:36px 24px 44px;position:relative;overflow:hidden;">
+      <div style="position:absolute;top:-80px;right:-80px;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(200,240,117,0.16) 0%,transparent 65%);pointer-events:none;"></div>
+      <div style="position:absolute;bottom:-60px;left:-50px;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(200,240,117,0.06) 0%,transparent 70%);pointer-events:none;"></div>
+      <div style="display:inline-flex;align-items:center;gap:7px;background:rgba(200,240,117,0.12);border:1px solid rgba(200,240,117,0.28);color:var(--accent);font-size:10px;font-weight:700;letter-spacing:2px;padding:5px 13px;border-radius:100px;margin-bottom:20px;text-transform:uppercase;">
+        <div style="width:5px;height:5px;border-radius:50%;background:var(--accent);animation:pulse 2s ease-in-out infinite;"></div>리더십 콘텐츠 브랜드
+      </div>
+      <h1 style="font-family:'DM Serif Display',serif;font-size:44px;color:#FAF8F5;line-height:1.08;margin-bottom:14px;">팀장의<br><em style="font-style:italic;color:var(--accent);">성장과</em><br>브랜드 협업</h1>
+      <p style="font-size:13px;color:rgba(250,248,245,0.5);line-height:1.8;font-weight:300;margin-bottom:28px;">리더십 콘텐츠부터 기업 맞춤 B2B 솔루션,<br>채널 광고 협업까지 — BUTTY와 함께하세요.</p>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;">
+        <button onclick="openPage('collab')" style="background:var(--accent);color:#1A1A1A;border:none;padding:13px 22px;border-radius:100px;font-size:13px;font-weight:700;font-family:'Noto Sans KR',sans-serif;cursor:pointer;box-shadow:0 4px 20px rgba(200,240,117,0.3);">협업 문의하기</button>
+        <button onclick="openPage('collab')" style="background:none;border:1px solid rgba(255,255,255,0.2);color:rgba(250,248,245,0.7);padding:13px 20px;border-radius:100px;font-size:13px;font-family:'Noto Sans KR',sans-serif;cursor:pointer;">상품 보기 →</button>
+      </div>
+    </div>
+
+    <!-- 뉴스레터 섹션 -->
+    <div style="padding:28px 24px 0;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
+        <div>
+          <div style="font-size:10px;font-weight:700;letter-spacing:2px;color:var(--text-hint);text-transform:uppercase;margin-bottom:3px;">LEADERSHIP LETTER</div>
+          <div style="font-family:'DM Serif Display',serif;font-size:20px;color:var(--text);line-height:1.2;">리더십레터</div>
+        </div>
+        <button onclick="openPage('letter')" style="background:none;border:1px solid var(--border);color:var(--text-muted);font-size:11px;font-weight:600;padding:7px 13px;border-radius:100px;cursor:pointer;font-family:'Noto Sans KR',sans-serif;white-space:nowrap;">더보기 →</button>
+      </div>
+      <div id="home-letter-list">
+        <div style="background:#fff;border-radius:16px;padding:20px;border:1px solid var(--border);text-align:center;color:var(--text-hint);font-size:13px;line-height:1.7;">
+          아직 등록된 레터가 없습니다.<br>리더십레터에서 구독해 보세요.
+        </div>
+      </div>
+    </div>
+
+    <!-- 상품 카드 영역 -->
+    <div style="padding:28px 24px 0;">
+
+      <!-- 리더십 패키지 카드 -->
+      <div style="background:#fff;border-radius:20px;padding:22px 20px;margin-bottom:10px;position:relative;overflow:hidden;border:1px solid var(--border);box-shadow:0 1px 4px rgba(0,0,0,0.06);">
+        <div style="position:absolute;top:0;left:0;width:3px;height:100%;background:var(--c-b2b);"></div>
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px;">
+          <div style="font-size:9px;font-weight:700;letter-spacing:1.5px;padding:4px 10px;border-radius:100px;text-transform:uppercase;background:var(--c-b2b-dim);color:var(--c-b2b);border:1px solid var(--c-b2b-border);">기업 전용</div>
+        </div>
+        <div style="font-size:16px;font-weight:700;color:var(--text);margin-bottom:10px;">리더십 성장 솔루션 4종</div>
+        <div style="display:flex;flex-direction:column;gap:7px;margin-bottom:16px;">
+          <div style="display:flex;align-items:center;gap:8px;"><div style="width:5px;height:5px;border-radius:50%;background:var(--c-b2b);flex-shrink:0;"></div><div style="font-size:12px;color:var(--text-muted);">전자책 기업용 라이선스</div></div>
+          <div style="display:flex;align-items:center;gap:8px;"><div style="width:5px;height:5px;border-radius:50%;background:var(--c-b2b);flex-shrink:0;"></div><div style="font-size:12px;color:var(--text-muted);">팀장 온보딩 키트 (90일)</div></div>
+          <div style="display:flex;align-items:center;gap:8px;"><div style="width:5px;height:5px;border-radius:50%;background:var(--c-b2b);flex-shrink:0;"></div><div style="font-size:12px;color:var(--text-muted);">팀장교육 콘텐츠 (월 4회)</div></div>
+          <div style="display:flex;align-items:center;gap:8px;"><div style="width:5px;height:5px;border-radius:50%;background:var(--c-b2b);flex-shrink:0;"></div><div style="font-size:12px;color:var(--text-muted);">리더십 리포트 (주 1회)</div></div>
+        </div>
+        <div style="padding-top:14px;border-top:1px solid var(--border-light);display:flex;justify-content:space-between;align-items:center;">
+          <div style="font-size:12px;color:var(--text-hint);">규모·목적에 맞는 견적 안내</div>
+          <button onclick="openPage('collab')" style="background:var(--c-b2b-dim);color:var(--c-b2b);border:1px solid var(--c-b2b-border);padding:7px 14px;border-radius:100px;font-size:11px;font-weight:700;font-family:'Noto Sans KR',sans-serif;cursor:pointer;">자세히 알아보기</button>
+        </div>
+      </div>
+
+      <!-- 광고 협업 카드 -->
+      <div style="background:#fff;border-radius:20px;padding:22px 20px;margin-bottom:10px;position:relative;overflow:hidden;border:1px solid var(--border);box-shadow:0 1px 4px rgba(0,0,0,0.06);">
+        <div style="position:absolute;top:0;left:0;width:3px;height:100%;background:var(--c-ad);"></div>
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px;">
+          <div style="font-size:9px;font-weight:700;letter-spacing:1.5px;padding:4px 10px;border-radius:100px;text-transform:uppercase;background:var(--c-ad-dim);color:var(--c-ad);border:1px solid var(--c-ad-border);">채널 광고</div>
+        </div>
+        <div style="font-size:16px;font-weight:700;color:var(--text);margin-bottom:10px;">인스타그램 + 뉴스레터</div>
+        <div style="display:flex;flex-direction:column;gap:7px;margin-bottom:16px;">
+          <div style="display:flex;align-items:center;gap:8px;"><div style="width:5px;height:5px;border-radius:50%;background:var(--c-ad);flex-shrink:0;"></div><div style="font-size:12px;color:var(--text-muted);">인스타툰 광고 (10컷 제작·업로드·2차 활용)</div></div>
+          <div style="display:flex;align-items:center;gap:8px;"><div style="width:5px;height:5px;border-radius:50%;background:var(--c-ad);flex-shrink:0;"></div><div style="font-size:12px;color:var(--text-muted);">뉴스레터 광고 (배너 / 레터 선택)</div></div>
+        </div>
+        <div style="padding-top:14px;border-top:1px solid var(--border-light);display:flex;justify-content:space-between;align-items:center;">
+          <div style="font-size:12px;color:var(--text-hint);">팀장 타겟 리더십 채널</div>
+          <button onclick="openPage('collab')" style="background:var(--c-ad-dim);color:var(--c-ad);border:1px solid var(--c-ad-border);padding:7px 14px;border-radius:100px;font-size:11px;font-weight:700;font-family:'Noto Sans KR',sans-serif;cursor:pointer;">자세히 알아보기</button>
+        </div>
+      </div>
+
+      <!-- 전자책 카드 1 -->
+      <div onclick="window.open('https://smartstore.naver.com/hello_butty/products/12496968549','_blank')" style="background:#fff;border-radius:20px;margin-bottom:10px;cursor:pointer;border:1px solid var(--border);overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,0.06);display:flex;min-height:130px;">
+        <div style="width:96px;flex-shrink:0;background:#fff;display:flex;align-items:center;justify-content:center;position:relative;border-right:1px solid var(--border);">
+          <div style="position:absolute;top:0;left:0;width:3px;height:100%;background:var(--c-book);"></div>
+          <div style="text-align:center;padding:8px;">
+            <div style="font-size:36px;line-height:1;">📗</div>
+            <div style="font-size:9px;font-weight:600;color:var(--text-hint);margin-top:6px;">이미지<br>준비중</div>
+          </div>
+        </div>
+        <div style="flex:1;padding:16px 16px 14px;">
+          <div style="font-size:9px;font-weight:700;letter-spacing:1.5px;padding:3px 8px;border-radius:100px;text-transform:uppercase;background:var(--c-book-dim);color:var(--c-book);border:1px solid var(--c-book-border);display:inline-block;margin-bottom:8px;">베스트</div>
+          <div style="font-size:14px;font-weight:700;color:var(--text);line-height:1.4;margin-bottom:8px;">팀장도 사수가<br>있었으면 좋겠다</div>
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <div style="font-size:13px;font-weight:700;color:var(--c-book);">18,000원</div>
+            <div style="font-size:10px;font-weight:700;background:var(--c-book);color:#fff;padding:5px 11px;border-radius:100px;">구매하기</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 전자책 카드 2 -->
+      <div onclick="window.open('https://smartstore.naver.com/hello_butty/products/12805908364','_blank')" style="background:#fff;border-radius:20px;margin-bottom:10px;cursor:pointer;border:1px solid var(--border);overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,0.06);display:flex;min-height:130px;">
+        <div style="width:96px;flex-shrink:0;background:#fff;display:flex;align-items:center;justify-content:center;position:relative;border-right:1px solid var(--border);">
+          <div style="position:absolute;top:0;left:0;width:3px;height:100%;background:var(--c-book);"></div>
+          <div style="text-align:center;padding:8px;">
+            <div style="font-size:36px;line-height:1;">📙</div>
+            <div style="font-size:9px;font-weight:600;color:var(--text-hint);margin-top:6px;">이미지<br>준비중</div>
+          </div>
+        </div>
+        <div style="flex:1;padding:16px 16px 14px;">
+          <div style="font-size:9px;font-weight:700;letter-spacing:1.5px;padding:3px 8px;border-radius:100px;text-transform:uppercase;background:var(--c-book-dim);color:var(--c-book);border:1px solid var(--c-book-border);display:inline-block;margin-bottom:8px;">신규</div>
+          <div style="font-size:14px;font-weight:700;color:var(--text);line-height:1.4;margin-bottom:8px;">누구나 언젠가<br>이직을 한다</div>
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <div style="font-size:13px;font-weight:700;color:var(--c-book);">18,000원</div>
+            <div style="font-size:10px;font-weight:700;background:var(--c-book);color:#fff;padding:5px 11px;border-radius:100px;">구매하기</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- FOOTER -->
+    <div style="background:#1A1A1A;padding:32px 24px 48px;text-align:center;margin-top:32px;">
+      <div style="font-family:'DM Serif Display',serif;font-size:28px;color:#FAF8F5;letter-spacing:3px;margin-bottom:8px;">BUT<span style="color:var(--accent);">T</span>Y</div>
+      <p style="font-size:13px;color:rgba(250,248,245,0.3);line-height:1.7;margin-bottom:24px;">팀장의 성장을 함께하는<br>리더십 콘텐츠 브랜드</p>
+      <button onclick="openPage('collab')" style="background:var(--accent);color:#1A1A1A;border:none;padding:15px 0;border-radius:100px;font-size:14px;font-weight:700;font-family:'Noto Sans KR',sans-serif;cursor:pointer;width:100%;margin-bottom:20px;box-shadow:0 4px 24px rgba(200,240,117,0.25);">협업 문의하기 →</button>
+      <div style="display:flex;justify-content:center;gap:24px;">
+        <a style="font-size:11px;color:rgba(250,248,245,0.3);text-decoration:none;" href="https://www.instagram.com/hello.butty" target="_blank">인스타그램</a>
+        <a style="font-size:11px;color:rgba(250,248,245,0.3);text-decoration:none;" href="https://leader.stibee.com/" target="_blank">뉴스레터</a>
+        <a style="font-size:11px;color:rgba(250,248,245,0.3);text-decoration:none;" href="#">이용약관</a>
+      </div>
+    </div>
+
+  </div><!-- /view-main -->
+
+  <!-- ══════════════ 협업 문의 페이지 ══════════════ -->
+  <div id="page-collab" class="view sub-page" style="background:var(--bg);">
+
+    <div style="background:#1A1A1A;display:flex;align-items:center;gap:12px;padding:16px 20px;position:sticky;top:0;z-index:50;">
+      <button class="back-btn" onclick="closePage()" style="background:rgba(255,255,255,0.08);border-color:rgba(255,255,255,0.15);color:#FAF8F5;">←</button>
+      <span style="font-size:12px;font-weight:500;color:rgba(250,248,245,0.55);">협업 문의</span>
+      <button class="home-btn home-btn-dark" onclick="goHome()" title="홈으로"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 7L8 1L15 7V15H10V10H6V15H1V7Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></button>
+      <button class="hamburger-btn" onclick="openDrawer()" aria-label="메뉴" style="position:static;margin-left:0;">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+
+    <div style="background:#1A1A1A;padding:32px 28px 44px;position:relative;overflow:hidden;">
+      <div style="position:absolute;top:-80px;right:-80px;width:280px;height:280px;border-radius:50%;background:radial-gradient(circle,rgba(200,240,117,0.18) 0%,transparent 65%);pointer-events:none;"></div>
+      <div style="position:absolute;bottom:-60px;left:-50px;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(200,240,117,0.07) 0%,transparent 70%);pointer-events:none;"></div>
+      <div style="display:inline-flex;align-items:center;gap:7px;background:rgba(200,240,117,0.12);border:1px solid rgba(200,240,117,0.28);color:var(--accent);font-size:10px;font-weight:700;letter-spacing:2px;padding:6px 13px;border-radius:100px;margin-bottom:22px;text-transform:uppercase;">
+        <div style="width:5px;height:5px;border-radius:50%;background:var(--accent);animation:pulse 2s ease-in-out infinite;"></div>BUTTY × 협업
+      </div>
+      <h1 style="font-family:'DM Serif Display',serif;font-size:44px;color:#FAF8F5;line-height:1.05;margin-bottom:16px;">팀장의<br><em style="font-style:italic;color:var(--accent);">성장을</em><br>돕습니다</h1>
+      <p style="font-size:14px;color:rgba(250,248,245,0.45);line-height:1.75;font-weight:300;">신입 팀장부터 임원까지,<br>리더십 성장의 모든 솔루션</p>
+      <div style="display:flex;align-items:center;gap:16px;margin-top:32px;">
+        <button onclick="document.getElementById('collab-contact').scrollIntoView({behavior:'smooth'})" style="background:var(--accent);color:#1A1A1A;border:none;padding:14px 24px;border-radius:100px;font-size:13px;font-weight:700;font-family:'Noto Sans KR',sans-serif;cursor:pointer;box-shadow:0 6px 24px rgba(200,240,117,0.3);">협업 문의하기</button>
+        <button onclick="document.getElementById('collab-products').scrollIntoView({behavior:'smooth'})" style="color:rgba(250,248,245,0.55);font-size:13px;background:none;border:none;cursor:pointer;font-family:'Noto Sans KR',sans-serif;">상품 보기 →</button>
+      </div>
+    </div>
+
+    <div style="background:var(--bg);position:sticky;top:56px;z-index:40;border-bottom:1px solid var(--border);">
+      <div style="display:flex;padding:0 20px;overflow-x:auto;scrollbar-width:none;" id="collab-tabs">
+        <button class="collab-tab active" data-csec="all" onclick="collabFilter(this,'all')" style="flex-shrink:0;padding:15px 14px;font-size:12px;font-weight:500;color:var(--text);border-bottom:2px solid #1A1A1A;border-top:none;border-left:none;border-right:none;cursor:pointer;background:none;white-space:nowrap;font-family:'Noto Sans KR',sans-serif;">전체</button>
+        <button class="collab-tab" data-csec="b2b" onclick="collabFilter(this,'b2b')" style="flex-shrink:0;padding:15px 14px;font-size:12px;font-weight:500;color:var(--text-hint);border-bottom:2px solid transparent;border-top:none;border-left:none;border-right:none;cursor:pointer;background:none;white-space:nowrap;font-family:'Noto Sans KR',sans-serif;">B2B</button>
+        <button class="collab-tab" data-csec="ad" onclick="collabFilter(this,'ad')" style="flex-shrink:0;padding:15px 14px;font-size:12px;font-weight:500;color:var(--text-hint);border-bottom:2px solid transparent;border-top:none;border-left:none;border-right:none;cursor:pointer;background:none;white-space:nowrap;font-family:'Noto Sans KR',sans-serif;">광고 협업</button>
+        <button class="collab-tab" data-csec="book" onclick="collabFilter(this,'book')" style="flex-shrink:0;padding:15px 14px;font-size:12px;font-weight:500;color:var(--text-hint);border-bottom:2px solid transparent;border-top:none;border-left:none;border-right:none;cursor:pointer;background:none;white-space:nowrap;font-family:'Noto Sans KR',sans-serif;">전자책</button>
+      </div>
+    </div>
+
+    <div id="collab-products">
+      <!-- B2B -->
+      <div id="csec-b2b" class="collab-section">
+        <div class="section" id="products">
+          <div class="section-label">B2B 솔루션</div>
+          <div class="section-title">기업 맞춤<br>리더십 패키지</div>
+          <div class="product-card b2b-card" onclick="openSub('ebook-license')">
+            <div class="card-stripe"></div><span class="card-arrow">›</span>
+            <div class="card-header"><span class="card-badge">기업용</span><div class="card-icon">📘</div></div>
+            <div class="card-name">리더십 전자책 기업용 라이선스</div>
+            <div class="card-desc">신입 팀장이 처음 부딪히는 문제를 폭넓게 다루는 리더십 가이드. 사내 배포 및 교육 활용 가능.</div>
+            <div class="card-tags"><span class="tag">사내 배포 가능</span><span class="tag">요약본 포함</span><span class="tag">HR 활용가이드</span><span class="tag">신입팀장 1~3년차</span></div>
+            <div class="card-price-row"><div><div class="price-main">30만원~</div><div class="price-note">인원 규모별 상이</div></div><button class="price-cta" onclick="event.stopPropagation();mailTo('리더십 전자책 기업용 라이선스')">문의하기</button></div>
+          </div>
+          <div class="product-card b2b-card" onclick="openSub('onboarding')">
+            <div class="card-stripe dim"></div><span class="card-arrow">›</span>
+            <div class="card-header"><span class="card-badge">온보딩</span><div class="card-icon">🗂️</div></div>
+            <div class="card-name">팀장 온보딩 키트</div>
+            <div class="card-desc">신입 팀장 90일 온보딩 프로그램. 주차별 미션+실행 가이드, 팀장 자기점검 기록, HR 운영 가이드 포함.</div>
+            <div class="card-tags"><span class="tag">90일 콘텐츠</span><span class="tag">HR 운영가이드</span><span class="tag">커뮤니케이션</span><span class="tag">조직 안정화</span></div>
+            <div class="card-price-row"><div><div class="price-main">100만원~</div><div class="price-note">인원 규모별 상이</div></div><button class="price-cta" onclick="event.stopPropagation();mailTo('팀장 온보딩 키트')">문의하기</button></div>
+          </div>
+          <div class="product-card b2b-card" onclick="openSub('edu-content')">
+            <div class="card-stripe"></div><span class="card-arrow">›</span>
+            <div class="card-header"><span class="card-badge">교육</span><div class="card-icon">🎓</div></div>
+            <div class="card-name">팀장교육 콘텐츠</div>
+            <div class="card-desc">기업 맞춤 리더십툰 월 4회(주1회) PDF 파일 제공. 사내 교육용으로 사용 가능 (외부 유출 금지).</div>
+            <div class="card-tags"><span class="tag">월 4회 제공</span><span class="tag">PDF 파일</span><span class="tag">사내 활용</span></div>
+            <div class="card-price-row"><div><div class="price-main">월 200만원</div><div class="price-note">연 1,920만원 (20% 할인)</div></div><button class="price-cta" onclick="event.stopPropagation();mailTo('팀장교육 콘텐츠')">문의하기</button></div>
+          </div>
+          <div class="product-card b2b-card" onclick="openSub('report')">
+            <div class="card-stripe dim"></div><span class="card-arrow">›</span>
+            <div class="card-header"><span class="card-badge">리포트</span><div class="card-icon">📊</div></div>
+            <div class="card-name">리더십 리포트</div>
+            <div class="card-desc">주 1회 리더십 리포트 PDF 제공. 팀장 교육 콘텐츠 및 조직 맞춤 지원. 팀장·임원 대상.</div>
+            <div class="card-tags"><span class="tag">주1회 리포트</span><span class="tag">조직 맞춤</span><span class="tag">팀장+임원</span></div>
+            <div class="card-price-row"><div><div class="price-main">월 100만원</div><div class="price-note">연 960만원 (20% 할인)</div></div><button class="price-cta" onclick="event.stopPropagation();mailTo('리더십 리포트')">문의하기</button></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 광고 협업 -->
+      <div id="csec-ad" class="collab-section">
+        <div style="height:1px;background:var(--border);margin:8px 20px 0;"></div>
+        <div class="section">
+          <div class="section-label">광고 협업</div>
+          <div class="section-title">버티 채널<br>광고 패키지</div>
+          <div class="product-card ad-card" onclick="openSub('ad-insta')">
+            <div class="card-stripe"></div><span class="card-arrow">›</span>
+            <div class="card-header"><span class="card-badge">인스타그램</span><div class="card-icon">📱</div></div>
+            <div class="card-name">인스타툰 광고</div>
+            <div class="card-desc">인스타툰(10컷 내외) 제작 + 게시물 업로드 + 스토리 1회(60만원) + 하이라이트 추가(+10만원). 2회 수정 가능(기획/1차). 2차 활용 30만원.</div>
+            <div class="card-tags"><span class="tag">10컷 제작</span><span class="tag">스토리 포함</span><span class="tag">하이라이트</span><span class="tag">2차 활용</span></div>
+            <div class="card-price-row"><div><div class="price-main">총 100만원</div><div class="price-note">인스타툰+게시물+스토리+하이라이트+2차</div></div><button class="price-cta" onclick="event.stopPropagation();mailTo('인스타툰 광고')">문의하기</button></div>
+          </div>
+          <div class="product-card ad-card" onclick="openSub('ad-newsletter')">
+            <div class="card-stripe dim"></div><span class="card-arrow">›</span>
+            <div class="card-header"><span class="card-badge">뉴스레터</span><div class="card-icon">✉️</div></div>
+            <div class="card-name">뉴스레터 광고</div>
+            <div class="card-desc">버티 뉴스레터에 광고를 게재합니다. 배너 광고 또는 레터 광고로 선택 가능.</div>
+            <div class="card-tags"><span class="tag">배너광고 30만원</span><span class="tag">레터광고 100만원</span></div>
+            <div class="card-price-row"><div><div class="price-main">30만원~</div><div class="price-note">배너 30만원 / 레터 100만원</div></div><button class="price-cta" onclick="event.stopPropagation();mailTo('뉴스레터 광고')">문의하기</button></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 전자책 -->
+      <div id="csec-book" class="collab-section">
+        <div style="height:1px;background:var(--border);margin:8px 20px 0;"></div>
+        <div class="section">
+          <div class="section-label">전자책</div>
+          <div class="section-title">전자책 구매</div>
+          <div class="product-card book-card" onclick="window.open('https://smartstore.naver.com/hello_butty/products/12496968549','_blank')">
+            <div class="card-stripe"></div><span class="card-arrow">›</span>
+            <div class="card-header"><span class="card-badge">베스트</span><div class="card-icon">📗</div></div>
+            <div class="card-name">팀장도 사수가 있었으면 좋겠다</div>
+            <div class="card-desc">신입 팀장이 처음 마주하는 현실적인 문제들을 담은 리더십 전자책. 리더 역할 인식, 피드백, 성과, 문제 팀원 대응 등 수록.</div>
+            <div class="card-price-row"><div><div class="price-main">18,000원</div><div class="price-note">네이버 스마트스토어</div></div><button class="price-cta" onclick="event.stopPropagation();window.open('https://smartstore.naver.com/hello_butty/products/12496968549','_blank')">구매하기</button></div>
+          </div>
+          <div class="product-card book-card" onclick="window.open('https://smartstore.naver.com/hello_butty/products/12805908364','_blank')">
+            <div class="card-stripe dim"></div><span class="card-arrow">›</span>
+            <div class="card-header"><span class="card-badge">신규</span><div class="card-icon">📙</div></div>
+            <div class="card-name">누구나 언젠가 이직을 한다</div>
+            <div class="card-desc">커리어 전환과 이직을 준비하는 직장인을 위한 실전 가이드.</div>
+            <div class="card-price-row"><div><div class="price-main">18,000원</div><div class="price-note">네이버 스마트스토어</div></div><button class="price-cta" onclick="event.stopPropagation();window.open('https://smartstore.naver.com/hello_butty/products/12805908364','_blank')">구매하기</button></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FOOTER (협업 페이지) -->
+    <div class="footer" id="collab-contact">
+      <div class="footer-logo">BUT<span>T</span>Y</div>
+      <p class="footer-tagline">팀장의 성장을 함께하는<br>리더십 콘텐츠 브랜드</p>
+      <button class="btn-footer" onclick="mailTo('협업 문의')">협업 문의하기 →</button>
+      <div class="footer-links">
+        <a class="footer-link" href="https://www.instagram.com/hello.butty" target="_blank">인스타그램</a>
+        <a class="footer-link" href="https://leader.stibee.com/" target="_blank">뉴스레터</a>
+        <a class="footer-link" href="#">이용약관</a>
+      </div>
+    </div>
+
+  </div><!-- /page-collab -->
+
+
+  <!-- ══════════════ SUB PAGES ══════════════ -->
+
+  <!-- 리더십 전자책 기업용 라이선스 -->
+  <div id="sub-ebook-license" class="view sub-page b2b-sub">
+    <div class="sub-topbar">
+      <button class="back-btn" onclick="closeSub()">←</button>
+      <span class="sub-topbar-label">B2B 솔루션</span>
+      <button class="home-btn" onclick="goHome()" title="홈으로"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 7L8 1L15 7V15H10V10H6V15H1V7Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></button>
+    </div>
+    <div class="sub-hero">
+      <div class="sub-hero-orb"></div>
+      <div class="sub-badge">기업용</div>
+      <div class="sub-title">리더십 전자책<br>기업용 라이선스</div>
+      <div class="sub-price-big">30만원~</div>
+      <div class="sub-price-note">인원 규모별 상이 · 별도 견적 안내</div>
+    </div>
+    <div class="sub-body">
+      <div class="sub-section-title">상품 소개</div>
+      <div class="placeholder-block">상품 소개 내용을 채워주세요<br>전자책 구성, 활용 사례, 도입 효과 등</div>
+      <div class="sub-section-title">포함 내용</div>
+      <ul class="sub-list">
+        <li>사내 배포 가능 라이선스 제공</li>
+        <li>요약본 + HR 담당자 활용 가이드 포함</li>
+        <li>신입 팀장 1~3년차 대상 콘텐츠</li>
+        <li>인원 규모별 견적 개별 안내</li>
+      </ul>
+      <div class="sub-section-title">키워드</div>
+      <div class="sub-tags">
+        <span class="sub-tag">사내 배포 가능</span><span class="sub-tag">요약본 포함</span>
+        <span class="sub-tag">HR 활용가이드</span><span class="sub-tag">신입팀장 1~3년차</span>
+      </div>
+    </div>
+    <div class="sub-cta-area">
+      <button class="btn-sub-primary" onclick="mailTo('리더십 전자책 기업용 라이선스')">문의하기</button>
+    </div>
+  </div>
+
+  <!-- 팀장 온보딩 키트 -->
+  <div id="sub-onboarding" class="view sub-page b2b-sub">
+    <div class="sub-topbar">
+      <button class="back-btn" onclick="closeSub()">←</button>
+      <span class="sub-topbar-label">B2B 솔루션</span>
+      <button class="home-btn" onclick="goHome()" title="홈으로"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 7L8 1L15 7V15H10V10H6V15H1V7Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></button>
+    </div>
+    <div class="sub-hero">
+      <div class="sub-hero-orb"></div>
+      <div class="sub-badge">온보딩</div>
+      <div class="sub-title">팀장 온보딩 키트</div>
+      <div class="sub-price-big">100만원~</div>
+      <div class="sub-price-note">인원 규모별 상이 · 별도 견적 안내</div>
+    </div>
+    <div class="sub-body">
+      <div class="sub-section-title">상품 소개</div>
+      <div class="placeholder-block">상품 소개 내용을 채워주세요<br>90일 프로그램 구성, 활용 방법, 도입 사례 등</div>
+      <div class="sub-section-title">포함 내용</div>
+      <ul class="sub-list">
+        <li>신입 팀장 90일 온보딩 콘텐츠 전체</li>
+        <li>주차별 미션 + 실행 가이드</li>
+        <li>팀장 자기점검 기록지</li>
+        <li>HR 담당자 운영 가이드 포함</li>
+      </ul>
+      <div class="sub-section-title">키워드</div>
+      <div class="sub-tags">
+        <span class="sub-tag">90일 콘텐츠</span><span class="sub-tag">HR 운영가이드</span>
+        <span class="sub-tag">커뮤니케이션</span><span class="sub-tag">조직 안정화</span>
+      </div>
+    </div>
+    <div class="sub-cta-area">
+      <button class="btn-sub-primary" onclick="mailTo('팀장 온보딩 키트')">문의하기</button>
+    </div>
+  </div>
+
+  <!-- 팀장교육 콘텐츠 -->
+  <div id="sub-edu-content" class="view sub-page b2b-sub">
+    <div class="sub-topbar">
+      <button class="back-btn" onclick="closeSub()">←</button>
+      <span class="sub-topbar-label">B2B 솔루션</span>
+      <button class="home-btn" onclick="goHome()" title="홈으로"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 7L8 1L15 7V15H10V10H6V15H1V7Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></button>
+    </div>
+    <div class="sub-hero">
+      <div class="sub-hero-orb"></div>
+      <div class="sub-badge">교육</div>
+      <div class="sub-title">팀장교육 콘텐츠</div>
+      <div class="sub-price-big">월 200만원</div>
+      <div class="sub-price-note">연 계약 시 1,920만원 (20% 할인)</div>
+    </div>
+    <div class="sub-body">
+      <div class="sub-section-title">상품 소개</div>
+      <div class="placeholder-block">상품 소개 내용을 채워주세요<br>리더십툰 예시, 교육 효과, 커스터마이징 범위 등</div>
+      <div class="sub-section-title">포함 내용</div>
+      <ul class="sub-list">
+        <li>기업 맞춤 리더십툰 월 4회 (주 1회) 제공</li>
+        <li>PDF 파일 형식 납품</li>
+        <li>사내 교육용 활용 가능 (외부 유출 금지)</li>
+      </ul>
+      <div class="sub-section-title">키워드</div>
+      <div class="sub-tags">
+        <span class="sub-tag">월 4회 제공</span><span class="sub-tag">PDF 파일</span><span class="sub-tag">사내 활용</span>
+      </div>
+    </div>
+    <div class="sub-cta-area">
+      <button class="btn-sub-primary" onclick="mailTo('팀장교육 콘텐츠')">문의하기</button>
+    </div>
+  </div>
+
+  <!-- 리더십 리포트 -->
+  <div id="sub-report" class="view sub-page b2b-sub">
+    <div class="sub-topbar">
+      <button class="back-btn" onclick="closeSub()">←</button>
+      <span class="sub-topbar-label">B2B 솔루션</span>
+      <button class="home-btn" onclick="goHome()" title="홈으로"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 7L8 1L15 7V15H10V10H6V15H1V7Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></button>
+    </div>
+    <div class="sub-hero">
+      <div class="sub-hero-orb"></div>
+      <div class="sub-badge">리포트</div>
+      <div class="sub-title">리더십 리포트</div>
+      <div class="sub-price-big">월 100만원</div>
+      <div class="sub-price-note">연 계약 시 960만원 (20% 할인)</div>
+    </div>
+    <div class="sub-body">
+      <div class="sub-section-title">상품 소개</div>
+      <div class="placeholder-block">상품 소개 내용을 채워주세요<br>리포트 샘플, 구성 목차, 활용 방법 등</div>
+      <div class="sub-section-title">포함 내용</div>
+      <ul class="sub-list">
+        <li>주 1회 리더십 리포트 PDF 제공</li>
+        <li>팀장 교육 콘텐츠 포함</li>
+        <li>조직 상황에 맞춘 커스터마이징 지원</li>
+        <li>팀장 · 임원 함께 활용 가능</li>
+      </ul>
+      <div class="sub-section-title">키워드</div>
+      <div class="sub-tags">
+        <span class="sub-tag">주1회 리포트</span><span class="sub-tag">조직 맞춤</span><span class="sub-tag">팀장+임원</span>
+      </div>
+    </div>
+    <div class="sub-cta-area">
+      <button class="btn-sub-primary" onclick="mailTo('리더십 리포트')">문의하기</button>
+    </div>
+  </div>
+
+  <!-- 인스타툰 광고 -->
+  <div id="sub-ad-insta" class="view sub-page ad-sub">
+    <div class="sub-topbar">
+      <button class="back-btn" onclick="closeSub()">←</button>
+      <span class="sub-topbar-label">광고 협업</span>
+      <button class="home-btn" onclick="goHome()" title="홈으로"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 7L8 1L15 7V15H10V10H6V15H1V7Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></button>
+    </div>
+    <div class="sub-hero">
+      <div class="sub-hero-orb"></div>
+      <div class="sub-badge">인스타그램</div>
+      <div class="sub-title">인스타툰 광고</div>
+      <div class="sub-price-big">총 100만원</div>
+      <div class="sub-price-note">인스타툰 + 게시물 + 스토리 + 하이라이트 + 2차 활용 포함</div>
+    </div>
+    <div class="sub-body">
+      <div class="sub-section-title">상품 소개</div>
+      <div class="placeholder-block">상품 소개 내용을 채워주세요<br>채널 현황, 타겟 오디언스, 광고 예시 등</div>
+      <div class="sub-section-title">포함 내용</div>
+      <ul class="sub-list">
+        <li>인스타툰 10컷 내외 제작</li>
+        <li>인스타그램 게시물 업로드</li>
+        <li>스토리 1회 (60만원 포함)</li>
+        <li>하이라이트 추가 (+10만원 포함)</li>
+        <li>기획 · 1차 수정 각 1회 (총 2회)</li>
+        <li>2차 활용 포함 (30만원 포함)</li>
+      </ul>
+      <div class="sub-section-title">키워드</div>
+      <div class="sub-tags">
+        <span class="sub-tag">10컷 제작</span><span class="sub-tag">스토리 포함</span>
+        <span class="sub-tag">하이라이트</span><span class="sub-tag">2차 활용</span>
+      </div>
+    </div>
+    <div class="sub-cta-area">
+      <button class="btn-sub-primary" onclick="mailTo('인스타툰 광고')">문의하기</button>
+    </div>
+  </div>
+
+  <!-- 뉴스레터 광고 -->
+  <div id="sub-ad-newsletter" class="view sub-page ad-sub">
+    <div class="sub-topbar">
+      <button class="back-btn" onclick="closeSub()">←</button>
+      <span class="sub-topbar-label">광고 협업</span>
+      <button class="home-btn" onclick="goHome()" title="홈으로"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 7L8 1L15 7V15H10V10H6V15H1V7Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></button>
+    </div>
+    <div class="sub-hero">
+      <div class="sub-hero-orb"></div>
+      <div class="sub-badge">뉴스레터</div>
+      <div class="sub-title">뉴스레터 광고</div>
+      <div class="sub-price-big">30만원~</div>
+      <div class="sub-price-note">배너 광고 30만원 / 레터 광고 100만원</div>
+    </div>
+    <div class="sub-body">
+      <div class="sub-section-title">상품 소개</div>
+      <div class="placeholder-block">상품 소개 내용을 채워주세요<br>구독자 수, 오픈율, 광고 예시 이미지 등</div>
+      <div class="sub-section-title">광고 옵션</div>
+      <ul class="sub-list">
+        <li><strong style="color:var(--text);font-weight:700;">배너 광고</strong> — 30만원 / 뉴스레터 상단 또는 하단 배너</li>
+        <li><strong style="color:var(--text);font-weight:700;">레터 광고</strong> — 100만원 / 본문 내 네이티브 광고 형식</li>
+      </ul>
+      <div class="sub-section-title">키워드</div>
+      <div class="sub-tags">
+        <span class="sub-tag">배너광고 30만원</span><span class="sub-tag">레터광고 100만원</span>
+      </div>
+    </div>
+    <div class="sub-cta-area">
+      <button class="btn-sub-primary" onclick="mailTo('뉴스레터 광고')">문의하기</button>
+    </div>
+  </div>
+
+  <!-- 전자책 1 -->
+  <div id="sub-book-1" class="view sub-page book-sub">
+    <div class="sub-topbar">
+      <button class="back-btn" onclick="closeSub()">←</button>
+      <span class="sub-topbar-label">전자책</span>
+      <button class="home-btn" onclick="goHome()" title="홈으로"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 7L8 1L15 7V15H10V10H6V15H1V7Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></button>
+    </div>
+    <div class="sub-hero">
+      <div class="sub-hero-orb"></div>
+      <div class="sub-badge">베스트</div>
+      <div class="sub-title">팀장도 사수가<br>있었으면 좋겠다</div>
+      <div class="sub-price-big">18,000원</div>
+      <div class="sub-price-note">네이버 스마트스토어</div>
+    </div>
+    <div class="sub-body">
+      <div class="sub-section-title">책 소개</div>
+      <div class="placeholder-block">책 소개 내용을 채워주세요<br>목차, 주요 챕터, 추천 독자 등</div>
+      <div class="sub-section-title">이런 분께 추천해요</div>
+      <ul class="sub-list">
+        <li>팀장 발령 후 무엇부터 해야 할지 모르는 분</li>
+        <li>팀원 피드백이 어렵게 느껴지는 분</li>
+        <li>성과 관리 · 문제 팀원 대응에 막막한 분</li>
+      </ul>
+    </div>
+    <div class="sub-cta-area">
+      <a class="btn-sub-primary" href="https://smartstore.naver.com/hello_butty/products/12496968549" target="_blank">네이버 스토어에서 구매하기</a>
+      <button class="btn-sub-secondary" onclick="mailTo('팀장도 사수가 있었으면 좋겠다')">구매 전 문의하기</button>
+    </div>
+  </div>
+
+  <!-- 전자책 2 -->
+  <div id="sub-book-2" class="view sub-page book-sub">
+    <div class="sub-topbar">
+      <button class="back-btn" onclick="closeSub()">←</button>
+      <span class="sub-topbar-label">전자책</span>
+      <button class="home-btn" onclick="goHome()" title="홈으로"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 7L8 1L15 7V15H10V10H6V15H1V7Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></button>
+    </div>
+    <div class="sub-hero">
+      <div class="sub-hero-orb"></div>
+      <div class="sub-badge">신규</div>
+      <div class="sub-title">누구나 언젠가<br>이직을 한다</div>
+      <div class="sub-price-big">18,000원</div>
+      <div class="sub-price-note">네이버 스마트스토어</div>
+    </div>
+    <div class="sub-body">
+      <div class="sub-section-title">책 소개</div>
+      <div class="placeholder-block">책 소개 내용을 채워주세요<br>목차, 주요 챕터, 추천 독자 등</div>
+      <div class="sub-section-title">이런 분께 추천해요</div>
+      <ul class="sub-list">
+        <li>이직을 막연하게 생각하고만 있는 분</li>
+        <li>커리어 방향을 다시 잡고 싶은 분</li>
+        <li>이직 준비를 체계적으로 시작하고 싶은 분</li>
+      </ul>
+    </div>
+    <div class="sub-cta-area">
+      <a class="btn-sub-primary" href="https://smartstore.naver.com/hello_butty/products/12805908364" target="_blank">네이버 스토어에서 구매하기</a>
+      <button class="btn-sub-secondary" onclick="mailTo('누구나 언젠가 이직을 한다')">구매 전 문의하기</button>
+    </div>
+  </div>
+
+  <!-- ══ 회사 소개 페이지 ══ -->
+  <div id="page-about" class="view sub-page" style="background:var(--bg);">
+    <div class="sub-topbar">
+      <button class="back-btn" onclick="closePage()">←</button>
+      <span class="sub-topbar-label">회사 소개</span>
+      <button class="home-btn" onclick="goHome()" title="홈으로"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 7L8 1L15 7V15H10V10H6V15H1V7Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></button>
+    </div>
+    <div style="background:var(--bg-hero); padding:40px 24px 36px; position:relative; overflow:hidden;">
+      <div style="position:absolute;top:-60px;right:-60px;width:220px;height:220px;border-radius:50%;background:radial-gradient(circle,rgba(200,240,117,0.15) 0%,transparent 65%);pointer-events:none;"></div>
+      <div style="font-size:10px;font-weight:700;letter-spacing:2.5px;color:var(--accent);text-transform:uppercase;margin-bottom:12px;">ABOUT BUTTY</div>
+      <div style="font-family:'DM Serif Display',serif;font-size:30px;color:#FAF8F5;line-height:1.2;margin-bottom:14px;">팀장의 성장을<br>함께합니다</div>
+      <div style="font-size:13px;color:rgba(250,248,245,0.5);line-height:1.8;font-weight:300;">리더십 콘텐츠 브랜드 BUTTY는<br>신입 팀장부터 임원까지,<br>성장의 모든 순간을 함께합니다.</div>
+    </div>
+    <div style="padding:28px 24px 0;">
+      <div style="font-size:10px;font-weight:700;letter-spacing:2.5px;color:var(--text-hint);text-transform:uppercase;margin-bottom:16px;">우리가 하는 일</div>
+
+      <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:28px;">
+        <div style="background:var(--bg-card);border-radius:16px;padding:18px 20px;border:1px solid var(--border);display:flex;gap:14px;align-items:flex-start;">
+          <div style="font-size:22px;flex-shrink:0;margin-top:2px;">📝</div>
+          <div>
+            <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:4px;">리더십 콘텐츠</div>
+            <div style="font-size:12px;color:var(--text-muted);line-height:1.7;">인스타툰, 뉴스레터, 전자책 등 다양한 형태의 리더십 콘텐츠를 제작합니다.</div>
+          </div>
+        </div>
+        <div style="background:var(--bg-card);border-radius:16px;padding:18px 20px;border:1px solid var(--border);display:flex;gap:14px;align-items:flex-start;">
+          <div style="font-size:22px;flex-shrink:0;margin-top:2px;">🏢</div>
+          <div>
+            <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:4px;">B2B 솔루션</div>
+            <div style="font-size:12px;color:var(--text-muted);line-height:1.7;">기업 맞춤형 팀장 교육 콘텐츠, 온보딩 키트, 리더십 리포트를 제공합니다.</div>
+          </div>
+        </div>
+        <div style="background:var(--bg-card);border-radius:16px;padding:18px 20px;border:1px solid var(--border);display:flex;gap:14px;align-items:flex-start;">
+          <div style="font-size:22px;flex-shrink:0;margin-top:2px;">📣</div>
+          <div>
+            <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:4px;">광고 협업</div>
+            <div style="font-size:12px;color:var(--text-muted);line-height:1.7;">인스타그램 리더십 채널과 뉴스레터를 통한 광고 협업을 진행합니다.</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="font-size:10px;font-weight:700;letter-spacing:2.5px;color:var(--text-hint);text-transform:uppercase;margin-bottom:16px;">우리의 가치</div>
+      <div style="background:var(--bg-card);border-radius:16px;padding:20px;border:1px solid var(--border);margin-bottom:32px;">
+        <div style="font-family:'DM Serif Display',serif;font-size:18px;color:var(--text);line-height:1.5;margin-bottom:12px;">"모든 팀장에게는<br>사수가 필요하다"</div>
+        <div style="font-size:13px;color:var(--text-muted);line-height:1.8;">처음 팀장이 된 순간, 아무도 알려주지 않는 것들이 있습니다. BUTTY는 그 공백을 채우는 리더십 콘텐츠 브랜드입니다. 현실적이고, 따뜻하게.</div>
+      </div>
+    </div>
+    <div style="padding:0 24px 52px;">
+      <button onclick="closePage(); setTimeout(scrollToContact,100)" style="background:var(--bg-hero);color:#FAF8F5;border:none;padding:16px;border-radius:100px;font-size:14px;font-weight:700;font-family:'Noto Sans KR',sans-serif;cursor:pointer;width:100;transition:opacity 0.15s;width:100%;">협업 문의하기</button>
+    </div>
+  </div>
+
+  <!-- ══ 캐릭터 소개 페이지 ══ -->
+  <div id="page-character" class="view sub-page" style="background:var(--bg);">
+    <div class="sub-topbar">
+      <button class="back-btn" onclick="closePage()">←</button>
+      <span class="sub-topbar-label">캐릭터 소개</span>
+      <button class="home-btn" onclick="goHome()" title="홈으로"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 7L8 1L15 7V15H10V10H6V15H1V7Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></button>
+    </div>
+    <div style="background:var(--bg-hero);padding:36px 24px 32px;position:relative;overflow:hidden;">
+      <div style="position:absolute;top:-60px;right:-60px;width:220px;height:220px;border-radius:50%;background:radial-gradient(circle,rgba(200,240,117,0.15) 0%,transparent 65%);pointer-events:none;"></div>
+      <div style="font-size:10px;font-weight:700;letter-spacing:2.5px;color:var(--accent);text-transform:uppercase;margin-bottom:12px;">CHARACTERS</div>
+      <div style="font-family:'DM Serif Display',serif;font-size:28px;color:#FAF8F5;line-height:1.2;">버티 패밀리를<br>소개합니다</div>
+    </div>
+    <div style="padding:28px 24px 52px;display:flex;flex-direction:column;gap:16px;">
+
+      <!-- 버티 -->
+      <div style="background:var(--bg-card);border-radius:20px;overflow:hidden;border:1px solid var(--border);">
+        <div style="background:linear-gradient(135deg,#C8F075 0%,#a8d855 100%);height:180px;display:flex;align-items:center;justify-content:center;">
+          <div style="text-align:center;color:rgba(26,26,26,0.4);">
+            <div style="font-size:48px;margin-bottom:8px;">🐥</div>
+            <div style="font-size:11px;font-weight:600;letter-spacing:1px;">이미지 준비 중</div>
+          </div>
+        </div>
+        <div style="padding:20px;">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+            <div style="font-family:'DM Serif Display',serif;font-size:22px;color:var(--text);">버티</div>
+            <div style="font-size:10px;font-weight:700;letter-spacing:1.5px;padding:3px 10px;border-radius:100px;background:var(--accent-dim);color:#5a7a00;border:1px solid var(--accent-border);text-transform:uppercase;">Main</div>
+          </div>
+          <div style="font-size:13px;color:var(--text-muted);line-height:1.8;">BUTTY의 대표 캐릭터. 팀장들의 고민을 가장 잘 이해하는 든든한 사수 같은 존재입니다. 따뜻하고 현실적인 리더십 조언을 전합니다.</div>
+        </div>
+      </div>
+
+      <!-- 먼데이 -->
+      <div style="background:var(--bg-card);border-radius:20px;overflow:hidden;border:1px solid var(--border);">
+        <div style="background:linear-gradient(135deg,#B8D4F8 0%,#7aaee8 100%);height:180px;display:flex;align-items:center;justify-content:center;">
+          <div style="text-align:center;color:rgba(26,26,26,0.35);">
+            <div style="font-size:48px;margin-bottom:8px;">😑</div>
+            <div style="font-size:11px;font-weight:600;letter-spacing:1px;">이미지 준비 중</div>
+          </div>
+        </div>
+        <div style="padding:20px;">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+            <div style="font-family:'DM Serif Display',serif;font-size:22px;color:var(--text);">먼데이</div>
+            <div style="font-size:10px;font-weight:700;letter-spacing:1.5px;padding:3px 10px;border-radius:100px;background:var(--c-b2b-dim);color:var(--c-b2b);border:1px solid var(--c-b2b-border);text-transform:uppercase;">Monday</div>
+          </div>
+          <div style="font-size:13px;color:var(--text-muted);line-height:1.8;">월요일처럼 무기력하지만 솔직한 캐릭터. 팀장이 되고 나서 겪는 현실적인 어려움을 공감 가득 담아 표현합니다.</div>
+        </div>
+      </div>
+
+      <!-- 랑이 -->
+      <div style="background:var(--bg-card);border-radius:20px;overflow:hidden;border:1px solid var(--border);">
+        <div style="background:linear-gradient(135deg,#FBBF8A 0%,#E8722A 100%);height:180px;display:flex;align-items:center;justify-content:center;">
+          <div style="text-align:center;color:rgba(255,255,255,0.6);">
+            <div style="font-size:48px;margin-bottom:8px;">🦊</div>
+            <div style="font-size:11px;font-weight:600;letter-spacing:1px;">이미지 준비 중</div>
+          </div>
+        </div>
+        <div style="padding:20px;">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+            <div style="font-family:'DM Serif Display',serif;font-size:22px;color:var(--text);">랑이</div>
+            <div style="font-size:10px;font-weight:700;letter-spacing:1.5px;padding:3px 10px;border-radius:100px;background:var(--c-ad-dim);color:var(--c-ad);border:1px solid var(--c-ad-border);text-transform:uppercase;">Rangi</div>
+          </div>
+          <div style="font-size:13px;color:var(--text-muted);line-height:1.8;">당차고 에너지 넘치는 캐릭터. 새로운 도전을 두려워하지 않는 젊은 리더의 모습을 담았습니다.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══ 리더십레터 페이지 ══ -->
+  <div id="page-letter" class="view sub-page" style="background:var(--bg);">
+    <div class="sub-topbar">
+      <button class="back-btn" onclick="closePage()">←</button>
+      <span class="sub-topbar-label">리더십레터</span>
+      <button class="home-btn" onclick="goHome()" title="홈으로" style="margin-left:auto;"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 7L8 1L15 7V15H10V10H6V15H1V7Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></button>
+      <button onclick="openLetterAdmin()" style="margin-left:8px;background:none;border:none;cursor:pointer;font-size:18px;opacity:0.35;padding:4px;" title="관리자">⚙️</button>
+    </div>
+    <div style="background:var(--bg-hero);padding:32px 24px 28px;position:relative;overflow:hidden;">
+      <div style="position:absolute;top:-60px;right:-60px;width:220px;height:220px;border-radius:50%;background:radial-gradient(circle,rgba(200,240,117,0.15) 0%,transparent 65%);pointer-events:none;"></div>
+      <div style="font-size:10px;font-weight:700;letter-spacing:2.5px;color:var(--accent);text-transform:uppercase;margin-bottom:12px;">LEADERSHIP LETTER</div>
+      <div style="font-family:'DM Serif Display',serif;font-size:26px;color:#FAF8F5;line-height:1.25;margin-bottom:10px;">팀장을 위한<br>리더십 레터</div>
+      <div style="font-size:12px;color:rgba(250,248,245,0.45);line-height:1.7;">매주 팀장의 현실에 꼭 맞는<br>리더십 인사이트를 전합니다.</div>
+      <a href="https://leader.stibee.com/" target="_blank" style="display:inline-block;margin-top:16px;background:var(--accent);color:#1A1A1A;font-size:12px;font-weight:700;padding:9px 18px;border-radius:100px;text-decoration:none;">뉴스레터 구독하기 →</a>
+    </div>
+
+    <!-- 레터 목록 -->
+    <div style="padding:24px 20px 52px;">
+      <div style="font-size:10px;font-weight:700;letter-spacing:2.5px;color:var(--text-hint);text-transform:uppercase;margin-bottom:16px;">발행된 레터</div>
+      <div id="letter-list">
+        <!-- JS로 렌더링 -->
+      </div>
+      <div id="letter-empty" style="display:none;text-align:center;padding:40px 20px;">
+        <div style="font-size:36px;margin-bottom:12px;">✉️</div>
+        <div style="font-size:14px;color:var(--text-hint);line-height:1.7;">아직 등록된 레터가 없습니다.<br>우측 상단 ⚙️ 버튼으로 추가해 주세요.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ 레터 상세 페이지 ══ -->
+  <div id="page-letter-detail" class="view sub-page" style="background:var(--bg);">
+    <div class="sub-topbar">
+      <button class="back-btn" onclick="openPage('letter')">←</button>
+      <span class="sub-topbar-label" id="letter-detail-label">리더십레터</span>
+      <button class="home-btn" onclick="goHome()" title="홈으로"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 7L8 1L15 7V15H10V10H6V15H1V7Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></button>
+    </div>
+    <div id="letter-detail-content" style="padding:0 0 80px;"></div>
+  </div>
+
+  <!-- ══ 관리자 패널 (모달) ══ -->
+  <div id="admin-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:600;align-items:flex-end;justify-content:center;">
+    <div style="background:#fff;border-radius:24px 24px 0 0;padding:28px 24px 48px;width:100%;max-width:430px;max-height:92vh;overflow-y:auto;">
+      <div style="width:36px;height:4px;border-radius:2px;background:#ddd;margin:0 auto 20px;"></div>
+
+      <!-- 비밀번호 화면 -->
+      <div id="admin-pw-screen">
+        <div style="font-family:'DM Serif Display',serif;font-size:20px;color:#1A1A1A;margin-bottom:6px;">관리자 로그인</div>
+        <div style="font-size:12px;color:#999;margin-bottom:20px;">비밀번호를 입력해 주세요</div>
+        <input id="admin-pw-input" type="password" placeholder="비밀번호" style="width:100%;padding:14px 16px;border:1px solid #e0e0e0;border-radius:12px;font-size:14px;font-family:'Noto Sans KR',sans-serif;outline:none;margin-bottom:10px;">
+        <div id="admin-pw-error" style="font-size:12px;color:#e53935;margin-bottom:10px;display:none;">비밀번호가 틀렸습니다.</div>
+        <button onclick="checkAdminPw()" style="width:100%;background:#1A1A1A;color:#fff;border:none;padding:14px;border-radius:100px;font-size:14px;font-weight:700;font-family:'Noto Sans KR',sans-serif;cursor:pointer;margin-bottom:10px;">확인</button>
+        <button onclick="closeAdmin()" style="width:100%;background:none;border:none;color:#999;font-size:13px;font-family:'Noto Sans KR',sans-serif;cursor:pointer;padding:8px;">닫기</button>
+      </div>
+
+      <!-- 작성/수정 화면 -->
+      <div id="admin-write-screen" style="display:none;">
+        <div id="admin-write-title" style="font-family:'DM Serif Display',serif;font-size:20px;color:#1A1A1A;margin-bottom:20px;">새 레터 등록</div>
+
+        <div style="font-size:11px;font-weight:700;color:#999;letter-spacing:1px;margin-bottom:6px;">제목</div>
+        <input id="letter-title-input" type="text" placeholder="레터 제목을 입력하세요" style="width:100%;padding:12px 14px;border:1px solid #e0e0e0;border-radius:10px;font-size:14px;font-family:'Noto Sans KR',sans-serif;outline:none;margin-bottom:14px;">
+
+        <div style="font-size:11px;font-weight:700;color:#999;letter-spacing:1px;margin-bottom:6px;">발행일</div>
+        <input id="letter-date-input" type="date" style="width:100%;padding:12px 14px;border:1px solid #e0e0e0;border-radius:10px;font-size:14px;font-family:'Noto Sans KR',sans-serif;outline:none;margin-bottom:14px;">
+
+        <div style="font-size:11px;font-weight:700;color:#999;letter-spacing:1px;margin-bottom:6px;">한 줄 소개</div>
+        <input id="letter-desc-input" type="text" placeholder="이번 레터를 한 줄로 소개해 주세요" style="width:100%;padding:12px 14px;border:1px solid #e0e0e0;border-radius:10px;font-size:14px;font-family:'Noto Sans KR',sans-serif;outline:none;margin-bottom:14px;">
+
+        <div style="font-size:11px;font-weight:700;color:#999;letter-spacing:1px;margin-bottom:8px;">본문 내용</div>
+
+        <!-- 서식 툴바 -->
+        <div style="display:flex;gap:6px;flex-wrap:wrap;padding:8px 10px;background:#f5f5f5;border:1px solid #e0e0e0;border-radius:10px 10px 0 0;border-bottom:none;">
+          <button onclick="editorCmd('bold')" title="굵게" style="width:32px;height:32px;border:1px solid #ddd;border-radius:6px;background:#fff;cursor:pointer;font-weight:700;font-size:14px;color:#1A1A1A;">B</button>
+          <button onclick="editorCmd('italic')" title="기울임" style="width:32px;height:32px;border:1px solid #ddd;border-radius:6px;background:#fff;cursor:pointer;font-style:italic;font-size:14px;color:#1A1A1A;">I</button>
+          <button onclick="editorCmd('underline')" title="밑줄" style="width:32px;height:32px;border:1px solid #ddd;border-radius:6px;background:#fff;cursor:pointer;text-decoration:underline;font-size:14px;color:#1A1A1A;">U</button>
+          <div style="width:1px;background:#ddd;margin:4px 2px;"></div>
+          <button onclick="editorFontSize('large')" title="큰 글자" style="height:32px;padding:0 10px;border:1px solid #ddd;border-radius:6px;background:#fff;cursor:pointer;font-size:15px;font-weight:700;color:#1A1A1A;">가</button>
+          <button onclick="editorFontSize('normal')" title="보통 글자" style="height:32px;padding:0 10px;border:1px solid #ddd;border-radius:6px;background:#fff;cursor:pointer;font-size:13px;color:#1A1A1A;">가</button>
+          <button onclick="editorFontSize('small')" title="작은 글자" style="height:32px;padding:0 10px;border:1px solid #ddd;border-radius:6px;background:#fff;cursor:pointer;font-size:11px;color:#1A1A1A;">가</button>
+          <div style="width:1px;background:#ddd;margin:4px 2px;"></div>
+          <button onclick="editorCmd('insertUnorderedList')" title="목록" style="width:32px;height:32px;border:1px solid #ddd;border-radius:6px;background:#fff;cursor:pointer;font-size:14px;color:#1A1A1A;">≡</button>
+          <button onclick="insertHr()" title="구분선" style="height:32px;padding:0 10px;border:1px solid #ddd;border-radius:6px;background:#fff;cursor:pointer;font-size:12px;color:#888;">— 구분선</button>
+        </div>
+
+        <!-- contenteditable 에디터 -->
+        <div id="letter-body-editor"
+          contenteditable="true"
+          data-placeholder="레터 본문을 입력하세요..."
+          style="width:100%;min-height:200px;padding:14px;border:1px solid #e0e0e0;border-radius:0 0 10px 10px;font-size:14px;font-family:'Noto Sans KR',sans-serif;outline:none;line-height:1.85;color:#1A1A1A;margin-bottom:20px;word-break:break-word;"></div>
+
+        <button id="admin-save-btn" onclick="saveLetter()" style="width:100%;background:#1A1A1A;color:#fff;border:none;padding:14px;border-radius:100px;font-size:14px;font-weight:700;font-family:'Noto Sans KR',sans-serif;cursor:pointer;margin-bottom:10px;">등록하기</button>
+        <button onclick="closeAdmin()" style="width:100%;background:none;border:none;color:#999;font-size:13px;font-family:'Noto Sans KR',sans-serif;cursor:pointer;padding:8px;">취소</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ 삭제 확인 다이얼로그 ══ -->
+  <div id="delete-confirm-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:700;align-items:center;justify-content:center;">
+    <div style="background:#fff;border-radius:20px;padding:28px 24px 20px;width:calc(100% - 48px);max-width:320px;text-align:center;">
+      <div style="font-size:22px;margin-bottom:12px;">🗑️</div>
+      <div style="font-family:'DM Serif Display',serif;font-size:18px;color:#1A1A1A;margin-bottom:8px;">정말로 삭제하시겠습니까?</div>
+      <div style="font-size:13px;color:#999;margin-bottom:24px;line-height:1.6;">삭제된 레터는 복구할 수 없습니다.</div>
+      <div style="display:flex;gap:10px;">
+        <button onclick="closeDeleteConfirm()" style="flex:1;padding:13px;border-radius:100px;border:1px solid #e0e0e0;background:#fff;font-size:14px;font-weight:500;font-family:'Noto Sans KR',sans-serif;cursor:pointer;color:#666;">아니오</button>
+        <button onclick="confirmDelete()" style="flex:1;padding:13px;border-radius:100px;border:none;background:#d43232;color:#fff;font-size:14px;font-weight:700;font-family:'Noto Sans KR',sans-serif;cursor:pointer;">예, 삭제</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ 파일 저장 안내 모달 ══ -->
+  <div id="export-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.55);z-index:700;align-items:center;justify-content:center;">
+    <div style="background:#fff;border-radius:20px;padding:28px 24px 22px;width:calc(100% - 48px);max-width:320px;text-align:center;">
+      <div style="font-size:28px;margin-bottom:12px;">💾</div>
+      <div style="font-family:'DM Serif Display',serif;font-size:18px;color:#1A1A1A;margin-bottom:8px;">저장 완료!</div>
+      <div style="font-size:13px;color:#888;margin-bottom:22px;line-height:1.65;">어디서든 레터가 보이려면<br>파일을 다시 저장해 주세요.</div>
+      <button onclick="saveAndExport()" style="width:100%;background:#1A1A1A;color:#fff;border:none;padding:13px;border-radius:100px;font-size:14px;font-weight:700;font-family:'Noto Sans KR',sans-serif;cursor:pointer;margin-bottom:10px;">파일 저장하기 (butty.html)</button>
+      <button onclick="closeExportPrompt()" style="width:100%;background:none;border:none;color:#aaa;font-size:13px;font-family:'Noto Sans KR',sans-serif;cursor:pointer;padding:6px;">나중에 저장</button>
+    </div>
+  </div>
+
+</div><!-- /site -->
+
+<style>
+  #letter-body-editor:empty:before {
+    content: attr(data-placeholder);
+    color: #bbb;
+    pointer-events: none;
+  }
+  #letter-body-editor:focus { border-color: #1A1A1A !important; }
+  #letter-body-editor ul { padding-left: 20px; }
+  #letter-body-editor hr { border: none; border-top: 1px solid #e0e0e0; margin: 12px 0; }
+</style>
+
+<!-- ══════════════ DRAWER ══════════════ -->
+<div class="drawer-overlay" id="drawer-overlay" onclick="closeDrawer()"></div>
+<div class="drawer" id="drawer">
+  <div class="drawer-header">
+    <div class="drawer-logo" onclick="closeDrawer(); pageStack=['view-main']; showOnly('view-main');" style="cursor:pointer;">BUT<span>T</span>Y</div>
+    <button class="drawer-close" onclick="closeDrawer()">✕</button>
+  </div>
+
+  <nav class="drawer-nav">
+    <button class="drawer-item" onclick="closeDrawer(); openPage('about')">
+      <div class="drawer-item-icon">🏢</div>
+      <div class="drawer-item-text">
+        <span class="drawer-item-label">회사 소개</span>
+        <span class="drawer-item-sub">BUTTY가 하는 일</span>
+      </div>
+      <span class="drawer-item-arrow">›</span>
+    </button>
+
+    <button class="drawer-item" onclick="closeDrawer(); openPage('character')">
+      <div class="drawer-item-icon">🐣</div>
+      <div class="drawer-item-text">
+        <span class="drawer-item-label">캐릭터 소개</span>
+        <span class="drawer-item-sub">버티를 소개합니다</span>
+      </div>
+      <span class="drawer-item-arrow">›</span>
+    </button>
+
+    <div class="drawer-divider"></div>
+
+    <button class="drawer-item" onclick="closeDrawer(); openPage('letter')">
+      <div class="drawer-item-icon">✉️</div>
+      <div class="drawer-item-text">
+        <span class="drawer-item-label">리더십레터</span>
+        <span class="drawer-item-sub">발행된 레터 모아보기</span>
+      </div>
+      <span class="drawer-item-arrow">›</span>
+    </button>
+
+    <button class="drawer-item" onclick="closeDrawer(); openPage('collab')">
+      <div class="drawer-item-icon">💬</div>
+      <div class="drawer-item-text">
+        <span class="drawer-item-label">협업 문의</span>
+        <span class="drawer-item-sub">이메일로 연락하기</span>
+      </div>
+      <span class="drawer-item-arrow">›</span>
+    </button>
+
+    <div class="drawer-divider"></div>
+  </nav>
+
+  <a class="drawer-insta" href="https://www.instagram.com/hello.butty/" target="_blank" onclick="closeDrawer()">
+    <div class="drawer-insta-icon">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+      </svg>
+    </div>
+    <div class="drawer-insta-text">
+      <span class="drawer-insta-label">@hello.butty</span>
+      <span class="drawer-insta-sub">인스타그램 팔로우하기</span>
+    </div>
+    <span style="font-size:14px; color:rgba(200,240,117,0.5);">›</span>
+  </a>
+</div>
+
+<script>
+  const ADMIN_PW = 'butty2025';
+  const CONTACT_EMAIL = 'hello@butty.kr';
+
+  /* ── DRAWER ── */
+  function openDrawer() {
+    document.getElementById('drawer').classList.add('open');
+    document.getElementById('drawer-overlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeDrawer() {
+    document.getElementById('drawer').classList.remove('open');
+    document.getElementById('drawer-overlay').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  /* ── PAGE ROUTING ── */
+  let pageStack = ['view-main'];
+
+  function showOnly(id) {
+    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    window.scrollTo(0, 0);
+  }
+
+  function openPage(name) {
+    const id = 'page-' + name;
+    pageStack.push(id);
+    showOnly(id);
+    if (name === 'letter') renderLetterList();
+  }
+
+  function closePage() {
+    pageStack.pop();
+    const prev = pageStack[pageStack.length - 1] || 'view-main';
+    showOnly(prev);
+    if (prev === 'page-letter') renderLetterList();
+  }
+
+  function goHome() {
+    pageStack = ['view-main'];
+    showOnly('view-main');
+    window.scrollTo(0, 0);
+  }
+
+  function goToMain() {
+    pageStack = ['view-main'];
+    showOnly('view-main');
+    setTimeout(() => document.getElementById('collab-contact')?.scrollIntoView({behavior:'smooth'}), 100);
+  }
+
+  /* ── COLLAB PAGE TAB FILTER ── */
+  function collabFilter(btn, filter) {
+    document.querySelectorAll('.collab-tab').forEach(t => {
+      t.style.color = 'var(--text-hint)';
+      t.style.borderBottomColor = 'transparent';
+    });
+    btn.style.color = 'var(--text)';
+    btn.style.borderBottomColor = '#1A1A1A';
+    const secs = ['b2b','ad','book'];
+    secs.forEach(s => {
+      const el = document.getElementById('csec-' + s);
+      if (el) el.style.display = (filter === 'all' || filter === s) ? 'block' : 'none';
+    });
+  }
+
+  /* ── PRODUCT SUB PAGES ── */
+  function openSub(id) {
+    pageStack.push('sub-' + id);
+    showOnly('sub-' + id);
+  }
+  function closeSub() {
+    pageStack.pop();
+    const prev = pageStack[pageStack.length - 1] || 'view-main';
+    showOnly(prev);
+  }
+
+  /* ── MAILTO ── */
+  function mailTo(product) {
+    const subject = encodeURIComponent('[BUTTY] ' + product + ' 문의드립니다');
+    const body = encodeURIComponent('안녕하세요, BUTTY 팀!\n\n[' + product + '] 관련하여 문의드립니다.\n\n회사명:\n담당자명:\n연락처:\n\n문의 내용:\n');
+    window.location.href = 'mailto:' + CONTACT_EMAIL + '?subject=' + subject + '&body=' + body;
+  }
+
+  /* ── TAB FILTER ── */
+  const tabs = document.querySelectorAll('.nav-tab');
+  const sectionMap = { b2b:['sec-b2b'], ad:['sec-ad'], book:['sec-book'] };
+  const allSections = ['sec-b2b', 'sec-ad', 'sec-book'];
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      tabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      const filter = tab.dataset.filter;
+      if (filter === 'all') {
+        allSections.forEach(id => document.getElementById(id).classList.remove('hidden'));
+      } else {
+        allSections.forEach(id => document.getElementById(id).classList.add('hidden'));
+        (sectionMap[filter] || []).forEach(id => document.getElementById(id).classList.remove('hidden'));
+      }
+    });
+  });
+
+  function scrollToProducts() {
+    tabs.forEach(t => t.classList.remove('active'));
+    document.querySelector('[data-filter="all"]').classList.add('active');
+    allSections.forEach(id => document.getElementById(id).classList.remove('hidden'));
+    setTimeout(() => document.getElementById('products').scrollIntoView({ behavior: 'smooth' }), 50);
+  }
+  function scrollToContact() {
+    document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+  }
+
+  /* ── LETTER DATA (HTML 내장 방식) ── */
+  // 레터 데이터는 아래 배열에 직접 저장됩니다.
+  // 관리자에서 등록/수정 후 "파일 저장하기"를 누르면 이 배열이 업데이트된 HTML 파일이 다운로드됩니다.
+  let LETTERS_DATA = [];
+
+  function getLetters() {
+    return LETTERS_DATA;
+  }
+
+  function saveLetters(arr) {
+    LETTERS_DATA = arr;
+  }
+
+  // 현재 레터 데이터를 포함한 HTML 파일로 내보내기
+  function exportHTML() {
+    const json = JSON.stringify(LETTERS_DATA);
+    const html = document.documentElement.outerHTML;
+    // LETTERS_DATA = []; 패턴을 실제 데이터로 교체
+    const updated = html.replace(
+      /let LETTERS_DATA = \[[\s\S]*?\];/,
+      'let LETTERS_DATA = ' + json + ';'
+    );
+    const blob = new Blob([updated], { type: 'text/html;charset=utf-8' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'butty.html';
+    a.click();
+    URL.revokeObjectURL(a.href);
+  }
+
+  function renderLetterList() {
+    const letters = getLetters();
+    const list  = document.getElementById('letter-list');
+    const empty = document.getElementById('letter-empty');
+    if (!list) return;
+    if (letters.length === 0) {
+      list.innerHTML = '';
+      empty.style.display = 'block';
+      return;
+    }
+    empty.style.display = 'none';
+    list.innerHTML = letters.slice().reverse().map((l, ri) => {
+      const i = letters.length - 1 - ri;
+      return `
+        <div onclick="openLetterDetail(${i})" style="background:var(--bg-card);border-radius:16px;padding:18px 20px;margin-bottom:10px;border:1px solid var(--border);cursor:pointer;position:relative;">
+          <div style="font-size:10px;font-weight:700;letter-spacing:1.5px;color:var(--accent);background:var(--bg-hero);display:inline-block;padding:3px 10px;border-radius:100px;margin-bottom:10px;">Vol.${i+1}</div>
+          <div style="font-size:15px;font-weight:700;color:var(--text);margin-bottom:6px;padding-right:24px;">${l.title}</div>
+          <div style="font-size:12px;color:var(--text-muted);line-height:1.6;margin-bottom:10px;">${l.desc || ''}</div>
+          <div style="font-size:11px;color:var(--text-hint);">${l.date || ''}</div>
+          <div style="position:absolute;top:18px;right:18px;color:var(--text-hint);font-size:16px;">›</div>
+        </div>`;
+    }).join('');
+  }
+
+  function renderHomeLetters() {
+    const letters = getLetters();
+    const el = document.getElementById('home-letter-list');
+    if (!el) return;
+    if (letters.length === 0) {
+      el.innerHTML = `<div style="background:#fff;border-radius:16px;padding:20px;border:1px solid var(--border);text-align:center;color:var(--text-hint);font-size:13px;line-height:1.7;">아직 등록된 레터가 없습니다.<br>리더십레터에서 구독해 보세요.</div>`;
+      return;
+    }
+    const recent = letters.slice(-2).reverse();
+    el.innerHTML = recent.map((l, ri) => {
+      const i = letters.length - 1 - ri;
+      return `
+        <div onclick="openPage('letter'); setTimeout(()=>openLetterDetail(${i}),50)" style="background:#fff;border-radius:16px;padding:16px 18px;margin-bottom:8px;border:1px solid var(--border);cursor:pointer;position:relative;box-shadow:0 1px 4px rgba(0,0,0,0.05);">
+          <div style="font-size:10px;font-weight:700;letter-spacing:1.5px;color:var(--accent);background:#1A1A1A;display:inline-block;padding:2px 9px;border-radius:100px;margin-bottom:8px;">Vol.${i+1}</div>
+          <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:4px;padding-right:20px;">${l.title}</div>
+          <div style="font-size:12px;color:var(--text-muted);line-height:1.5;margin-bottom:6px;">${l.desc || ''}</div>
+          <div style="font-size:11px;color:var(--text-hint);">${l.date || ''}</div>
+          <div style="position:absolute;top:16px;right:16px;color:var(--text-hint);font-size:15px;">›</div>
+        </div>`;
+    }).join('');
+  }
+
+  // 홈 진입 시 레터 렌더
+  renderHomeLetters();
+
+  let currentLetterIndex = -1;
+
+  function openLetterDetail(i) {
+    currentLetterIndex = i;
+    const letters = getLetters();
+    const l = letters[i];
+    if (!l) return;
+    document.getElementById('letter-detail-label').textContent = `Vol.${i+1}`;
+    document.getElementById('letter-detail-content').innerHTML = `
+      <div style="background:var(--bg-hero);padding:32px 24px 28px;position:relative;overflow:hidden;">
+        <div style="position:absolute;top:-60px;right:-60px;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(200,240,117,0.15) 0%,transparent 65%);pointer-events:none;"></div>
+        <div style="font-size:10px;font-weight:700;letter-spacing:2px;color:var(--accent);margin-bottom:10px;">Vol.${i+1} · ${l.date||''}</div>
+        <div style="font-family:'DM Serif Display',serif;font-size:24px;color:#FAF8F5;line-height:1.3;margin-bottom:10px;">${l.title}</div>
+        <div style="font-size:13px;color:rgba(250,248,245,0.5);line-height:1.7;">${l.desc||''}</div>
+      </div>
+      <div style="padding:28px 24px 16px;">
+        <div style="font-size:14px;color:#1A1A1A;line-height:1.9;">${l.body||''}</div>
+        <div style="margin-top:32px;padding-top:20px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;">
+          <div style="font-size:12px;color:var(--text-hint);">이 레터가 도움이 됐나요?</div>
+          <a href="https://leader.stibee.com/" target="_blank" style="font-size:12px;font-weight:700;color:var(--c-b2b);text-decoration:none;">구독하기 →</a>
+        </div>
+      </div>
+      ${adminUnlocked ? `
+      <div style="padding:0 24px 52px;display:flex;flex-direction:column;gap:10px;">
+        <button onclick="openEditLetter(${i})" style="width:100%;background:#1A1A1A;color:#fff;border:none;padding:13px;border-radius:100px;font-size:13px;font-weight:700;font-family:'Noto Sans KR',sans-serif;cursor:pointer;">이 레터 수정하기</button>
+        <button onclick="deleteLetterConfirm(${i})" style="width:100%;background:none;border:1px solid rgba(220,50,50,0.25);color:#d43232;padding:13px;border-radius:100px;font-size:13px;font-weight:500;font-family:'Noto Sans KR',sans-serif;cursor:pointer;">이 레터 삭제하기</button>
+      </div>` : ''}`;
+    pageStack.push('page-letter-detail');
+    showOnly('page-letter-detail');
+  }
+
+  let pendingDeleteIndex = -1;
+
+  function deleteLetterConfirm(i) {
+    pendingDeleteIndex = i;
+    document.getElementById('delete-confirm-overlay').style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeDeleteConfirm() {
+    document.getElementById('delete-confirm-overlay').style.display = 'none';
+    document.body.style.overflow = '';
+    pendingDeleteIndex = -1;
+  }
+
+  function confirmDelete() {
+    if (pendingDeleteIndex < 0) return;
+    const letters = getLetters();
+    letters.splice(pendingDeleteIndex, 1);
+    saveLetters(letters);
+    closeDeleteConfirm();
+    renderHomeLetters();
+    closePage();
+    showExportPrompt();
+  }
+
+  /* ── RICH EDITOR ── */
+  function editorCmd(cmd) {
+    document.getElementById('letter-body-editor').focus();
+    document.execCommand(cmd, false, null);
+  }
+
+  function editorFontSize(size) {
+    const map = { large: '20px', normal: '14px', small: '12px' };
+    document.getElementById('letter-body-editor').focus();
+    document.execCommand('fontSize', false, '7'); // placeholder index
+    // 브라우저가 font size=7 태그 삽입 → 직접 px로 교체
+    const editor = document.getElementById('letter-body-editor');
+    editor.querySelectorAll('font[size="7"]').forEach(el => {
+      el.removeAttribute('size');
+      el.style.fontSize = map[size];
+    });
+  }
+
+  function insertHr() {
+    document.getElementById('letter-body-editor').focus();
+    document.execCommand('insertHTML', false, '<hr>');
+  }
+
+  /* ── ADMIN ── */
+  let adminUnlocked = false;
+  let editingIndex = -1; // -1 = 새 등록, 0+ = 수정 모드
+
+  function openLetterAdmin(idx) {
+    editingIndex = (idx !== undefined) ? idx : -1;
+    const overlay = document.getElementById('admin-overlay');
+    overlay.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+    if (adminUnlocked) {
+      showWriteScreen();
+    } else {
+      document.getElementById('admin-pw-screen').style.display = 'block';
+      document.getElementById('admin-write-screen').style.display = 'none';
+      document.getElementById('admin-pw-error').style.display = 'none';
+      document.getElementById('admin-pw-input').value = '';
+      setTimeout(() => document.getElementById('admin-pw-input').focus(), 100);
+    }
+  }
+
+  function openEditLetter(i) {
+    editingIndex = i;
+    openLetterAdmin(i);
+  }
+
+  function closeAdmin() {
+    document.getElementById('admin-overlay').style.display = 'none';
+    document.body.style.overflow = '';
+  }
+
+  function checkAdminPw() {
+    const val = document.getElementById('admin-pw-input').value;
+    if (val === ADMIN_PW) {
+      adminUnlocked = true;
+      showWriteScreen();
+    } else {
+      document.getElementById('admin-pw-error').style.display = 'block';
+    }
+  }
+
+  function showWriteScreen() {
+    document.getElementById('admin-pw-screen').style.display = 'none';
+    document.getElementById('admin-write-screen').style.display = 'block';
+
+    if (editingIndex >= 0) {
+      // 수정 모드 — 기존 데이터 로드
+      const l = getLetters()[editingIndex];
+      document.getElementById('admin-write-title').textContent = '레터 수정';
+      document.getElementById('admin-save-btn').textContent = '수정 저장';
+      document.getElementById('letter-title-input').value = l.title || '';
+      document.getElementById('letter-date-input').value = l.date || '';
+      document.getElementById('letter-desc-input').value = l.desc || '';
+      document.getElementById('letter-body-editor').innerHTML = l.body || '';
+    } else {
+      // 신규 등록 모드
+      document.getElementById('admin-write-title').textContent = '새 레터 등록';
+      document.getElementById('admin-save-btn').textContent = '등록하기';
+      document.getElementById('letter-title-input').value = '';
+      document.getElementById('letter-date-input').value = new Date().toISOString().slice(0,10);
+      document.getElementById('letter-desc-input').value = '';
+      document.getElementById('letter-body-editor').innerHTML = '';
+    }
+  }
+
+  function saveLetter() {
+    const title = document.getElementById('letter-title-input').value.trim();
+    const date  = document.getElementById('letter-date-input').value;
+    const desc  = document.getElementById('letter-desc-input').value.trim();
+    const body  = document.getElementById('letter-body-editor').innerHTML.trim();
+    if (!title || !body) { alert('제목과 본문을 입력해 주세요.'); return; }
+
+    const letters = getLetters();
+    if (editingIndex >= 0) {
+      letters[editingIndex] = { title, date, desc, body };
+      saveLetters(letters);
+      closeAdmin();
+      renderHomeLetters();
+      openLetterDetail(editingIndex);
+    } else {
+      letters.push({ title, date, desc, body });
+      saveLetters(letters);
+      closeAdmin();
+      renderLetterList();
+      renderHomeLetters();
+    }
+    // 저장 후 파일 다운로드 안내 모달
+    showExportPrompt();
+  }
+
+  function showExportPrompt() {
+    document.getElementById('export-overlay').style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeExportPrompt() {
+    document.getElementById('export-overlay').style.display = 'none';
+    document.body.style.overflow = '';
+  }
+
+  function saveAndExport() {
+    closeExportPrompt();
+    exportHTML();
+  }
+
+  // 엔터키로 비밀번호 확인
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Enter'
+      && document.getElementById('admin-pw-screen').style.display !== 'none'
+      && document.getElementById('admin-overlay').style.display === 'flex') {
+      checkAdminPw();
+    }
+  });
+
+  // 오버레이 배경 클릭 닫기
+  document.getElementById('admin-overlay').addEventListener('click', function(e) {
+    if (e.target === this) closeAdmin();
+  });
+</script>
+</body>
+</html>
