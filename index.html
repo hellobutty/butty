@@ -12,784 +12,726 @@
 <body>
 <div class="site">
 
-  <!-- ══════════════ MAIN HOME ══════════════ -->
-  <div id="view-main" class="view active">
+<!-- ══════════════ MAIN HOME ══════════════ -->
+<div id="view-main" class="view active">
+<!-- TOP BAR -->
+<div style="background:#1A1A1A;display:flex;align-items:center;justify-content:space-between;padding:16px 20px;position:sticky;top:0;z-index:100;">
+  <div style="font-family:'DM Serif Display',serif;font-size:26px;color:#FAF8F5;letter-spacing:3px;">BUT<span style="color:var(--accent);">T</span>Y</div>
+  <button class="hamburger-btn" onclick="openDrawer()" aria-label="메뉴 열기" style="position:static;margin:0;">
+    <span></span><span></span><span></span>
+  </button>
+</div>
 
-    <!-- TOP BAR -->
-    <div style="background:#1A1A1A;display:flex;align-items:center;justify-content:space-between;padding:16px 20px;position:sticky;top:0;z-index:100;">
-      <div style="font-family:'DM Serif Display',serif;font-size:26px;color:#FAF8F5;letter-spacing:3px;">BUT<span style="color:var(--accent);">T</span>Y</div>
-      <button class="hamburger-btn" onclick="openDrawer()" aria-label="메뉴 열기" style="position:static;margin:0;">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
+<!-- HERO BANNER -->
+<div style="background:#1A1A1A;padding:36px 24px 44px;position:relative;overflow:hidden;">
+  <div style="position:absolute;top:-80px;right:-80px;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(200,240,117,0.16) 0%,transparent 65%);pointer-events:none;"></div>
+  <div style="position:absolute;bottom:-60px;left:-50px;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(200,240,117,0.06) 0%,transparent 70%);pointer-events:none;"></div>
+  <h1 style="font-family:'Noto Sans KR',sans-serif;font-size:36px;font-weight:300;color:#FAF8F5;line-height:1.2;margin-bottom:14px;">버티는 팀장을,<br><em style="font-style:normal;font-weight:500;color:var(--accent);">성장하는</em><br>팀장으로</h1>
+  <p style="font-size:13px;color:rgba(250,248,245,0.5);line-height:1.8;font-weight:300;margin-bottom:28px;">팀장의 현실을 이해하고,<br>조직의 변화를 만듭니다.</p>
+  <div style="display:flex;gap:12px;flex-wrap:wrap;">
+    <button onclick="openPage('collab')" style="background:var(--accent);color:#1A1A1A;border:none;padding:13px 22px;border-radius:100px;font-size:13px;font-weight:700;font-family:'Noto Sans KR',sans-serif;cursor:pointer;box-shadow:0 4px 20px rgba(200,240,117,0.3);">협업 문의하기</button>
+    <button onclick="openPage('collab')" style="background:none;border:1px solid rgba(255,255,255,0.2);color:rgba(250,248,245,0.7);padding:13px 20px;border-radius:100px;font-size:13px;font-family:'Noto Sans KR',sans-serif;cursor:pointer;">상품 보기 →</button>
+  </div>
+</div>
 
-    <!-- HERO BANNER -->
-    <div style="background:#1A1A1A;padding:36px 24px 44px;position:relative;overflow:hidden;">
-      <div style="position:absolute;top:-80px;right:-80px;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(200,240,117,0.16) 0%,transparent 65%);pointer-events:none;"></div>
-      <div style="position:absolute;bottom:-60px;left:-50px;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(200,240,117,0.06) 0%,transparent 70%);pointer-events:none;"></div>
-      <h1 style="font-family:'Noto Sans KR',sans-serif;font-size:36px;font-weight:300;color:#FAF8F5;line-height:1.2;margin-bottom:14px;">버티는 팀장을,<br><em style="font-style:normal;font-weight:500;color:var(--accent);">성장하는</em><br>팀장으로</h1>
-      <p style="font-size:13px;color:rgba(250,248,245,0.5);line-height:1.8;font-weight:300;margin-bottom:28px;">팀장의 현실을 이해하고,<br>조직의 변화를 만듭니다.</p>
-      <div style="display:flex;gap:12px;flex-wrap:wrap;">
-        <button onclick="openPage('collab')" style="background:var(--accent);color:#1A1A1A;border:none;padding:13px 22px;border-radius:100px;font-size:13px;font-weight:700;font-family:'Noto Sans KR',sans-serif;cursor:pointer;box-shadow:0 4px 20px rgba(200,240,117,0.3);">협업 문의하기</button>
-        <button onclick="openPage('collab')" style="background:none;border:1px solid rgba(255,255,255,0.2);color:rgba(250,248,245,0.7);padding:13px 20px;border-radius:100px;font-size:13px;font-family:'Noto Sans KR',sans-serif;cursor:pointer;">상품 보기 →</button>
-      </div>
-    </div>
-
-    <!-- 상품 카드 영역 -->
-    <div style="padding:28px 24px 0;">
-
-      <!-- 버티 채널 상품 안내 제목 -->
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
-        <div>
-          <div style="font-size:10px;font-weight:700;letter-spacing:2px;color:var(--text-hint);text-transform:uppercase;margin-bottom:3px;">BUTTY PRODUCTS</div>
-          <div style="font-family:'DM Serif Display',serif;font-size:20px;color:var(--text);line-height:1.2;">버티 채널 상품 안내</div>
-        </div>
-      </div>
-
-      <!-- 리더십 패키지 카드 -->
-      <div onclick="openPage('collab')" style="background:#fff;border-radius:20px;padding:22px 20px;margin-bottom:10px;position:relative;overflow:hidden;border:1px solid var(--border);box-shadow:0 1px 4px rgba(0,0,0,0.06);cursor:pointer;">
-        <div style="position:absolute;top:0;left:0;width:3px;height:100%;background:var(--c-b2b);"></div>
-        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px;">
-          <div style="font-size:9px;font-weight:700;letter-spacing:1.5px;padding:4px 10px;border-radius:100px;text-transform:uppercase;background:var(--c-b2b-dim);color:var(--c-b2b);border:1px solid var(--c-b2b-border);">기업 전용</div>
-        </div>
-        <div style="font-size:16px;font-weight:700;color:var(--text);margin-bottom:10px;">리더십 성장 솔루션 4종</div>
-        <div style="display:flex;flex-direction:column;gap:7px;margin-bottom:16px;">
-          <div style="display:flex;align-items:center;gap:8px;"><div style="width:5px;height:5px;border-radius:50%;background:var(--c-b2b);flex-shrink:0;"></div><div style="font-size:12px;color:var(--text-muted);">전자책 기업용 라이선스</div></div>
-          <div style="display:flex;align-items:center;gap:8px;"><div style="width:5px;height:5px;border-radius:50%;background:var(--c-b2b);flex-shrink:0;"></div><div style="font-size:12px;color:var(--text-muted);">팀장 온보딩 키트 (90일)</div></div>
-          <div style="display:flex;align-items:center;gap:8px;"><div style="width:5px;height:5px;border-radius:50%;background:var(--c-b2b);flex-shrink:0;"></div><div style="font-size:12px;color:var(--text-muted);">팀장교육 콘텐츠 (월 4회)</div></div>
-          <div style="display:flex;align-items:center;gap:8px;"><div style="width:5px;height:5px;border-radius:50%;background:var(--c-b2b);flex-shrink:0;"></div><div style="font-size:12px;color:var(--text-muted);">리더십 리포트 (주 1회)</div></div>
-        </div>
-        <div style="padding-top:14px;border-top:1px solid var(--border-light);display:flex;justify-content:space-between;align-items:center;">
-          <div style="font-size:12px;color:var(--text-hint);">맞춤 견적 안내</div>
-          <div style="background:var(--c-b2b-dim);color:var(--c-b2b);border:1px solid var(--c-b2b-border);padding:7px 14px;border-radius:100px;font-size:11px;font-weight:700;">자세히 알아보기</div>
-        </div>
-      </div>
-
-      <!-- 광고 협업 카드 -->
-      <div onclick="openPage('collab')" style="background:#fff;border-radius:20px;padding:22px 20px;margin-bottom:10px;position:relative;overflow:hidden;border:1px solid var(--border);box-shadow:0 1px 4px rgba(0,0,0,0.06);cursor:pointer;">
-        <div style="position:absolute;top:0;left:0;width:3px;height:100%;background:var(--c-ad);"></div>
-        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px;">
-          <div style="font-size:9px;font-weight:700;letter-spacing:1.5px;padding:4px 10px;border-radius:100px;text-transform:uppercase;background:var(--c-ad-dim);color:var(--c-ad);border:1px solid var(--c-ad-border);">채널 광고</div>
-        </div>
-        <div style="font-size:16px;font-weight:700;color:var(--text);margin-bottom:10px;">인스타그램 + 뉴스레터</div>
-        <div style="display:flex;flex-direction:column;gap:7px;margin-bottom:16px;">
-          <div style="display:flex;align-items:center;gap:8px;"><div style="width:5px;height:5px;border-radius:50%;background:var(--c-ad);flex-shrink:0;"></div><div style="font-size:12px;color:var(--text-muted);">인스타툰 광고 (10컷 제작·업로드·2차 활용)</div></div>
-          <div style="display:flex;align-items:center;gap:8px;"><div style="width:5px;height:5px;border-radius:50%;background:var(--c-ad);flex-shrink:0;"></div><div style="font-size:12px;color:var(--text-muted);">뉴스레터 광고 (배너 / 레터 선택)</div></div>
-        </div>
-        <div style="padding-top:14px;border-top:1px solid var(--border-light);display:flex;justify-content:space-between;align-items:center;">
-          <div style="font-size:12px;color:var(--text-hint);">팀장 타겟 리더십 채널</div>
-          <div style="background:var(--c-ad-dim);color:var(--c-ad);border:1px solid var(--c-ad-border);padding:7px 14px;border-radius:100px;font-size:11px;font-weight:700;">자세히 알아보기</div>
-        </div>
-      </div>
-
-      <!-- 지금, 이 책 섹션 -->
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;margin-top:24px;">
-        <div>
-          <div style="font-size:10px;font-weight:700;letter-spacing:2px;color:var(--text-hint);text-transform:uppercase;margin-bottom:3px;">EBOOK</div>
-          <div style="font-family:'DM Serif Display',serif;font-size:20px;color:var(--text);line-height:1.2;">지금, 이 책</div>
-        </div>
-      </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
-
-        <!-- 전자책 카드 1 -->
-        <div onclick="window.open('https://smartstore.naver.com/hello_butty/products/12496968549','_blank')" style="background:#fff;border-radius:16px;cursor:pointer;border:1px solid rgba(0,0,0,0.13);overflow:hidden;box-shadow:0 1px 6px rgba(0,0,0,0.08);">
-          <div style="width:100%;aspect-ratio:3/4;overflow:hidden;background:#F5F5F3;position:relative;">
-            <div style="position:absolute;top:0;left:0;width:100%;height:3px;background:var(--c-book);z-index:1;"></div>
-            <img src="assets/images/book-cover-1.jpg" loading="lazy" style="width:100%;height:100%;object-fit:cover;transform:scale(1.15);object-position:60% center;display:block;padding:8px;background:#F5F5F3;">
-          </div>
-          <div style="padding:10px 12px 12px;">
-            <div style="font-size:14px;font-weight:700;color:var(--text);line-height:1.5;margin-bottom:8px;">팀장도 사수가<br>있었으면 좋겠다</div>
-            <div style="font-size:12px;font-weight:700;color:var(--c-book);margin-bottom:8px;">18,000원</div>
-            <div style="font-size:10px;font-weight:700;background:var(--c-book);color:#fff;padding:6px 0;border-radius:100px;text-align:center;">구매하기</div>
-          </div>
-        </div>
-
-        <!-- 전자책 카드 2 -->
-        <div onclick="window.open('https://smartstore.naver.com/hello_butty/products/12805908364','_blank')" style="background:#fff;border-radius:16px;cursor:pointer;border:1px solid rgba(0,0,0,0.13);overflow:hidden;box-shadow:0 1px 6px rgba(0,0,0,0.08);">
-          <div style="width:100%;aspect-ratio:3/4;overflow:hidden;background:#F5F5F3;position:relative;">
-            <div style="position:absolute;top:0;left:0;width:100%;height:3px;background:var(--c-book);z-index:1;"></div>
-            <img src="assets/images/book-cover-2.jpg" loading="lazy" style="width:100%;height:100%;object-fit:cover;transform:scale(1.15);display:block;padding:18px;background:#F5F5F3;">
-          </div>
-          <div style="padding:10px 12px 12px;">
-            <div style="font-size:14px;font-weight:700;color:var(--text);line-height:1.5;margin-bottom:8px;">누구나 언젠가<br>이직을 한다</div>
-            <div style="font-size:12px;font-weight:700;color:var(--c-book);margin-bottom:8px;">18,000원</div>
-            <div style="font-size:10px;font-weight:700;background:var(--c-book);color:#fff;padding:6px 0;border-radius:100px;text-align:center;">구매하기</div>
-          </div>
-        </div>
-
-      </div>
-
-    </div>
-
-    <!-- FOOTER -->
-    <div style="background:#1A1A1A;padding:32px 24px 48px;text-align:center;margin-top:32px;">
-      <div style="font-family:'DM Serif Display',serif;font-size:28px;color:#FAF8F5;letter-spacing:3px;margin-bottom:8px;">BUT<span style="color:var(--accent);">T</span>Y</div>
-      <p style="font-size:13px;color:rgba(250,248,245,0.3);line-height:1.7;margin-bottom:24px;">팀장의 성장을 함께하는<br>리더십 콘텐츠 브랜드</p>
-      <button onclick="openPage('collab')" style="background:var(--accent);color:#1A1A1A;border:none;padding:15px 0;border-radius:100px;font-size:14px;font-weight:700;font-family:'Noto Sans KR',sans-serif;cursor:pointer;width:100%;margin-bottom:20px;box-shadow:0 4px 24px rgba(200,240,117,0.25);">협업 문의하기 →</button>
-      <div style="display:flex;justify-content:center;gap:24px;">
-        <a style="font-size:11px;color:rgba(250,248,245,0.3);text-decoration:none;" href="https://www.instagram.com/hello.butty" target="_blank">인스타그램</a>
-        <a style="font-size:11px;color:rgba(250,248,245,0.3);text-decoration:none;" href="https://leader.stibee.com/" target="_blank">뉴스레터</a>
-        <a style="font-size:11px;color:rgba(250,248,245,0.3);text-decoration:none;" href="#">이용약관</a>
-      </div>
-    </div>
-
-  </div><!-- /view-main -->
-
-  <!-- ══════════════ 협업 문의 페이지 ══════════════ -->
-  <div id="page-collab" class="view sub-page" style="background:var(--bg);">
-
-    <div style="background:#1A1A1A;display:flex;align-items:center;gap:12px;padding:16px 20px;position:sticky;top:0;z-index:50;">
-      <button class="back-btn" onclick="closePage()" style="background:rgba(255,255,255,0.08);border-color:rgba(255,255,255,0.15);color:#FAF8F5;">←</button>
-      <span style="font-size:12px;font-weight:500;color:rgba(250,248,245,0.55);">협업 문의</span>
-      <button class="home-btn home-btn-dark" onclick="goHome()" title="홈으로"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 7L8 1L15 7V15H10V10H6V15H1V7Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></button>
-      <button class="hamburger-btn" onclick="openDrawer()" aria-label="메뉴" style="position:static;margin-left:0;">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
-
-    <div style="background:#1A1A1A;padding:32px 24px 28px;position:relative;overflow:hidden;">
-      <div style="position:absolute;top:-60px;right:-60px;width:220px;height:220px;border-radius:50%;background:radial-gradient(circle,rgba(200,240,117,0.15) 0%,transparent 65%);pointer-events:none;"></div>
-      <div style="font-size:10px;font-weight:700;letter-spacing:2.5px;color:var(--accent);text-transform:uppercase;margin-bottom:12px;">BUTTY × 협업</div>
-      <h1 style="font-family:'DM Serif Display',serif;font-size:28px;color:#FAF8F5;line-height:1.25;margin-bottom:10px;">버티와 함께<br>성과를 만드세요</h1>
-    </div>
-
-    <div style="background:var(--bg);position:sticky;top:56px;z-index:40;border-bottom:1px solid var(--border);">
-      <div style="display:flex;padding:0 20px;overflow-x:auto;scrollbar-width:none;" id="collab-tabs">
-        <button class="collab-tab active" data-csec="all" onclick="collabFilter(this,'all')" style="flex-shrink:0;padding:15px 14px;font-size:12px;font-weight:500;color:var(--text);border-bottom:2px solid #1A1A1A;border-top:none;border-left:none;border-right:none;cursor:pointer;background:none;white-space:nowrap;font-family:'Noto Sans KR',sans-serif;">전체</button>
-        <button class="collab-tab" data-csec="b2b" onclick="collabFilter(this,'b2b')" style="flex-shrink:0;padding:15px 14px;font-size:12px;font-weight:500;color:var(--text-hint);border-bottom:2px solid transparent;border-top:none;border-left:none;border-right:none;cursor:pointer;background:none;white-space:nowrap;font-family:'Noto Sans KR',sans-serif;">B2B</button>
-        <button class="collab-tab" data-csec="ad" onclick="collabFilter(this,'ad')" style="flex-shrink:0;padding:15px 14px;font-size:12px;font-weight:500;color:var(--text-hint);border-bottom:2px solid transparent;border-top:none;border-left:none;border-right:none;cursor:pointer;background:none;white-space:nowrap;font-family:'Noto Sans KR',sans-serif;">브랜드협업</button>
-      </div>
-    </div>
-
-    <div id="collab-products">
-      <!-- B2B -->
-      <div id="csec-b2b" class="collab-section">
-        <div class="section" id="products">
-          <div class="section-label">B2B</div>
-          <div class="section-title">기업 맞춤<br>리더십 솔루션</div>
-          <p style="font-size:13px;color:var(--text-muted);line-height:1.7;margin-bottom:22px;margin-top:-12px;">조직이 바로 변하는 실전형 패키지</p>
-          <div class="product-card b2b-card" onclick="openSub('ebook-license')">
-            <div class="card-stripe"></div><span class="card-arrow">›</span>
-            <div class="card-name">리더십 전자책 기업용 라이선스</div>
-            <div class="card-desc">신입 팀장이 처음 부딪히는 문제를 폭넓게 다루는 리더십 가이드. 사내 배포 및 교육 활용 가능.</div>
-            <div class="card-tags"><span class="tag">사내 배포 가능</span><span class="tag">요약본 포함</span><span class="tag">HR 활용가이드</span><span class="tag">신입팀장 1~3년차</span></div>
-            <div class="card-price-row"><div><div class="price-main">30만원~</div><div class="price-note">인원 규모별 상이</div></div><button class="price-cta" onclick="event.stopPropagation();mailTo('리더십 전자책 기업용 라이선스')">문의하기</button></div>
-          </div>
-          <div class="product-card b2b-card" onclick="openSub('onboarding')">
-            <div class="card-stripe dim"></div><span class="card-arrow">›</span>
-            <div class="card-name">팀장 온보딩 키트</div>
-            <div class="card-desc">신입 팀장 90일 온보딩 프로그램. 주차별 미션+실행 가이드, 팀장 자기점검 기록, HR 운영 가이드 포함.</div>
-            <div class="card-tags"><span class="tag">HR 운영가이드</span><span class="tag">커뮤니케이션</span><span class="tag">조직 안정화</span></div>
-            <div class="card-price-row"><div><div class="price-main">100만원~</div><div class="price-note">인원 규모별 상이</div></div><button class="price-cta" onclick="event.stopPropagation();mailTo('팀장 온보딩 키트')">문의하기</button></div>
-          </div>
-          <div class="product-card b2b-card" onclick="openSub('edu-content')">
-            <div class="card-stripe"></div><span class="card-arrow">›</span>
-            <div class="card-name">기업 맞춤 콘텐츠 제작</div>
-            <div class="card-desc">기업 맞춤 리더십툰 월 1~4회 제공. 사내 교육용으로 사용 가능 (외부 유출 금지).</div>
-            <div class="card-tags"><span class="tag">월 1~4회 제공</span><span class="tag">PDF 파일</span><span class="tag">사내 활용</span></div>
-            <div class="card-price-row"><div><div class="price-main">월 40만원~</div><div class="price-note">연간 계약 (20% 할인)</div></div><button class="price-cta" onclick="event.stopPropagation();mailTo('기업 맞춤 콘텐츠 제작')">문의하기</button></div>
-          </div>
-          <div class="product-card b2b-card" onclick="openSub('report')">
-            <div class="card-stripe dim"></div><span class="card-arrow">›</span>
-            <div class="card-name">리더십 리포트</div>
-            <div class="card-desc">월 1회 리더십 리포트 PDF 제공. 팀장 교육 콘텐츠 및 조직 맞춤 지원. 팀장·임원 대상.</div>
-            <div class="card-tags"><span class="tag">월 1회 리포트</span><span class="tag">조직 맞춤</span><span class="tag">팀장+임원</span></div>
-            <div class="card-price-row"><div><div class="price-main">월 100만원</div><div class="price-note">연간 계약 (20% 할인)</div></div><button class="price-cta" onclick="event.stopPropagation();mailTo('리더십 리포트')">문의하기</button></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- 브랜드협업 -->
-      <div id="csec-ad" class="collab-section">
-        <div style="height:1px;background:var(--border);margin:8px 24px 0;"></div>
-        <div class="section">
-          <div class="section-label">브랜드협업</div>
-          <div class="section-title">브랜드 협업 &<br>콘텐츠 제작</div>
-          <p style="font-size:13px;color:var(--text-muted);line-height:1.7;margin-bottom:22px;margin-top:-12px;">직장인 타깃에게 가장 현실적으로 닿는 콘텐츠</p>
-          <div class="product-card ad-card" onclick="openSub('ad-insta')">
-            <div class="card-stripe"></div><span class="card-arrow">›</span>
-            <div class="card-name">인스타툰 광고</div>
-            <div class="card-desc">인스타툰 (10컷 내외) 제작 + 게시물 업로드 + 스토리 1회. 하이라이트 추가 및 2차 활용 비용 별도.</div>
-            <div class="card-tags"><span class="tag">인스타툰 맞춤 제작</span><span class="tag">스토리</span><span class="tag">하이라이트</span><span class="tag">2차 활용</span></div>
-            <div class="card-price-row"><div><div class="price-main">60만원~</div><div class="price-note">정기 계약 시 별도 협의</div></div><button class="price-cta" onclick="event.stopPropagation();mailTo('인스타툰 광고')">문의하기</button></div>
-          </div>
-          <div class="product-card ad-card" onclick="openSub('ad-newsletter')">
-            <div class="card-stripe dim"></div><span class="card-arrow">›</span>
-            <div class="card-name">뉴스레터 광고</div>
-            <div class="card-desc">버티 뉴스레터 단독 스폰서. 팀장·직장인 400명에게 콘텐츠 형태로 직접 도달하는 광고.</div>
-            <div class="card-tags"><span class="tag">단독 스폰서</span><span class="tag">노출 400명 이상</span></div>
-            <div class="card-price-row"><div><div class="price-main">30만원</div><div class="price-note">1회</div></div><button class="price-cta" onclick="event.stopPropagation();mailTo('뉴스레터 광고')">문의하기</button></div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- FOOTER (협업 페이지) -->
-    <div class="footer" id="collab-contact">
-      <div class="footer-logo">BUT<span>T</span>Y</div>
-      <p class="footer-tagline">팀장의 성장을 함께하는<br>리더십 콘텐츠 브랜드</p>
-      <button class="btn-footer" onclick="mailTo('협업 문의')">협업 문의하기 →</button>
-      <div class="footer-links">
-        <a class="footer-link" href="https://www.instagram.com/hello.butty" target="_blank">인스타그램</a>
-        <a class="footer-link" href="https://leader.stibee.com/" target="_blank">뉴스레터</a>
-        <a class="footer-link" href="#">이용약관</a>
-      </div>
-    </div>
-
-  </div><!-- /page-collab -->
-
-
-  <!-- ══════════════ SUB PAGES ══════════════ -->
-
-  <!-- 리더십 전자책 기업용 라이선스 -->
-  <div id="sub-ebook-license" class="view sub-page b2b-sub">
-    <div class="sub-topbar">
-      <button class="back-btn" onclick="closeSub()">←</button>
-      <span class="sub-topbar-label">B2B 솔루션</span>
-      <button class="home-btn" onclick="goHome()" title="홈으로"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 7L8 1L15 7V15H10V10H6V15H1V7Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></button>
-    </div>
-    <div class="sub-hero">
-      <div class="sub-hero-orb"></div>
-      <div class="sub-badge">기업용</div>
-      <div class="sub-title">리더십 전자책<br>기업용 라이선스</div>
-      <div class="sub-price-big">30만원~</div>
-      <div class="sub-price-note">인원 규모별 상이 · 별도 견적 안내</div>
-    </div>
-    <div class="sub-body">
-      <div class="sub-section-title">상품 소개</div>
-      <div class="placeholder-block">상품 소개 내용을 채워주세요<br>전자책 구성, 활용 사례, 도입 효과 등</div>
-      <div class="sub-section-title">포함 내용</div>
-      <ul class="sub-list">
-        <li>사내 배포 가능 라이선스 제공</li>
-        <li>요약본 + HR 담당자 활용 가이드 포함</li>
-        <li>신입 팀장 1~3년차 대상 콘텐츠</li>
-        <li>인원 규모별 견적 개별 안내</li>
-      </ul>
-      <div class="sub-section-title">키워드</div>
-      <div class="sub-tags">
-        <span class="sub-tag">사내 배포 가능</span><span class="sub-tag">요약본 포함</span>
-        <span class="sub-tag">HR 활용가이드</span><span class="sub-tag">신입팀장 1~3년차</span>
-      </div>
-    </div>
-    <div class="sub-cta-area">
-      <button class="btn-sub-primary" onclick="mailTo('리더십 전자책 기업용 라이선스')">문의하기</button>
+<!-- 상품 카드 영역 -->
+<div style="padding:28px 24px 0;">
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
+    <div>
+      <div style="font-size:10px;font-weight:700;letter-spacing:2px;color:var(--text-hint);text-transform:uppercase;margin-bottom:3px;">BUTTY PRODUCTS</div>
+      <div style="font-family:'DM Serif Display',serif;font-size:20px;color:var(--text);line-height:1.2;">버티 채널 상품 안내</div>
     </div>
   </div>
 
-  <!-- 팀장 온보딩 키트 -->
-  <div id="sub-onboarding" class="view sub-page b2b-sub">
-    <div class="sub-topbar">
-      <button class="back-btn" onclick="closeSub()">←</button>
-      <span class="sub-topbar-label">B2B 솔루션</span>
-      <button class="home-btn" onclick="goHome()" title="홈으로"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 7L8 1L15 7V15H10V10H6V15H1V7Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></button>
+  <!-- 리더십 패키지 카드 -->
+  <div onclick="openPage('collab')" style="background:#fff;border-radius:20px;padding:22px 20px;margin-bottom:10px;position:relative;overflow:hidden;border:1px solid var(--border);box-shadow:0 1px 4px rgba(0,0,0,0.06);cursor:pointer;">
+    <div style="position:absolute;top:0;left:0;width:3px;height:100%;background:var(--c-b2b);"></div>
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px;">
+      <div style="font-size:9px;font-weight:700;letter-spacing:1.5px;padding:4px 10px;border-radius:100px;text-transform:uppercase;background:var(--c-b2b-dim);color:var(--c-b2b);border:1px solid var(--c-b2b-border);">기업 전용</div>
     </div>
-    <div class="sub-hero">
-      <div class="sub-hero-orb"></div>
-      <div class="sub-badge">온보딩</div>
-      <div class="sub-title">팀장 온보딩 키트</div>
-      <div class="sub-price-big">100만원~</div>
-      <div class="sub-price-note">인원 규모별 상이 · 별도 견적 안내</div>
+    <div style="font-size:16px;font-weight:700;color:var(--text);margin-bottom:10px;">리더십 성장 솔루션 4종</div>
+    <div style="display:flex;flex-direction:column;gap:7px;margin-bottom:16px;">
+      <div style="display:flex;align-items:center;gap:8px;"><div style="width:5px;height:5px;border-radius:50%;background:var(--c-b2b);flex-shrink:0;"></div><div style="font-size:12px;color:var(--text-muted);">전자책 기업용 라이선스</div></div>
+      <div style="display:flex;align-items:center;gap:8px;"><div style="width:5px;height:5px;border-radius:50%;background:var(--c-b2b);flex-shrink:0;"></div><div style="font-size:12px;color:var(--text-muted);">팀장 온보딩 키트 (90일)</div></div>
+      <div style="display:flex;align-items:center;gap:8px;"><div style="width:5px;height:5px;border-radius:50%;background:var(--c-b2b);flex-shrink:0;"></div><div style="font-size:12px;color:var(--text-muted);">팀장교육 콘텐츠 (월 4회)</div></div>
+      <div style="display:flex;align-items:center;gap:8px;"><div style="width:5px;height:5px;border-radius:50%;background:var(--c-b2b);flex-shrink:0;"></div><div style="font-size:12px;color:var(--text-muted);">리더십 리포트 (주 1회)</div></div>
     </div>
-    <div class="sub-body">
-      <div class="sub-section-title">상품 소개</div>
-      <div class="placeholder-block">상품 소개 내용을 채워주세요<br>90일 프로그램 구성, 활용 방법, 도입 사례 등</div>
-      <div class="sub-section-title">포함 내용</div>
-      <ul class="sub-list">
-        <li>신입 팀장 90일 온보딩 콘텐츠 전체</li>
-        <li>주차별 미션 + 실행 가이드</li>
-        <li>팀장 자기점검 기록지</li>
-        <li>HR 담당자 운영 가이드 포함</li>
-      </ul>
-      <div class="sub-section-title">키워드</div>
-      <div class="sub-tags">
-        <span class="sub-tag">90일 콘텐츠</span><span class="sub-tag">HR 운영가이드</span>
-        <span class="sub-tag">커뮤니케이션</span><span class="sub-tag">조직 안정화</span>
-      </div>
-    </div>
-    <div class="sub-cta-area">
-      <button class="btn-sub-primary" onclick="mailTo('팀장 온보딩 키트')">문의하기</button>
+    <div style="padding-top:14px;border-top:1px solid var(--border-light);display:flex;justify-content:space-between;align-items:center;">
+      <div style="font-size:12px;color:var(--text-hint);">맞춤 견적 안내</div>
+      <div style="background:var(--c-b2b-dim);color:var(--c-b2b);border:1px solid var(--c-b2b-border);padding:7px 14px;border-radius:100px;font-size:11px;font-weight:700;">자세히 알아보기</div>
     </div>
   </div>
 
-  <!-- 팀장교육 콘텐츠 -->
-  <div id="sub-edu-content" class="view sub-page b2b-sub">
-    <div class="sub-topbar">
-      <button class="back-btn" onclick="closeSub()">←</button>
-      <span class="sub-topbar-label">B2B 솔루션</span>
-      <button class="home-btn" onclick="goHome()" title="홈으로"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 7L8 1L15 7V15H10V10H6V15H1V7Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></button>
+  <!-- 광고 협업 카드 -->
+  <div onclick="openPage('collab')" style="background:#fff;border-radius:20px;padding:22px 20px;margin-bottom:10px;position:relative;overflow:hidden;border:1px solid var(--border);box-shadow:0 1px 4px rgba(0,0,0,0.06);cursor:pointer;">
+    <div style="position:absolute;top:0;left:0;width:3px;height:100%;background:var(--c-ad);"></div>
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px;">
+      <div style="font-size:9px;font-weight:700;letter-spacing:1.5px;padding:4px 10px;border-radius:100px;text-transform:uppercase;background:var(--c-ad-dim);color:var(--c-ad);border:1px solid var(--c-ad-border);">채널 광고</div>
     </div>
-    <div class="sub-hero">
-      <div class="sub-hero-orb"></div>
-      <div class="sub-badge">교육</div>
-      <div class="sub-title">팀장교육 콘텐츠</div>
-      <div class="sub-price-big">월 200만원</div>
-      <div class="sub-price-note">연 계약 시 1,920만원 (20% 할인)</div>
+    <div style="font-size:16px;font-weight:700;color:var(--text);margin-bottom:10px;">인스타그램 + 뉴스레터</div>
+    <div style="display:flex;flex-direction:column;gap:7px;margin-bottom:16px;">
+      <div style="display:flex;align-items:center;gap:8px;"><div style="width:5px;height:5px;border-radius:50%;background:var(--c-ad);flex-shrink:0;"></div><div style="font-size:12px;color:var(--text-muted);">인스타툰 광고 (10컷 제작·업로드·2차 활용)</div></div>
+      <div style="display:flex;align-items:center;gap:8px;"><div style="width:5px;height:5px;border-radius:50%;background:var(--c-ad);flex-shrink:0;"></div><div style="font-size:12px;color:var(--text-muted);">뉴스레터 광고 (배너 / 레터 선택)</div></div>
     </div>
-    <div class="sub-body">
-      <div class="sub-section-title">상품 소개</div>
-      <div class="placeholder-block">상품 소개 내용을 채워주세요<br>리더십툰 예시, 교육 효과, 커스터마이징 범위 등</div>
-      <div class="sub-section-title">포함 내용</div>
-      <ul class="sub-list">
-        <li>기업 맞춤 리더십툰 월 4회 (주 1회) 제공</li>
-        <li>PDF 파일 형식 납품</li>
-        <li>사내 교육용 활용 가능 (외부 유출 금지)</li>
-      </ul>
-      <div class="sub-section-title">키워드</div>
-      <div class="sub-tags">
-        <span class="sub-tag">월 4회 제공</span><span class="sub-tag">PDF 파일</span><span class="sub-tag">사내 활용</span>
-      </div>
-    </div>
-    <div class="sub-cta-area">
-      <button class="btn-sub-primary" onclick="mailTo('팀장교육 콘텐츠')">문의하기</button>
+    <div style="padding-top:14px;border-top:1px solid var(--border-light);display:flex;justify-content:space-between;align-items:center;">
+      <div style="font-size:12px;color:var(--text-hint);">팀장 타겟 리더십 채널</div>
+      <div style="background:var(--c-ad-dim);color:var(--c-ad);border:1px solid var(--c-ad-border);padding:7px 14px;border-radius:100px;font-size:11px;font-weight:700;">자세히 알아보기</div>
     </div>
   </div>
 
-  <!-- 리더십 리포트 -->
-  <div id="sub-report" class="view sub-page b2b-sub">
-    <div class="sub-topbar">
-      <button class="back-btn" onclick="closeSub()">←</button>
-      <span class="sub-topbar-label">B2B 솔루션</span>
-      <button class="home-btn" onclick="goHome()" title="홈으로"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 7L8 1L15 7V15H10V10H6V15H1V7Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></button>
-    </div>
-    <div class="sub-hero">
-      <div class="sub-hero-orb"></div>
-      <div class="sub-badge">리포트</div>
-      <div class="sub-title">리더십 리포트</div>
-      <div class="sub-price-big">월 100만원</div>
-      <div class="sub-price-note">연 계약 시 960만원 (20% 할인)</div>
-    </div>
-    <div class="sub-body">
-      <div class="sub-section-title">상품 소개</div>
-      <div class="placeholder-block">상품 소개 내용을 채워주세요<br>리포트 샘플, 구성 목차, 활용 방법 등</div>
-      <div class="sub-section-title">포함 내용</div>
-      <ul class="sub-list">
-        <li>주 1회 리더십 리포트 PDF 제공</li>
-        <li>팀장 교육 콘텐츠 포함</li>
-        <li>조직 상황에 맞춘 커스터마이징 지원</li>
-        <li>팀장 · 임원 함께 활용 가능</li>
-      </ul>
-      <div class="sub-section-title">키워드</div>
-      <div class="sub-tags">
-        <span class="sub-tag">주1회 리포트</span><span class="sub-tag">조직 맞춤</span><span class="sub-tag">팀장+임원</span>
-      </div>
-    </div>
-    <div class="sub-cta-area">
-      <button class="btn-sub-primary" onclick="mailTo('리더십 리포트')">문의하기</button>
+  <!-- 지금, 이 책 섹션 -->
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;margin-top:24px;">
+    <div>
+      <div style="font-size:10px;font-weight:700;letter-spacing:2px;color:var(--text-hint);text-transform:uppercase;margin-bottom:3px;">EBOOK</div>
+      <div style="font-family:'DM Serif Display',serif;font-size:20px;color:var(--text);line-height:1.2;">지금, 이 책</div>
     </div>
   </div>
-
-  <!-- 인스타툰 광고 -->
-  <div id="sub-ad-insta" class="view sub-page ad-sub">
-    <div class="sub-topbar">
-      <button class="back-btn" onclick="closeSub()">←</button>
-      <span class="sub-topbar-label">광고 협업</span>
-      <button class="home-btn" onclick="goHome()" title="홈으로"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 7L8 1L15 7V15H10V10H6V15H1V7Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></button>
-    </div>
-    <div class="sub-hero">
-      <div class="sub-hero-orb"></div>
-      <div class="sub-badge">인스타그램</div>
-      <div class="sub-title">인스타툰 광고</div>
-      <div class="sub-price-big">총 100만원</div>
-      <div class="sub-price-note">인스타툰 + 게시물 + 스토리 + 하이라이트 + 2차 활용 포함</div>
-    </div>
-    <div class="sub-body">
-      <div class="sub-section-title">상품 소개</div>
-      <div class="placeholder-block">상품 소개 내용을 채워주세요<br>채널 현황, 타겟 오디언스, 광고 예시 등</div>
-      <div class="sub-section-title">포함 내용</div>
-      <ul class="sub-list">
-        <li>인스타툰 10컷 내외 제작</li>
-        <li>인스타그램 게시물 업로드</li>
-        <li>스토리 1회 (60만원 포함)</li>
-        <li>하이라이트 추가 (+10만원 포함)</li>
-        <li>기획 · 1차 수정 각 1회 (총 2회)</li>
-        <li>2차 활용 포함 (30만원 포함)</li>
-      </ul>
-      <div class="sub-section-title">키워드</div>
-      <div class="sub-tags">
-        <span class="sub-tag">10컷 제작</span><span class="sub-tag">스토리 포함</span>
-        <span class="sub-tag">하이라이트</span><span class="sub-tag">2차 활용</span>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+    <!-- 전자책 카드 1 -->
+    <div onclick="window.open('https://smartstore.naver.com/hello\_butty/products/12496968549','\_blank')" style="background:#fff;border-radius:16px;cursor:pointer;border:1px solid rgba(0,0,0,0.13);overflow:hidden;box-shadow:0 1px 6px rgba(0,0,0,0.08);">
+      <div style="width:100%;aspect-ratio:3/4;overflow:hidden;background:#F5F5F3;position:relative;">
+        <div style="position:absolute;top:0;left:0;width:100%;height:3px;background:var(--c-book);z-index:1;"></div>
+        <img src="assets/images/book-cover-1.jpg" loading="lazy" style="width:100%;height:100%;object-fit:cover;transform:scale(1.15);object-position:60% center;display:block;padding:8px;background:#F5F5F3;">
+      </div>
+      <div style="padding:10px 12px 12px;">
+        <div style="font-size:14px;font-weight:700;color:var(--text);line-height:1.5;margin-bottom:8px;">팀장도 사수가<br>있었으면 좋겠다</div>
+        <div style="font-size:12px;font-weight:700;color:var(--c-book);margin-bottom:8px;">18,000원</div>
+        <div style="font-size:10px;font-weight:700;background:var(--c-book);color:#fff;padding:6px 0;border-radius:100px;text-align:center;">구매하기</div>
       </div>
     </div>
-    <div class="sub-cta-area">
-      <button class="btn-sub-primary" onclick="mailTo('인스타툰 광고')">문의하기</button>
-    </div>
-  </div>
-
-  <!-- 뉴스레터 광고 -->
-  <div id="sub-ad-newsletter" class="view sub-page ad-sub">
-    <div class="sub-topbar">
-      <button class="back-btn" onclick="closeSub()">←</button>
-      <span class="sub-topbar-label">광고 협업</span>
-      <button class="home-btn" onclick="goHome()" title="홈으로"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 7L8 1L15 7V15H10V10H6V15H1V7Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></button>
-    </div>
-    <div class="sub-hero">
-      <div class="sub-hero-orb"></div>
-      <div class="sub-badge">뉴스레터</div>
-      <div class="sub-title">뉴스레터 광고</div>
-      <div class="sub-price-big">30만원~</div>
-      <div class="sub-price-note">배너 광고 30만원 / 레터 광고 100만원</div>
-    </div>
-    <div class="sub-body">
-      <div class="sub-section-title">상품 소개</div>
-      <div class="placeholder-block">상품 소개 내용을 채워주세요<br>구독자 수, 오픈율, 광고 예시 이미지 등</div>
-      <div class="sub-section-title">광고 옵션</div>
-      <ul class="sub-list">
-        <li><strong style="color:var(--text);font-weight:700;">배너 광고</strong> — 30만원 / 뉴스레터 상단 또는 하단 배너</li>
-        <li><strong style="color:var(--text);font-weight:700;">레터 광고</strong> — 100만원 / 본문 내 네이티브 광고 형식</li>
-      </ul>
-      <div class="sub-section-title">키워드</div>
-      <div class="sub-tags">
-        <span class="sub-tag">배너광고 30만원</span><span class="sub-tag">레터광고 100만원</span>
+    <!-- 전자책 카드 2 -->
+    <div onclick="window.open('https://smartstore.naver.com/hello\_butty/products/12805908364','\_blank')" style="background:#fff;border-radius:16px;cursor:pointer;border:1px solid rgba(0,0,0,0.13);overflow:hidden;box-shadow:0 1px 6px rgba(0,0,0,0.08);">
+      <div style="width:100%;aspect-ratio:3/4;overflow:hidden;background:#F5F5F3;position:relative;">
+        <div style="position:absolute;top:0;left:0;width:100%;height:3px;background:var(--c-book);z-index:1;"></div>
+        <img src="assets/images/book-cover-2.jpg" loading="lazy" style="width:100%;height:100%;object-fit:cover;transform:scale(1.15);display:block;padding:18px;background:#F5F5F3;">
+      </div>
+      <div style="padding:10px 12px 12px;">
+        <div style="font-size:14px;font-weight:700;color:var(--text);line-height:1.5;margin-bottom:8px;">누구나 언젠가<br>이직을 한다</div>
+        <div style="font-size:12px;font-weight:700;color:var(--c-book);margin-bottom:8px;">18,000원</div>
+        <div style="font-size:10px;font-weight:700;background:var(--c-book);color:#fff;padding:6px 0;border-radius:100px;text-align:center;">구매하기</div>
       </div>
     </div>
-    <div class="sub-cta-area">
-      <button class="btn-sub-primary" onclick="mailTo('뉴스레터 광고')">문의하기</button>
-    </div>
   </div>
+</div>
 
-  <!-- 전자책 1 -->
-  <div id="sub-book-1" class="view sub-page book-sub">
-    <div class="sub-topbar">
-      <button class="back-btn" onclick="closeSub()">←</button>
-      <span class="sub-topbar-label">전자책</span>
-      <button class="home-btn" onclick="goHome()" title="홈으로"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 7L8 1L15 7V15H10V10H6V15H1V7Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></button>
-    </div>
-    <div class="sub-hero">
-      <div class="sub-hero-orb"></div>
-      <div class="sub-badge">베스트</div>
-      <div class="sub-title">팀장도 사수가<br>있었으면 좋겠다</div>
-      <div class="sub-price-big">18,000원</div>
-      <div class="sub-price-note">네이버 스마트스토어</div>
-    </div>
-    <div class="sub-body">
-      <div class="sub-section-title">책 소개</div>
-      <div class="placeholder-block">책 소개 내용을 채워주세요<br>목차, 주요 챕터, 추천 독자 등</div>
-      <div class="sub-section-title">이런 분께 추천해요</div>
-      <ul class="sub-list">
-        <li>팀장 발령 후 무엇부터 해야 할지 모르는 분</li>
-        <li>팀원 피드백이 어렵게 느껴지는 분</li>
-        <li>성과 관리 · 문제 팀원 대응에 막막한 분</li>
-      </ul>
-    </div>
-    <div class="sub-cta-area">
-      <a class="btn-sub-primary" href="https://smartstore.naver.com/hello_butty/products/12496968549" target="_blank">네이버 스토어에서 구매하기</a>
-      <button class="btn-sub-secondary" onclick="mailTo('팀장도 사수가 있었으면 좋겠다')">구매 전 문의하기</button>
-    </div>
+<!-- FOOTER -->
+<div style="background:#1A1A1A;padding:32px 24px 48px;text-align:center;margin-top:32px;">
+  <div style="font-family:'DM Serif Display',serif;font-size:28px;color:#FAF8F5;letter-spacing:3px;margin-bottom:8px;">BUT<span style="color:var(--accent);">T</span>Y</div>
+  <p style="font-size:13px;color:rgba(250,248,245,0.3);line-height:1.7;margin-bottom:24px;">팀장의 성장을 함께하는<br>리더십 콘텐츠 브랜드</p>
+  <button onclick="openPage('collab')" style="background:var(--accent);color:#1A1A1A;border:none;padding:15px 0;border-radius:100px;font-size:14px;font-weight:700;font-family:'Noto Sans KR',sans-serif;cursor:pointer;width:100%;margin-bottom:20px;box-shadow:0 4px 24px rgba(200,240,117,0.25);">협업 문의하기 →</button>
+  <div style="display:flex;justify-content:center;gap:24px;">
+    <a style="font-size:11px;color:rgba(250,248,245,0.3);text-decoration:none;" href="https://www.instagram.com/hello.butty" target="\_blank">인스타그램</a>
+    <a style="font-size:11px;color:rgba(250,248,245,0.3);text-decoration:none;" href="https://leader.stibee.com/" target="\_blank">뉴스레터</a>
+    <a style="font-size:11px;color:rgba(250,248,245,0.3);text-decoration:none;" href="#">이용약관</a>
   </div>
+</div>
+</div><!-- /view-main -->
 
-  <!-- 전자책 2 -->
-  <div id="sub-book-2" class="view sub-page book-sub">
-    <div class="sub-topbar">
-      <button class="back-btn" onclick="closeSub()">←</button>
-      <span class="sub-topbar-label">전자책</span>
-      <button class="home-btn" onclick="goHome()" title="홈으로"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 7L8 1L15 7V15H10V10H6V15H1V7Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></button>
-    </div>
-    <div class="sub-hero">
-      <div class="sub-hero-orb"></div>
-      <div class="sub-badge">신규</div>
-      <div class="sub-title">누구나 언젠가<br>이직을 한다</div>
-      <div class="sub-price-big">18,000원</div>
-      <div class="sub-price-note">네이버 스마트스토어</div>
-    </div>
-    <div class="sub-body">
-      <div class="sub-section-title">책 소개</div>
-      <div class="placeholder-block">책 소개 내용을 채워주세요<br>목차, 주요 챕터, 추천 독자 등</div>
-      <div class="sub-section-title">이런 분께 추천해요</div>
-      <ul class="sub-list">
-        <li>이직을 막연하게 생각하고만 있는 분</li>
-        <li>커리어 방향을 다시 잡고 싶은 분</li>
-        <li>이직 준비를 체계적으로 시작하고 싶은 분</li>
-      </ul>
-    </div>
-    <div class="sub-cta-area">
-      <a class="btn-sub-primary" href="https://smartstore.naver.com/hello_butty/products/12805908364" target="_blank">네이버 스토어에서 구매하기</a>
-      <button class="btn-sub-secondary" onclick="mailTo('누구나 언젠가 이직을 한다')">구매 전 문의하기</button>
-    </div>
+<!-- ══════════════ 협업 문의 페이지 ══════════════ -->
+<div id="page-collab" class="view sub-page" style="background:var(--bg);">
+<div style="background:#1A1A1A;display:flex;align-items:center;gap:12px;padding:16px 20px;position:sticky;top:0;z-index:50;">
+  <button class="back-btn" onclick="closePage()" style="background:rgba(255,255,255,0.08);border-color:rgba(255,255,255,0.15);color:#FAF8F5;">←</button>
+  <span style="font-size:12px;font-weight:500;color:rgba(250,248,245,0.55);">협업 문의</span>
+  <button class="home-btn home-btn-dark" onclick="goHome()" title="홈으로"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 7L8 1L15 7V15H10V10H6V15H1V7Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></button>
+  <button class="hamburger-btn" onclick="openDrawer()" aria-label="메뉴" style="position:static;margin-left:0;">
+    <span></span><span></span><span></span>
+  </button>
+</div>
+<div style="background:#1A1A1A;padding:32px 24px 28px;position:relative;overflow:hidden;">
+  <div style="position:absolute;top:-60px;right:-60px;width:220px;height:220px;border-radius:50%;background:radial-gradient(circle,rgba(200,240,117,0.15) 0%,transparent 65%);pointer-events:none;"></div>
+  <div style="font-size:10px;font-weight:700;letter-spacing:2.5px;color:var(--accent);text-transform:uppercase;margin-bottom:12px;">BUTTY × 협업</div>
+  <h1 style="font-family:'DM Serif Display',serif;font-size:28px;color:#FAF8F5;line-height:1.25;margin-bottom:10px;">버티와 함께<br>성과를 만드세요</h1>
+</div>
+<div style="background:var(--bg);position:sticky;top:56px;z-index:40;border-bottom:1px solid var(--border);">
+  <div style="display:flex;padding:0 20px;overflow-x:auto;scrollbar-width:none;" id="collab-tabs">
+    <button class="collab-tab active" data-csec="all" onclick="collabFilter(this,'all')" style="flex-shrink:0;padding:15px 14px;font-size:12px;font-weight:500;color:var(--text);border-bottom:2px solid #1A1A1A;border-top:none;border-left:none;border-right:none;cursor:pointer;background:none;white-space:nowrap;font-family:'Noto Sans KR',sans-serif;">전체</button>
+    <button class="collab-tab" data-csec="b2b" onclick="collabFilter(this,'b2b')" style="flex-shrink:0;padding:15px 14px;font-size:12px;font-weight:500;color:var(--text-hint);border-bottom:2px solid transparent;border-top:none;border-left:none;border-right:none;cursor:pointer;background:none;white-space:nowrap;font-family:'Noto Sans KR',sans-serif;">B2B</button>
+    <button class="collab-tab" data-csec="ad" onclick="collabFilter(this,'ad')" style="flex-shrink:0;padding:15px 14px;font-size:12px;font-weight:500;color:var(--text-hint);border-bottom:2px solid transparent;border-top:none;border-left:none;border-right:none;cursor:pointer;background:none;white-space:nowrap;font-family:'Noto Sans KR',sans-serif;">브랜드협업</button>
   </div>
+</div>
 
-  <!-- ══ 회사 소개 페이지 ══ -->
-  <div id="page-about" class="view sub-page" style="background:var(--bg);">
-    <div class="sub-topbar">
-      <button class="back-btn" onclick="closePage()">←</button>
-      <span class="sub-topbar-label">회사 소개</span>
-      <button class="home-btn" onclick="goHome()" title="홈으로"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 7L8 1L15 7V15H10V10H6V15H1V7Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></button>
-    </div>
-    <div style="background:var(--bg-hero); padding:40px 24px 36px; position:relative; overflow:hidden;">
-      <div style="position:absolute;top:-60px;right:-60px;width:220px;height:220px;border-radius:50%;background:radial-gradient(circle,rgba(200,240,117,0.15) 0%,transparent 65%);pointer-events:none;"></div>
-      <div style="font-size:10px;font-weight:700;letter-spacing:2.5px;color:var(--accent);text-transform:uppercase;margin-bottom:12px;">ABOUT BUTTY</div>
-      <div style="font-family:'DM Serif Display',serif;font-size:30px;color:#FAF8F5;line-height:1.2;margin-bottom:14px;">팀장의 성장을<br>함께합니다</div>
-      <div style="font-size:13px;color:rgba(250,248,245,0.5);line-height:1.8;font-weight:300;">리더십 콘텐츠 브랜드 BUTTY는<br>신입 팀장부터 임원까지,<br>성장의 모든 순간을 함께합니다.</div>
-    </div>
-    <div style="padding:28px 24px 0;">
-      <div style="font-size:10px;font-weight:700;letter-spacing:2.5px;color:var(--text-hint);text-transform:uppercase;margin-bottom:16px;">우리가 하는 일</div>
+<div id="collab-products">
+  <!-- B2B -->
+  <div id="csec-b2b" class="collab-section">
+    <div class="section" id="products">
+      <div class="section-label">B2B</div>
+      <div class="section-title">기업 맞춤<br>리더십 솔루션</div>
+      <p style="font-size:13px;color:var(--text-muted);line-height:1.7;margin-bottom:22px;margin-top:-12px;">조직이 바로 변하는 실전형 패키지</p>
 
-      <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:28px;">
-        <div style="background:var(--bg-card);border-radius:16px;padding:18px 20px;border:1px solid var(--border);display:flex;gap:14px;align-items:flex-start;">
-          <div style="font-size:22px;flex-shrink:0;margin-top:2px;">📝</div>
-          <div>
-            <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:4px;">리더십 콘텐츠</div>
-            <div style="font-size:12px;color:var(--text-muted);line-height:1.7;">인스타툰, 뉴스레터, 전자책 등 다양한 형태의 리더십 콘텐츠를 제작합니다.</div>
-          </div>
-        </div>
-        <div style="background:var(--bg-card);border-radius:16px;padding:18px 20px;border:1px solid var(--border);display:flex;gap:14px;align-items:flex-start;">
-          <div style="font-size:22px;flex-shrink:0;margin-top:2px;">🏢</div>
-          <div>
-            <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:4px;">B2B 솔루션</div>
-            <div style="font-size:12px;color:var(--text-muted);line-height:1.7;">기업 맞춤형 팀장 교육 콘텐츠, 온보딩 키트, 리더십 리포트를 제공합니다.</div>
-          </div>
-        </div>
-        <div style="background:var(--bg-card);border-radius:16px;padding:18px 20px;border:1px solid var(--border);display:flex;gap:14px;align-items:flex-start;">
-          <div style="font-size:22px;flex-shrink:0;margin-top:2px;">📣</div>
-          <div>
-            <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:4px;">광고 협업</div>
-            <div style="font-size:12px;color:var(--text-muted);line-height:1.7;">인스타그램 리더십 채널과 뉴스레터를 통한 광고 협업을 진행합니다.</div>
-          </div>
-        </div>
+      <div class="product-card b2b-card" onclick="openSub('ebook-license')">
+        <div class="card-stripe"></div><span class="card-arrow">›</span>
+        <div class="card-name">리더십 전자책 기업용 라이선스</div>
+        <div class="card-desc">신입 팀장이 처음 부딪히는 문제를 폭넓게 다루는 리더십 가이드. 사내 배포 및 교육 활용 가능.</div>
+        <div class="card-tags"><span class="tag">사내 배포 가능</span><span class="tag">요약본 포함</span><span class="tag">HR 활용가이드</span><span class="tag">신입팀장 1~3년차</span></div>
+        <div class="card-price-row"><div></div><button class="price-cta" onclick="event.stopPropagation();mailTo('리더십 전자책 기업용 라이선스')">문의하기</button></div>
       </div>
 
-      <div style="font-size:10px;font-weight:700;letter-spacing:2.5px;color:var(--text-hint);text-transform:uppercase;margin-bottom:16px;">우리의 가치</div>
-      <div style="background:var(--bg-card);border-radius:16px;padding:20px;border:1px solid var(--border);margin-bottom:32px;">
-        <div style="font-family:'DM Serif Display',serif;font-size:18px;color:var(--text);line-height:1.5;margin-bottom:12px;">"모든 팀장에게는<br>사수가 필요하다"</div>
-        <div style="font-size:13px;color:var(--text-muted);line-height:1.8;">처음 팀장이 된 순간, 아무도 알려주지 않는 것들이 있습니다. BUTTY는 그 공백을 채우는 리더십 콘텐츠 브랜드입니다. 현실적이고, 따뜻하게.</div>
-      </div>
-    </div>
-    <div style="padding:0 24px 52px;">
-      <button onclick="closePage(); setTimeout(scrollToContact,100)" style="background:var(--bg-hero);color:#FAF8F5;border:none;padding:16px;border-radius:100px;font-size:14px;font-weight:700;font-family:'Noto Sans KR',sans-serif;cursor:pointer;width:100;transition:opacity 0.15s;width:100%;">협업 문의하기</button>
-    </div>
-  </div>
-
-  <!-- ══ 캐릭터 소개 페이지 ══ -->
-  <div id="page-character" class="view sub-page" style="background:var(--bg);">
-    <div class="sub-topbar">
-      <button class="back-btn" onclick="closePage()">←</button>
-      <span class="sub-topbar-label">캐릭터 소개</span>
-      <button class="home-btn" onclick="goHome()" title="홈으로"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 7L8 1L15 7V15H10V10H6V15H1V7Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></button>
-    </div>
-    <div style="background:var(--bg-hero);padding:32px 24px 28px;position:relative;overflow:hidden;">
-      <div style="position:absolute;top:-60px;right:-60px;width:220px;height:220px;border-radius:50%;background:radial-gradient(circle,rgba(200,240,117,0.15) 0%,transparent 65%);pointer-events:none;"></div>
-      <div style="font-size:10px;font-weight:700;letter-spacing:2.5px;color:var(--accent);text-transform:uppercase;margin-bottom:12px;">CHARACTERS</div>
-      <div style="font-family:'DM Serif Display',serif;font-size:28px;color:#FAF8F5;line-height:1.2;">버티 패밀리를<br>소개합니다</div>
-    </div>
-    <div style="padding:24px 24px 52px;display:flex;flex-direction:column;gap:16px;">
-
-      <!-- 단체 이미지 -->
-      <div style="border-radius:20px;overflow:hidden;background:#F5F5F3;border:1px solid var(--border);">
-        <img src="assets/images/character-main.jpg" loading="lazy" style="width:100%;display:block;object-fit:cover;">
+      <div class="product-card b2b-card" onclick="openSub('onboarding')">
+        <div class="card-stripe dim"></div><span class="card-arrow">›</span>
+        <div class="card-name">팀장 온보딩 키트</div>
+        <div class="card-desc">신입 팀장 90일 온보딩 프로그램. 주차별 미션+실행 가이드, 팀장 자기점검 기록, HR 운영 가이드 포함.</div>
+        <div class="card-tags"><span class="tag">HR 운영가이드</span><span class="tag">커뮤니케이션</span><span class="tag">조직 안정화</span></div>
+        <div class="card-price-row"><div></div><button class="price-cta" onclick="event.stopPropagation();mailTo('팀장 온보딩 키트')">문의하기</button></div>
       </div>
 
-                        <!-- 캐릭터 2열 그리드 -->
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
-
-        <div style="display:flex;flex-direction:column;align-items:center;">
-          <div style="width:88px;height:88px;border-radius:50%;overflow:hidden;border:1.5px solid rgba(0,0,0,0.13);background:#fff;margin-bottom:-20px;position:relative;z-index:2;box-shadow:0 2px 8px rgba(0,0,0,0.08);">
-            <img src="assets/images/character-avatar-1.jpg" loading="lazy" style="width:100%;height:100%;object-fit:cover;transform:scale(1.15);">
-          </div>
-          <div style="background:#fff;border-radius:16px;border:1px solid var(--border);padding:28px 12px 14px;width:100%;box-shadow:0 1px 4px rgba(0,0,0,0.06);">
-            <div style="font-family:'DM Serif Display',serif;font-size:15px;color:var(--text);margin-bottom:4px;text-align:center;">버티 팀장</div>
-            <div style="font-size:10px;color:var(--text-muted);line-height:1.65;margin-bottom:10px;text-align:center;">좋은 사람과 좋은 팀장 사이에서 매일 흔들리는 초보 팀장</div>
-            <div style="display:flex;flex-wrap:wrap;gap:4px;justify-content:center;"><span style="font-size:9px;font-weight:600;padding:2px 7px;border-radius:100px;background:rgba(0,0,0,0.05);color:var(--text-muted);border:1px solid rgba(0,0,0,0.1);">초보 팀장</span><span style="font-size:9px;font-weight:600;padding:2px 7px;border-radius:100px;background:rgba(0,0,0,0.05);color:var(--text-muted);border:1px solid rgba(0,0,0,0.1);">리더십 성장</span></div>
-          </div>
-        </div>
-
-        <div style="display:flex;flex-direction:column;align-items:center;">
-          <div style="width:88px;height:88px;border-radius:50%;overflow:hidden;border:1.5px solid rgba(0,0,0,0.13);background:#fff;margin-bottom:-20px;position:relative;z-index:2;box-shadow:0 2px 8px rgba(0,0,0,0.08);">
-            <img src="assets/images/character-avatar-2.jpg" loading="lazy" style="width:100%;height:100%;object-fit:cover;transform:scale(1.15);">
-          </div>
-          <div style="background:#fff;border-radius:16px;border:1px solid var(--border);padding:28px 12px 14px;width:100%;box-shadow:0 1px 4px rgba(0,0,0,0.06);">
-            <div style="font-family:'DM Serif Display',serif;font-size:15px;color:var(--text);margin-bottom:4px;text-align:center;">먼데이 과장</div>
-            <div style="font-size:10px;color:var(--text-muted);line-height:1.65;margin-bottom:10px;text-align:center;">직장생활 10년차, 무기력과 짜증이 기본값인 먼데이 과장</div>
-            <div style="display:flex;flex-wrap:wrap;gap:4px;justify-content:center;"><span style="font-size:9px;font-weight:600;padding:2px 7px;border-radius:100px;background:rgba(0,0,0,0.05);color:var(--text-muted);border:1px solid rgba(0,0,0,0.1);">냉소</span><span style="font-size:9px;font-weight:600;padding:2px 7px;border-radius:100px;background:rgba(0,0,0,0.05);color:var(--text-muted);border:1px solid rgba(0,0,0,0.1);">번아웃</span><span style="font-size:9px;font-weight:600;padding:2px 7px;border-radius:100px;background:rgba(0,0,0,0.05);color:var(--text-muted);border:1px solid rgba(0,0,0,0.1);">피로</span></div>
-          </div>
-        </div>
-
-        <div style="display:flex;flex-direction:column;align-items:center;">
-          <div style="width:88px;height:88px;border-radius:50%;overflow:hidden;border:1.5px solid rgba(0,0,0,0.13);background:#fff;margin-bottom:-20px;position:relative;z-index:2;box-shadow:0 2px 8px rgba(0,0,0,0.08);">
-            <img src="assets/images/character-avatar-3.jpg" loading="lazy" style="width:100%;height:100%;object-fit:cover;transform:scale(1.15);">
-          </div>
-          <div style="background:#fff;border-radius:16px;border:1px solid var(--border);padding:28px 12px 14px;width:100%;box-shadow:0 1px 4px rgba(0,0,0,0.06);">
-            <div style="font-family:'DM Serif Display',serif;font-size:15px;color:var(--text);margin-bottom:4px;text-align:center;">랑이 대리</div>
-            <div style="font-size:10px;color:var(--text-muted);line-height:1.65;margin-bottom:10px;text-align:center;">직장인 4년차, 이제 막 대리가 된 성장형 실무자</div>
-            <div style="display:flex;flex-wrap:wrap;gap:4px;justify-content:center;"><span style="font-size:9px;font-weight:600;padding:2px 7px;border-radius:100px;background:rgba(0,0,0,0.05);color:var(--text-muted);border:1px solid rgba(0,0,0,0.1);">성장통</span><span style="font-size:9px;font-weight:600;padding:2px 7px;border-radius:100px;background:rgba(0,0,0,0.05);color:var(--text-muted);border:1px solid rgba(0,0,0,0.1);">인정 욕구</span><span style="font-size:9px;font-weight:600;padding:2px 7px;border-radius:100px;background:rgba(0,0,0,0.05);color:var(--text-muted);border:1px solid rgba(0,0,0,0.1);">커리어</span></div>
-          </div>
-        </div>
-
-      </div><!-- /grid -->
-    </div>
-  </div>
-
-  <!-- ══ 리더십레터 페이지 ══ -->
-  <div id="page-letter" class="view sub-page" style="background:var(--bg);">
-    <div class="sub-topbar">
-      <button class="back-btn" onclick="closePage()">←</button>
-      <span class="sub-topbar-label">리더십레터</span>
-      <button class="home-btn" onclick="goHome()" title="홈으로" style="margin-left:auto;"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 7L8 1L15 7V15H10V10H6V15H1V7Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></button>
-      <button onclick="openLetterAdmin()" style="margin-left:8px;background:none;border:none;cursor:pointer;font-size:18px;opacity:0.35;padding:4px;" title="관리자">⚙️</button>
-    </div>
-    <div style="background:var(--bg-hero);padding:32px 24px 28px;position:relative;overflow:hidden;">
-      <div style="position:absolute;top:-60px;right:-60px;width:220px;height:220px;border-radius:50%;background:radial-gradient(circle,rgba(200,240,117,0.15) 0%,transparent 65%);pointer-events:none;"></div>
-      <div style="font-size:10px;font-weight:700;letter-spacing:2.5px;color:var(--accent);text-transform:uppercase;margin-bottom:12px;">LEADERSHIP LETTER</div>
-      <div style="font-family:'DM Serif Display',serif;font-size:26px;color:#FAF8F5;line-height:1.25;margin-bottom:10px;">팀장을 위한<br>리더십 레터</div>
-      <div style="font-size:12px;color:rgba(250,248,245,0.45);line-height:1.7;">매주 팀장의 현실에 꼭 맞는<br>리더십 인사이트를 전합니다.</div>
-      <a href="https://leader.stibee.com/" target="_blank" style="display:inline-block;margin-top:16px;background:var(--accent);color:#1A1A1A;font-size:12px;font-weight:700;padding:9px 18px;border-radius:100px;text-decoration:none;">뉴스레터 구독하기 →</a>
-    </div>
-
-    <!-- 레터 목록 -->
-    <div style="padding:24px 24px 52px;">
-      <div style="font-size:10px;font-weight:700;letter-spacing:2.5px;color:var(--text-hint);text-transform:uppercase;margin-bottom:16px;">발행된 레터</div>
-      <div id="letter-list">
-        <!-- JS로 렌더링 -->
+      <div class="product-card b2b-card" onclick="openSub('edu-content')">
+        <div class="card-stripe"></div><span class="card-arrow">›</span>
+        <div class="card-name">기업 맞춤 콘텐츠 제작</div>
+        <div class="card-desc">기업 맞춤 리더십툰 월 1~4회 제공. 사내 교육용으로 사용 가능 (외부 유출 금지).</div>
+        <div class="card-tags"><span class="tag">월 1~4회 제공</span><span class="tag">PDF 파일</span><span class="tag">사내 활용</span></div>
+        <div class="card-price-row"><div></div><button class="price-cta" onclick="event.stopPropagation();mailTo('기업 맞춤 콘텐츠 제작')">문의하기</button></div>
       </div>
-      <div id="letter-empty" style="display:none;text-align:center;padding:40px 20px;">
-        <div style="font-size:36px;margin-bottom:12px;">✉️</div>
-        <div style="font-size:14px;color:var(--text-hint);line-height:1.7;">아직 등록된 레터가 없습니다.<br>우측 상단 ⚙️ 버튼으로 추가해 주세요.</div>
+
+      <div class="product-card b2b-card" onclick="openSub('report')">
+        <div class="card-stripe dim"></div><span class="card-arrow">›</span>
+        <div class="card-name">리더십 리포트</div>
+        <div class="card-desc">월 1회 리더십 리포트 PDF 제공. 팀장 교육 콘텐츠 및 조직 맞춤 지원. 팀장·임원 대상.</div>
+        <div class="card-tags"><span class="tag">월 1회 리포트</span><span class="tag">조직 맞춤</span><span class="tag">팀장+임원</span></div>
+        <div class="card-price-row"><div></div><button class="price-cta" onclick="event.stopPropagation();mailTo('리더십 리포트')">문의하기</button></div>
       </div>
     </div>
   </div>
 
-  <!-- ══ 레터 상세 페이지 ══ -->
-  <div id="page-letter-detail" class="view sub-page" style="background:var(--bg);">
-    <div class="sub-topbar">
-      <button class="back-btn" onclick="openPage('letter')">←</button>
-      <span class="sub-topbar-label" id="letter-detail-label">리더십레터</span>
-      <button class="home-btn" onclick="goHome()" title="홈으로"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 7L8 1L15 7V15H10V10H6V15H1V7Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></button>
-    </div>
-    <div id="letter-detail-content" style="padding:0 0 80px;"></div>
-  </div>
+  <!-- 브랜드협업 -->
+  <div id="csec-ad" class="collab-section">
+    <div style="height:1px;background:var(--border);margin:8px 24px 0;"></div>
+    <div class="section">
+      <div class="section-label">브랜드협업</div>
+      <div class="section-title">브랜드 협업 &<br>콘텐츠 제작</div>
+      <p style="font-size:13px;color:var(--text-muted);line-height:1.7;margin-bottom:22px;margin-top:-12px;">직장인 타깃에게 가장 현실적으로 닿는 콘텐츠</p>
 
-  <!-- ══ 관리자 패널 (모달) ══ -->
-  <div id="admin-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:600;align-items:flex-end;justify-content:center;">
-    <div style="background:#fff;border-radius:24px 24px 0 0;padding:28px 24px 48px;width:100%;max-width:430px;max-height:92vh;overflow-y:auto;">
-      <div style="width:36px;height:4px;border-radius:2px;background:#ddd;margin:0 auto 20px;"></div>
-
-      <!-- 비밀번호 화면 -->
-      <div id="admin-pw-screen">
-        <div style="font-family:'DM Serif Display',serif;font-size:20px;color:#1A1A1A;margin-bottom:6px;">관리자 로그인</div>
-        <div style="font-size:12px;color:#999;margin-bottom:20px;">비밀번호를 입력해 주세요</div>
-        <input id="admin-pw-input" type="password" placeholder="비밀번호" style="width:100%;padding:14px 16px;border:1px solid #e0e0e0;border-radius:12px;font-size:14px;font-family:'Noto Sans KR',sans-serif;outline:none;margin-bottom:10px;">
-        <div id="admin-pw-error" style="font-size:12px;color:#e53935;margin-bottom:10px;display:none;">비밀번호가 틀렸습니다.</div>
-        <button onclick="checkAdminPw()" style="width:100%;background:#1A1A1A;color:#fff;border:none;padding:14px;border-radius:100px;font-size:14px;font-weight:700;font-family:'Noto Sans KR',sans-serif;cursor:pointer;margin-bottom:10px;">확인</button>
-        <button onclick="closeAdmin()" style="width:100%;background:none;border:none;color:#999;font-size:13px;font-family:'Noto Sans KR',sans-serif;cursor:pointer;padding:8px;">닫기</button>
+      <div class="product-card ad-card" onclick="openSub('ad-insta')">
+        <div class="card-stripe"></div><span class="card-arrow">›</span>
+        <div class="card-name">인스타툰 광고</div>
+        <div class="card-desc">인스타툰 (10컷 내외) 제작 + 게시물 업로드 + 스토리 1회. 하이라이트 추가 및 2차 활용 비용 별도.</div>
+        <div class="card-tags"><span class="tag">인스타툰 맞춤 제작</span><span class="tag">스토리</span><span class="tag">하이라이트</span><span class="tag">2차 활용</span></div>
+        <div class="card-price-row"><div></div><button class="price-cta" onclick="event.stopPropagation();mailTo('인스타툰 광고')">문의하기</button></div>
       </div>
 
-      <!-- 작성/수정 화면 -->
-      <div id="admin-write-screen" style="display:none;">
-        <div id="admin-write-title" style="font-family:'DM Serif Display',serif;font-size:20px;color:#1A1A1A;margin-bottom:20px;">새 레터 등록</div>
-
-        <div style="font-size:11px;font-weight:700;color:#999;letter-spacing:1px;margin-bottom:6px;">제목</div>
-        <input id="letter-title-input" type="text" placeholder="레터 제목을 입력하세요" style="width:100%;padding:12px 14px;border:1px solid #e0e0e0;border-radius:10px;font-size:14px;font-family:'Noto Sans KR',sans-serif;outline:none;margin-bottom:14px;">
-
-        <div style="font-size:11px;font-weight:700;color:#999;letter-spacing:1px;margin-bottom:6px;">발행일</div>
-        <input id="letter-date-input" type="date" style="width:100%;padding:12px 14px;border:1px solid #e0e0e0;border-radius:10px;font-size:14px;font-family:'Noto Sans KR',sans-serif;outline:none;margin-bottom:14px;">
-
-        <div style="font-size:11px;font-weight:700;color:#999;letter-spacing:1px;margin-bottom:6px;">한 줄 소개</div>
-        <input id="letter-desc-input" type="text" placeholder="이번 레터를 한 줄로 소개해 주세요" style="width:100%;padding:12px 14px;border:1px solid #e0e0e0;border-radius:10px;font-size:14px;font-family:'Noto Sans KR',sans-serif;outline:none;margin-bottom:14px;">
-
-        <div style="font-size:11px;font-weight:700;color:#999;letter-spacing:1px;margin-bottom:8px;">본문 내용</div>
-
-        <!-- 서식 툴바 -->
-        <div style="display:flex;gap:6px;flex-wrap:wrap;padding:8px 10px;background:#f5f5f5;border:1px solid #e0e0e0;border-radius:10px 10px 0 0;border-bottom:none;">
-          <button onclick="editorCmd('bold')" title="굵게" style="width:32px;height:32px;border:1px solid #ddd;border-radius:6px;background:#fff;cursor:pointer;font-weight:700;font-size:14px;color:#1A1A1A;">B</button>
-          <button onclick="editorCmd('italic')" title="기울임" style="width:32px;height:32px;border:1px solid #ddd;border-radius:6px;background:#fff;cursor:pointer;font-style:italic;font-size:14px;color:#1A1A1A;">I</button>
-          <button onclick="editorCmd('underline')" title="밑줄" style="width:32px;height:32px;border:1px solid #ddd;border-radius:6px;background:#fff;cursor:pointer;text-decoration:underline;font-size:14px;color:#1A1A1A;">U</button>
-          <div style="width:1px;background:#ddd;margin:4px 2px;"></div>
-          <button onclick="editorFontSize('large')" title="큰 글자" style="height:32px;padding:0 10px;border:1px solid #ddd;border-radius:6px;background:#fff;cursor:pointer;font-size:15px;font-weight:700;color:#1A1A1A;">가</button>
-          <button onclick="editorFontSize('normal')" title="보통 글자" style="height:32px;padding:0 10px;border:1px solid #ddd;border-radius:6px;background:#fff;cursor:pointer;font-size:13px;color:#1A1A1A;">가</button>
-          <button onclick="editorFontSize('small')" title="작은 글자" style="height:32px;padding:0 10px;border:1px solid #ddd;border-radius:6px;background:#fff;cursor:pointer;font-size:11px;color:#1A1A1A;">가</button>
-          <div style="width:1px;background:#ddd;margin:4px 2px;"></div>
-          <button onclick="editorCmd('insertUnorderedList')" title="목록" style="width:32px;height:32px;border:1px solid #ddd;border-radius:6px;background:#fff;cursor:pointer;font-size:14px;color:#1A1A1A;">≡</button>
-          <button onclick="insertHr()" title="구분선" style="height:32px;padding:0 10px;border:1px solid #ddd;border-radius:6px;background:#fff;cursor:pointer;font-size:12px;color:#888;">— 구분선</button>
-        </div>
-
-        <!-- contenteditable 에디터 -->
-        <div id="letter-body-editor"
-          contenteditable="true"
-          data-placeholder="레터 본문을 입력하세요..."
-          style="width:100%;min-height:200px;padding:14px;border:1px solid #e0e0e0;border-radius:0 0 10px 10px;font-size:14px;font-family:'Noto Sans KR',sans-serif;outline:none;line-height:1.85;color:#1A1A1A;margin-bottom:20px;word-break:break-word;"></div>
-
-        <button id="admin-save-btn" onclick="saveLetter()" style="width:100%;background:#1A1A1A;color:#fff;border:none;padding:14px;border-radius:100px;font-size:14px;font-weight:700;font-family:'Noto Sans KR',sans-serif;cursor:pointer;margin-bottom:10px;">등록하기</button>
-        <button onclick="closeAdmin()" style="width:100%;background:none;border:none;color:#999;font-size:13px;font-family:'Noto Sans KR',sans-serif;cursor:pointer;padding:8px;">취소</button>
+      <div class="product-card ad-card" onclick="openSub('ad-newsletter')">
+        <div class="card-stripe dim"></div><span class="card-arrow">›</span>
+        <div class="card-name">뉴스레터 광고</div>
+        <div class="card-desc">버티 뉴스레터 단독 스폰서. 팀장·직장인 400명에게 콘텐츠 형태로 직접 도달하는 광고.</div>
+        <div class="card-tags"><span class="tag">단독 스폰서</span><span class="tag">노출 400명 이상</span></div>
+        <div class="card-price-row"><div></div><button class="price-cta" onclick="event.stopPropagation();mailTo('뉴스레터 광고')">문의하기</button></div>
       </div>
     </div>
   </div>
+</div>
 
-  <!-- ══ 삭제 확인 다이얼로그 ══ -->
-  <div id="delete-confirm-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:700;align-items:center;justify-content:center;">
-    <div style="background:#fff;border-radius:20px;padding:28px 24px 20px;width:calc(100% - 48px);max-width:320px;text-align:center;">
-      <div style="font-size:22px;margin-bottom:12px;">🗑️</div>
-      <div style="font-family:'DM Serif Display',serif;font-size:18px;color:#1A1A1A;margin-bottom:8px;">정말로 삭제하시겠습니까?</div>
-      <div style="font-size:13px;color:#999;margin-bottom:24px;line-height:1.6;">삭제된 레터는 복구할 수 없습니다.</div>
-      <div style="display:flex;gap:10px;">
-        <button onclick="closeDeleteConfirm()" style="flex:1;padding:13px;border-radius:100px;border:1px solid #e0e0e0;background:#fff;font-size:14px;font-weight:500;font-family:'Noto Sans KR',sans-serif;cursor:pointer;color:#666;">아니오</button>
-        <button onclick="confirmDelete()" style="flex:1;padding:13px;border-radius:100px;border:none;background:#d43232;color:#fff;font-size:14px;font-weight:700;font-family:'Noto Sans KR',sans-serif;cursor:pointer;">예, 삭제</button>
+<!-- FOOTER (협업 페이지) -->
+<div class="footer" id="collab-contact">
+  <div class="footer-logo">BUT<span>T</span>Y</div>
+  <p class="footer-tagline">팀장의 성장을 함께하는<br>리더십 콘텐츠 브랜드</p>
+  <button class="btn-footer" onclick="mailTo('협업 문의')">협업 문의하기 →</button>
+  <div class="footer-links">
+    <a class="footer-link" href="https://www.instagram.com/hello.butty" target="\_blank">인스타그램</a>
+    <a class="footer-link" href="https://leader.stibee.com/" target="\_blank">뉴스레터</a>
+    <a class="footer-link" href="#">이용약관</a>
+  </div>
+</div>
+</div><!-- /page-collab -->
+
+<!-- ══════════════ SUB PAGES ══════════════ -->
+<!-- 리더십 전자책 기업용 라이선스 -->
+<div id="sub-ebook-license" class="view sub-page b2b-sub">
+<div class="sub-topbar">
+  <button class="back-btn" onclick="closeSub()">←</button>
+  <span class="sub-topbar-label">B2B 솔루션</span>
+  <button class="home-btn" onclick="goHome()" title="홈으로"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 7L8 1L15 7V15H10V10H6V15H1V7Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></button>
+</div>
+<div class="sub-hero">
+  <div class="sub-hero-orb"></div>
+  <div class="sub-badge">기업용</div>
+  <div class="sub-title">리더십 전자책<br>기업용 라이선스</div>
+</div>
+<div class="sub-body">
+  <div class="sub-section-title">상품 소개</div>
+  <div class="placeholder-block">상품 소개 내용을 채워주세요<br>전자책 구성, 활용 사례, 도입 효과 등</div>
+  <div class="sub-section-title">포함 내용</div>
+  <ul class="sub-list">
+    <li>사내 배포 가능 라이선스 제공</li>
+    <li>요약본 + HR 담당자 활용 가이드 포함</li>
+    <li>신입 팀장 1~3년차 대상 콘텐츠</li>
+    <li>인원 규모별 견적 개별 안내</li>
+  </ul>
+  <div class="sub-section-title">키워드</div>
+  <div class="sub-tags">
+    <span class="sub-tag">사내 배포 가능</span><span class="sub-tag">요약본 포함</span>
+    <span class="sub-tag">HR 활용가이드</span><span class="sub-tag">신입팀장 1~3년차</span>
+  </div>
+</div>
+<div class="sub-cta-area">
+  <button class="btn-sub-primary" onclick="mailTo('리더십 전자책 기업용 라이선스')">문의하기</button>
+</div>
+</div>
+
+<!-- 팀장 온보딩 키트 -->
+<div id="sub-onboarding" class="view sub-page b2b-sub">
+<div class="sub-topbar">
+  <button class="back-btn" onclick="closeSub()">←</button>
+  <span class="sub-topbar-label">B2B 솔루션</span>
+  <button class="home-btn" onclick="goHome()" title="홈으로"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 7L8 1L15 7V15H10V10H6V15H1V7Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></button>
+</div>
+<div class="sub-hero">
+  <div class="sub-hero-orb"></div>
+  <div class="sub-badge">온보딩</div>
+  <div class="sub-title">팀장 온보딩 키트</div>
+</div>
+<div class="sub-body">
+  <div class="sub-section-title">상품 소개</div>
+  <div class="placeholder-block">상품 소개 내용을 채워주세요<br>90일 프로그램 구성, 활용 방법, 도입 사례 등</div>
+  <div class="sub-section-title">포함 내용</div>
+  <ul class="sub-list">
+    <li>신입 팀장 90일 온보딩 콘텐츠 전체</li>
+    <li>주차별 미션 + 실행 가이드</li>
+    <li>팀장 자기점검 기록지</li>
+    <li>HR 담당자 운영 가이드 포함</li>
+  </ul>
+  <div class="sub-section-title">키워드</div>
+  <div class="sub-tags">
+    <span class="sub-tag">90일 콘텐츠</span><span class="sub-tag">HR 운영가이드</span>
+    <span class="sub-tag">커뮤니케이션</span><span class="sub-tag">조직 안정화</span>
+  </div>
+</div>
+<div class="sub-cta-area">
+  <button class="btn-sub-primary" onclick="mailTo('팀장 온보딩 키트')">문의하기</button>
+</div>
+</div>
+
+<!-- 팀장교육 콘텐츠 -->
+<div id="sub-edu-content" class="view sub-page b2b-sub">
+<div class="sub-topbar">
+  <button class="back-btn" onclick="closeSub()">←</button>
+  <span class="sub-topbar-label">B2B 솔루션</span>
+  <button class="home-btn" onclick="goHome()" title="홈으로"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 7L8 1L15 7V15H10V10H6V15H1V7Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></button>
+</div>
+<div class="sub-hero">
+  <div class="sub-hero-orb"></div>
+  <div class="sub-badge">교육</div>
+  <div class="sub-title">팀장교육 콘텐츠</div>
+</div>
+<div class="sub-body">
+  <div class="sub-section-title">상품 소개</div>
+  <div class="placeholder-block">상품 소개 내용을 채워주세요<br>리더십툰 예시, 교육 효과, 커스터마이징 범위 등</div>
+  <div class="sub-section-title">포함 내용</div>
+  <ul class="sub-list">
+    <li>기업 맞춤 리더십툰 월 4회 (주 1회) 제공</li>
+    <li>PDF 파일 형식 납품</li>
+    <li>사내 교육용 활용 가능 (외부 유출 금지)</li>
+  </ul>
+  <div class="sub-section-title">키워드</div>
+  <div class="sub-tags">
+    <span class="sub-tag">월 4회 제공</span><span class="sub-tag">PDF 파일</span><span class="sub-tag">사내 활용</span>
+  </div>
+</div>
+<div class="sub-cta-area">
+  <button class="btn-sub-primary" onclick="mailTo('팀장교육 콘텐츠')">문의하기</button>
+</div>
+</div>
+
+<!-- 리더십 리포트 -->
+<div id="sub-report" class="view sub-page b2b-sub">
+<div class="sub-topbar">
+  <button class="back-btn" onclick="closeSub()">←</button>
+  <span class="sub-topbar-label">B2B 솔루션</span>
+  <button class="home-btn" onclick="goHome()" title="홈으로"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 7L8 1L15 7V15H10V10H6V15H1V7Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></button>
+</div>
+<div class="sub-hero">
+  <div class="sub-hero-orb"></div>
+  <div class="sub-badge">리포트</div>
+  <div class="sub-title">리더십 리포트</div>
+</div>
+<div class="sub-body">
+  <div class="sub-section-title">상품 소개</div>
+  <div class="placeholder-block">상품 소개 내용을 채워주세요<br>리포트 샘플, 구성 목차, 활용 방법 등</div>
+  <div class="sub-section-title">포함 내용</div>
+  <ul class="sub-list">
+    <li>주 1회 리더십 리포트 PDF 제공</li>
+    <li>팀장 교육 콘텐츠 포함</li>
+    <li>조직 상황에 맞춘 커스터마이징 지원</li>
+    <li>팀장 · 임원 함께 활용 가능</li>
+  </ul>
+  <div class="sub-section-title">키워드</div>
+  <div class="sub-tags">
+    <span class="sub-tag">주1회 리포트</span><span class="sub-tag">조직 맞춤</span><span class="sub-tag">팀장+임원</span>
+  </div>
+</div>
+<div class="sub-cta-area">
+  <button class="btn-sub-primary" onclick="mailTo('리더십 리포트')">문의하기</button>
+</div>
+</div>
+
+<!-- 인스타툰 광고 -->
+<div id="sub-ad-insta" class="view sub-page ad-sub">
+<div class="sub-topbar">
+  <button class="back-btn" onclick="closeSub()">←</button>
+  <span class="sub-topbar-label">광고 협업</span>
+  <button class="home-btn" onclick="goHome()" title="홈으로"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 7L8 1L15 7V15H10V10H6V15H1V7Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></button>
+</div>
+<div class="sub-hero">
+  <div class="sub-hero-orb"></div>
+  <div class="sub-badge">인스타그램</div>
+  <div class="sub-title">인스타툰 광고</div>
+</div>
+<div class="sub-body">
+  <div class="sub-section-title">상품 소개</div>
+  <div class="placeholder-block">상품 소개 내용을 채워주세요<br>채널 현황, 타겟 오디언스, 광고 예시 등</div>
+  <div class="sub-section-title">포함 내용</div>
+  <ul class="sub-list">
+    <li>인스타툰 10컷 내외 제작</li>
+    <li>인스타그램 게시물 업로드</li>
+    <li>스토리 1회</li>
+    <li>하이라이트 추가</li>
+    <li>기획 · 1차 수정 각 1회 (총 2회)</li>
+    <li>2차 활용 포함</li>
+  </ul>
+  <div class="sub-section-title">키워드</div>
+  <div class="sub-tags">
+    <span class="sub-tag">10컷 제작</span><span class="sub-tag">스토리 포함</span>
+    <span class="sub-tag">하이라이트</span><span class="sub-tag">2차 활용</span>
+  </div>
+</div>
+<div class="sub-cta-area">
+  <button class="btn-sub-primary" onclick="mailTo('인스타툰 광고')">문의하기</button>
+</div>
+</div>
+
+<!-- 뉴스레터 광고 -->
+<div id="sub-ad-newsletter" class="view sub-page ad-sub">
+<div class="sub-topbar">
+  <button class="back-btn" onclick="closeSub()">←</button>
+  <span class="sub-topbar-label">광고 협업</span>
+  <button class="home-btn" onclick="goHome()" title="홈으로"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 7L8 1L15 7V15H10V10H6V15H1V7Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></button>
+</div>
+<div class="sub-hero">
+  <div class="sub-hero-orb"></div>
+  <div class="sub-badge">뉴스레터</div>
+  <div class="sub-title">뉴스레터 광고</div>
+</div>
+<div class="sub-body">
+  <div class="sub-section-title">상품 소개</div>
+  <div class="placeholder-block">상품 소개 내용을 채워주세요<br>구독자 수, 오픈율, 광고 예시 이미지 등</div>
+  <div class="sub-section-title">광고 옵션</div>
+  <ul class="sub-list">
+    <li><strong style="color:var(--text);font-weight:700;">배너 광고</strong> — 뉴스레터 상단 또는 하단 배너</li>
+    <li><strong style="color:var(--text);font-weight:700;">레터 광고</strong> — 본문 내 네이티브 광고 형식</li>
+  </ul>
+  <div class="sub-section-title">키워드</div>
+  <div class="sub-tags">
+    <span class="sub-tag">배너광고</span><span class="sub-tag">레터광고</span>
+  </div>
+</div>
+<div class="sub-cta-area">
+  <button class="btn-sub-primary" onclick="mailTo('뉴스레터 광고')">문의하기</button>
+</div>
+</div>
+
+<!-- 전자책 1 -->
+<div id="sub-book-1" class="view sub-page book-sub">
+<div class="sub-topbar">
+  <button class="back-btn" onclick="closeSub()">←</button>
+  <span class="sub-topbar-label">전자책</span>
+  <button class="home-btn" onclick="goHome()" title="홈으로"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 7L8 1L15 7V15H10V10H6V15H1V7Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></button>
+</div>
+<div class="sub-hero">
+  <div class="sub-hero-orb"></div>
+  <div class="sub-badge">베스트</div>
+  <div class="sub-title">팀장도 사수가<br>있었으면 좋겠다</div>
+  <div class="sub-price-big">18,000원</div>
+  <div class="sub-price-note">네이버 스마트스토어</div>
+</div>
+<div class="sub-body">
+  <div class="sub-section-title">책 소개</div>
+  <div class="placeholder-block">책 소개 내용을 채워주세요<br>목차, 주요 챕터, 추천 독자 등</div>
+  <div class="sub-section-title">이런 분께 추천해요</div>
+  <ul class="sub-list">
+    <li>팀장 발령 후 무엇부터 해야 할지 모르는 분</li>
+    <li>팀원 피드백이 어렵게 느껴지는 분</li>
+    <li>성과 관리 · 문제 팀원 대응에 막막한 분</li>
+  </ul>
+</div>
+<div class="sub-cta-area">
+  <a class="btn-sub-primary" href="https://smartstore.naver.com/hello\_butty/products/12496968549" target="\_blank">네이버 스토어에서 구매하기</a>
+  <button class="btn-sub-secondary" onclick="mailTo('팀장도 사수가 있었으면 좋겠다')">구매 전 문의하기</button>
+</div>
+</div>
+
+<!-- 전자책 2 -->
+<div id="sub-book-2" class="view sub-page book-sub">
+<div class="sub-topbar">
+  <button class="back-btn" onclick="closeSub()">←</button>
+  <span class="sub-topbar-label">전자책</span>
+  <button class="home-btn" onclick="goHome()" title="홈으로"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 7L8 1L15 7V15H10V10H6V15H1V7Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></button>
+</div>
+<div class="sub-hero">
+  <div class="sub-hero-orb"></div>
+  <div class="sub-badge">신규</div>
+  <div class="sub-title">누구나 언젠가<br>이직을 한다</div>
+  <div class="sub-price-big">18,000원</div>
+  <div class="sub-price-note">네이버 스마트스토어</div>
+</div>
+<div class="sub-body">
+  <div class="sub-section-title">책 소개</div>
+  <div class="placeholder-block">책 소개 내용을 채워주세요<br>목차, 주요 챕터, 추천 독자 등</div>
+  <div class="sub-section-title">이런 분께 추천해요</div>
+  <ul class="sub-list">
+    <li>이직을 막연하게 생각하고만 있는 분</li>
+    <li>커리어 방향을 다시 잡고 싶은 분</li>
+    <li>이직 준비를 체계적으로 시작하고 싶은 분</li>
+  </ul>
+</div>
+<div class="sub-cta-area">
+  <a class="btn-sub-primary" href="https://smartstore.naver.com/hello\_butty/products/12805908364" target="\_blank">네이버 스토어에서 구매하기</a>
+  <button class="btn-sub-secondary" onclick="mailTo('누구나 언젠가 이직을 한다')">구매 전 문의하기</button>
+</div>
+</div>
+
+<!-- ══ 회사 소개 페이지 ══ -->
+<div id="page-about" class="view sub-page" style="background:var(--bg);">
+<div class="sub-topbar">
+  <button class="back-btn" onclick="closePage()">←</button>
+  <span class="sub-topbar-label">회사 소개</span>
+  <button class="home-btn" onclick="goHome()" title="홈으로"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 7L8 1L15 7V15H10V10H6V15H1V7Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></button>
+</div>
+<div style="background:var(--bg-hero); padding:40px 24px 36px; position:relative; overflow:hidden;">
+  <div style="position:absolute;top:-60px;right:-60px;width:220px;height:220px;border-radius:50%;background:radial-gradient(circle,rgba(200,240,117,0.15) 0%,transparent 65%);pointer-events:none;"></div>
+  <div style="font-size:10px;font-weight:700;letter-spacing:2.5px;color:var(--accent);text-transform:uppercase;margin-bottom:12px;">ABOUT BUTTY</div>
+  <div style="font-family:'DM Serif Display',serif;font-size:30px;color:#FAF8F5;line-height:1.2;margin-bottom:14px;">팀장의 성장을<br>함께합니다</div>
+  <div style="font-size:13px;color:rgba(250,248,245,0.5);line-height:1.8;font-weight:300;">리더십 콘텐츠 브랜드 BUTTY는<br>신입 팀장부터 임원까지,<br>성장의 모든 순간을 함께합니다.</div>
+</div>
+<div style="padding:28px 24px 0;">
+  <div style="font-size:10px;font-weight:700;letter-spacing:2.5px;color:var(--text-hint);text-transform:uppercase;margin-bottom:16px;">우리가 하는 일</div>
+  <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:28px;">
+    <div style="background:var(--bg-card);border-radius:16px;padding:18px 20px;border:1px solid var(--border);display:flex;gap:14px;align-items:flex-start;">
+      <div style="font-size:22px;flex-shrink:0;margin-top:2px;">📝</div>
+      <div>
+        <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:4px;">리더십 콘텐츠</div>
+        <div style="font-size:12px;color:var(--text-muted);line-height:1.7;">인스타툰, 뉴스레터, 전자책 등 다양한 형태의 리더십 콘텐츠를 제작합니다.</div>
+      </div>
+    </div>
+    <div style="background:var(--bg-card);border-radius:16px;padding:18px 20px;border:1px solid var(--border);display:flex;gap:14px;align-items:flex-start;">
+      <div style="font-size:22px;flex-shrink:0;margin-top:2px;">🏢</div>
+      <div>
+        <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:4px;">B2B 솔루션</div>
+        <div style="font-size:12px;color:var(--text-muted);line-height:1.7;">기업 맞춤형 팀장 교육 콘텐츠, 온보딩 키트, 리더십 리포트를 제공합니다.</div>
+      </div>
+    </div>
+    <div style="background:var(--bg-card);border-radius:16px;padding:18px 20px;border:1px solid var(--border);display:flex;gap:14px;align-items:flex-start;">
+      <div style="font-size:22px;flex-shrink:0;margin-top:2px;">📣</div>
+      <div>
+        <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:4px;">광고 협업</div>
+        <div style="font-size:12px;color:var(--text-muted);line-height:1.7;">인스타그램 리더십 채널과 뉴스레터를 통한 광고 협업을 진행합니다.</div>
       </div>
     </div>
   </div>
+  <div style="font-size:10px;font-weight:700;letter-spacing:2.5px;color:var(--text-hint);text-transform:uppercase;margin-bottom:16px;">우리의 가치</div>
+  <div style="background:var(--bg-card);border-radius:16px;padding:20px;border:1px solid var(--border);margin-bottom:32px;">
+    <div style="font-family:'DM Serif Display',serif;font-size:18px;color:var(--text);line-height:1.5;margin-bottom:12px;">"모든 팀장에게는<br>사수가 필요하다"</div>
+    <div style="font-size:13px;color:var(--text-muted);line-height:1.8;">처음 팀장이 된 순간, 아무도 알려주지 않는 것들이 있습니다. BUTTY는 그 공백을 채우는 리더십 콘텐츠 브랜드입니다. 현실적이고, 따뜻하게.</div>
+  </div>
+</div>
+<div style="padding:0 24px 52px;">
+  <button onclick="closePage(); setTimeout(scrollToContact,100)" style="background:var(--bg-hero);color:#FAF8F5;border:none;padding:16px;border-radius:100px;font-size:14px;font-weight:700;font-family:'Noto Sans KR',sans-serif;cursor:pointer;width:100;transition:opacity 0.15s;width:100%;">협업 문의하기</button>
+</div>
+</div>
+
+<!-- ══ 캐릭터 소개 페이지 ══ -->
+<div id="page-character" class="view sub-page" style="background:var(--bg);">
+<div class="sub-topbar">
+  <button class="back-btn" onclick="closePage()">←</button>
+  <span class="sub-topbar-label">캐릭터 소개</span>
+  <button class="home-btn" onclick="goHome()" title="홈으로"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 7L8 1L15 7V15H10V10H6V15H1V7Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></button>
+</div>
+<div style="background:var(--bg-hero);padding:32px 24px 28px;position:relative;overflow:hidden;">
+  <div style="position:absolute;top:-60px;right:-60px;width:220px;height:220px;border-radius:50%;background:radial-gradient(circle,rgba(200,240,117,0.15) 0%,transparent 65%);pointer-events:none;"></div>
+  <div style="font-size:10px;font-weight:700;letter-spacing:2.5px;color:var(--accent);text-transform:uppercase;margin-bottom:12px;">CHARACTERS</div>
+  <div style="font-family:'DM Serif Display',serif;font-size:28px;color:#FAF8F5;line-height:1.2;">버티 패밀리를<br>소개합니다</div>
+</div>
+<div style="padding:24px 24px 52px;display:flex;flex-direction:column;gap:16px;">
+  <div style="border-radius:20px;overflow:hidden;background:#F5F5F3;border:1px solid var(--border);">
+    <img src="assets/images/character-main.jpg" loading="lazy" style="width:100%;display:block;object-fit:cover;">
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+    <div style="display:flex;flex-direction:column;align-items:center;">
+      <div style="width:88px;height:88px;border-radius:50%;overflow:hidden;border:1.5px solid rgba(0,0,0,0.13);background:#fff;margin-bottom:-20px;position:relative;z-index:2;box-shadow:0 2px 8px rgba(0,0,0,0.08);">
+        <img src="assets/images/character-avatar-1.jpg" loading="lazy" style="width:100%;height:100%;object-fit:cover;transform:scale(1.15);">
+      </div>
+      <div style="background:#fff;border-radius:16px;border:1px solid var(--border);padding:28px 12px 14px;width:100%;box-shadow:0 1px 4px rgba(0,0,0,0.06);">
+        <div style="font-family:'DM Serif Display',serif;font-size:15px;color:var(--text);margin-bottom:4px;text-align:center;">버티 팀장</div>
+        <div style="font-size:10px;color:var(--text-muted);line-height:1.65;margin-bottom:10px;text-align:center;">좋은 사람과 좋은 팀장 사이에서 매일 흔들리는 초보 팀장</div>
+        <div style="display:flex;flex-wrap:wrap;gap:4px;justify-content:center;"><span style="font-size:9px;font-weight:600;padding:2px 7px;border-radius:100px;background:rgba(0,0,0,0.05);color:var(--text-muted);border:1px solid rgba(0,0,0,0.1);">초보 팀장</span><span style="font-size:9px;font-weight:600;padding:2px 7px;border-radius:100px;background:rgba(0,0,0,0.05);color:var(--text-muted);border:1px solid rgba(0,0,0,0.1);">리더십 성장</span></div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;align-items:center;">
+      <div style="width:88px;height:88px;border-radius:50%;overflow:hidden;border:1.5px solid rgba(0,0,0,0.13);background:#fff;margin-bottom:-20px;position:relative;z-index:2;box-shadow:0 2px 8px rgba(0,0,0,0.08);">
+        <img src="assets/images/character-avatar-2.jpg" loading="lazy" style="width:100%;height:100%;object-fit:cover;transform:scale(1.15);">
+      </div>
+      <div style="background:#fff;border-radius:16px;border:1px solid var(--border);padding:28px 12px 14px;width:100%;box-shadow:0 1px 4px rgba(0,0,0,0.06);">
+        <div style="font-family:'DM Serif Display',serif;font-size:15px;color:var(--text);margin-bottom:4px;text-align:center;">먼데이 과장</div>
+        <div style="font-size:10px;color:var(--text-muted);line-height:1.65;margin-bottom:10px;text-align:center;">직장생활 10년차, 무기력과 짜증이 기본값인 먼데이 과장</div>
+        <div style="display:flex;flex-wrap:wrap;gap:4px;justify-content:center;"><span style="font-size:9px;font-weight:600;padding:2px 7px;border-radius:100px;background:rgba(0,0,0,0.05);color:var(--text-muted);border:1px solid rgba(0,0,0,0.1);">냉소</span><span style="font-size:9px;font-weight:600;padding:2px 7px;border-radius:100px;background:rgba(0,0,0,0.05);color:var(--text-muted);border:1px solid rgba(0,0,0,0.1);">번아웃</span><span style="font-size:9px;font-weight:600;padding:2px 7px;border-radius:100px;background:rgba(0,0,0,0.05);color:var(--text-muted);border:1px solid rgba(0,0,0,0.1);">피로</span></div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;align-items:center;">
+      <div style="width:88px;height:88px;border-radius:50%;overflow:hidden;border:1.5px solid rgba(0,0,0,0.13);background:#fff;margin-bottom:-20px;position:relative;z-index:2;box-shadow:0 2px 8px rgba(0,0,0,0.08);">
+        <img src="assets/images/character-avatar-3.jpg" loading="lazy" style="width:100%;height:100%;object-fit:cover;transform:scale(1.15);">
+      </div>
+      <div style="background:#fff;border-radius:16px;border:1px solid var(--border);padding:28px 12px 14px;width:100%;box-shadow:0 1px 4px rgba(0,0,0,0.06);">
+        <div style="font-family:'DM Serif Display',serif;font-size:15px;color:var(--text);margin-bottom:4px;text-align:center;">랑이 대리</div>
+        <div style="font-size:10px;color:var(--text-muted);line-height:1.65;margin-bottom:10px;text-align:center;">직장인 4년차, 이제 막 대리가 된 성장형 실무자</div>
+        <div style="display:flex;flex-wrap:wrap;gap:4px;justify-content:center;"><span style="font-size:9px;font-weight:600;padding:2px 7px;border-radius:100px;background:rgba(0,0,0,0.05);color:var(--text-muted);border:1px solid rgba(0,0,0,0.1);">성장통</span><span style="font-size:9px;font-weight:600;padding:2px 7px;border-radius:100px;background:rgba(0,0,0,0.05);color:var(--text-muted);border:1px solid rgba(0,0,0,0.1);">인정 욕구</span><span style="font-size:9px;font-weight:600;padding:2px 7px;border-radius:100px;background:rgba(0,0,0,0.05);color:var(--text-muted);border:1px solid rgba(0,0,0,0.1);">커리어</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ══ 리더십레터 페이지 ══ -->
+<div id="page-letter" class="view sub-page" style="background:var(--bg);">
+<div class="sub-topbar">
+  <button class="back-btn" onclick="closePage()">←</button>
+  <span class="sub-topbar-label">리더십레터</span>
+  <button class="home-btn" onclick="goHome()" title="홈으로" style="margin-left:auto;"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 7L8 1L15 7V15H10V10H6V15H1V7Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></button>
+  <button onclick="openLetterAdmin()" style="margin-left:8px;background:none;border:none;cursor:pointer;font-size:18px;opacity:0.35;padding:4px;" title="관리자">⚙️</button>
+</div>
+<div style="background:var(--bg-hero);padding:32px 24px 28px;position:relative;overflow:hidden;">
+  <div style="position:absolute;top:-60px;right:-60px;width:220px;height:220px;border-radius:50%;background:radial-gradient(circle,rgba(200,240,117,0.15) 0%,transparent 65%);pointer-events:none;"></div>
+  <div style="font-size:10px;font-weight:700;letter-spacing:2.5px;color:var(--accent);text-transform:uppercase;margin-bottom:12px;">LEADERSHIP LETTER</div>
+  <div style="font-family:'DM Serif Display',serif;font-size:26px;color:#FAF8F5;line-height:1.25;margin-bottom:10px;">팀장을 위한<br>리더십 레터</div>
+  <div style="font-size:12px;color:rgba(250,248,245,0.45);line-height:1.7;">매주 팀장의 현실에 꼭 맞는<br>리더십 인사이트를 전합니다.</div>
+  <a href="https://leader.stibee.com/" target="\_blank" style="display:inline-block;margin-top:16px;background:var(--accent);color:#1A1A1A;font-size:12px;font-weight:700;padding:9px 18px;border-radius:100px;text-decoration:none;">뉴스레터 구독하기 →</a>
+</div>
+<div style="padding:24px 24px 52px;">
+  <div style="font-size:10px;font-weight:700;letter-spacing:2.5px;color:var(--text-hint);text-transform:uppercase;margin-bottom:16px;">발행된 레터</div>
+  <div id="letter-list"></div>
+  <div id="letter-empty" style="display:none;text-align:center;padding:40px 20px;">
+    <div style="font-size:36px;margin-bottom:12px;">✉️</div>
+    <div style="font-size:14px;color:var(--text-hint);line-height:1.7;">아직 등록된 레터가 없습니다.<br>우측 상단 ⚙️ 버튼으로 추가해 주세요.</div>
+  </div>
+</div>
+</div>
+
+<!-- ══ 레터 상세 페이지 ══ -->
+<div id="page-letter-detail" class="view sub-page" style="background:var(--bg);">
+<div class="sub-topbar">
+  <button class="back-btn" onclick="openPage('letter')">←</button>
+  <span class="sub-topbar-label" id="letter-detail-label">리더십레터</span>
+  <button class="home-btn" onclick="goHome()" title="홈으로"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 7L8 1L15 7V15H10V10H6V15H1V7Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></button>
+</div>
+<div id="letter-detail-content" style="padding:0 0 80px;"></div>
+</div>
+
+<!-- ══ 관리자 패널 (모달) ══ -->
+<div id="admin-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:600;align-items:flex-end;justify-content:center;">
+<div style="background:#fff;border-radius:24px 24px 0 0;padding:28px 24px 48px;width:100%;max-width:430px;max-height:92vh;overflow-y:auto;">
+  <div style="width:36px;height:4px;border-radius:2px;background:#ddd;margin:0 auto 20px;"></div>
+  <div id="admin-pw-screen">
+    <div style="font-family:'DM Serif Display',serif;font-size:20px;color:#1A1A1A;margin-bottom:6px;">관리자 로그인</div>
+    <div style="font-size:12px;color:#999;margin-bottom:20px;">비밀번호를 입력해 주세요</div>
+    <input id="admin-pw-input" type="password" placeholder="비밀번호" style="width:100%;padding:14px 16px;border:1px solid #e0e0e0;border-radius:12px;font-size:14px;font-family:'Noto Sans KR',sans-serif;outline:none;margin-bottom:10px;">
+    <div id="admin-pw-error" style="font-size:12px;color:#e53935;margin-bottom:10px;display:none;">비밀번호가 틀렸습니다.</div>
+    <button onclick="checkAdminPw()" style="width:100%;background:#1A1A1A;color:#fff;border:none;padding:14px;border-radius:100px;font-size:14px;font-weight:700;font-family:'Noto Sans KR',sans-serif;cursor:pointer;margin-bottom:10px;">확인</button>
+    <button onclick="closeAdmin()" style="width:100%;background:none;border:none;color:#999;font-size:13px;font-family:'Noto Sans KR',sans-serif;cursor:pointer;padding:8px;">닫기</button>
+  </div>
+  <div id="admin-write-screen" style="display:none;">
+    <div id="admin-write-title" style="font-family:'DM Serif Display',serif;font-size:20px;color:#1A1A1A;margin-bottom:20px;">새 레터 등록</div>
+    <div style="font-size:11px;font-weight:700;color:#999;letter-spacing:1px;margin-bottom:6px;">제목</div>
+    <input id="letter-title-input" type="text" placeholder="레터 제목을 입력하세요" style="width:100%;padding:12px 14px;border:1px solid #e0e0e0;border-radius:10px;font-size:14px;font-family:'Noto Sans KR',sans-serif;outline:none;margin-bottom:14px;">
+    <div style="font-size:11px;font-weight:700;color:#999;letter-spacing:1px;margin-bottom:6px;">발행일</div>
+    <input id="letter-date-input" type="date" style="width:100%;padding:12px 14px;border:1px solid #e0e0e0;border-radius:10px;font-size:14px;font-family:'Noto Sans KR',sans-serif;outline:none;margin-bottom:14px;">
+    <div style="font-size:11px;font-weight:700;color:#999;letter-spacing:1px;margin-bottom:6px;">한 줄 소개</div>
+    <input id="letter-desc-input" type="text" placeholder="이번 레터를 한 줄로 소개해 주세요" style="width:100%;padding:12px 14px;border:1px solid #e0e0e0;border-radius:10px;font-size:14px;font-family:'Noto Sans KR',sans-serif;outline:none;margin-bottom:14px;">
+    <div style="font-size:11px;font-weight:700;color:#999;letter-spacing:1px;margin-bottom:8px;">본문 내용</div>
+    <div style="display:flex;gap:6px;flex-wrap:wrap;padding:8px 10px;background:#f5f5f5;border:1px solid #e0e0e0;border-radius:10px 10px 0 0;border-bottom:none;">
+      <button onclick="editorCmd('bold')" title="굵게" style="width:32px;height:32px;border:1px solid #ddd;border-radius:6px;background:#fff;cursor:pointer;font-weight:700;font-size:14px;color:#1A1A1A;">B</button>
+      <button onclick="editorCmd('italic')" title="기울임" style="width:32px;height:32px;border:1px solid #ddd;border-radius:6px;background:#fff;cursor:pointer;font-style:italic;font-size:14px;color:#1A1A1A;">I</button>
+      <button onclick="editorCmd('underline')" title="밑줄" style="width:32px;height:32px;border:1px solid #ddd;border-radius:6px;background:#fff;cursor:pointer;text-decoration:underline;font-size:14px;color:#1A1A1A;">U</button>
+      <div style="width:1px;background:#ddd;margin:4px 2px;"></div>
+      <button onclick="editorFontSize('large')" title="큰 글자" style="height:32px;padding:0 10px;border:1px solid #ddd;border-radius:6px;background:#fff;cursor:pointer;font-size:15px;font-weight:700;color:#1A1A1A;">가</button>
+      <button onclick="editorFontSize('normal')" title="보통 글자" style="height:32px;padding:0 10px;border:1px solid #ddd;border-radius:6px;background:#fff;cursor:pointer;font-size:13px;color:#1A1A1A;">가</button>
+      <button onclick="editorFontSize('small')" title="작은 글자" style="height:32px;padding:0 10px;border:1px solid #ddd;border-radius:6px;background:#fff;cursor:pointer;font-size:11px;color:#1A1A1A;">가</button>
+      <div style="width:1px;background:#ddd;margin:4px 2px;"></div>
+      <button onclick="editorCmd('insertUnorderedList')" title="목록" style="width:32px;height:32px;border:1px solid #ddd;border-radius:6px;background:#fff;cursor:pointer;font-size:14px;color:#1A1A1A;">≡</button>
+      <button onclick="insertHr()" title="구분선" style="height:32px;padding:0 10px;border:1px solid #ddd;border-radius:6px;background:#fff;cursor:pointer;font-size:12px;color:#888;">— 구분선</button>
+    </div>
+    <div id="letter-body-editor" contenteditable="true" data-placeholder="레터 본문을 입력하세요..." style="width:100%;min-height:200px;padding:14px;border:1px solid #e0e0e0;border-radius:0 0 10px 10px;font-size:14px;font-family:'Noto Sans KR',sans-serif;outline:none;line-height:1.85;color:#1A1A1A;margin-bottom:20px;word-break:break-word;"></div>
+    <button id="admin-save-btn" onclick="saveLetter()" style="width:100%;background:#1A1A1A;color:#fff;border:none;padding:14px;border-radius:100px;font-size:14px;font-weight:700;font-family:'Noto Sans KR',sans-serif;cursor:pointer;margin-bottom:10px;">등록하기</button>
+    <button onclick="closeAdmin()" style="width:100%;background:none;border:none;color:#999;font-size:13px;font-family:'Noto Sans KR',sans-serif;cursor:pointer;padding:8px;">취소</button>
+  </div>
+</div>
+</div>
+
+<!-- ══ 삭제 확인 다이얼로그 ══ -->
+<div id="delete-confirm-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:700;align-items:center;justify-content:center;">
+<div style="background:#fff;border-radius:20px;padding:28px 24px 20px;width:calc(100% - 48px);max-width:320px;text-align:center;">
+  <div style="font-size:22px;margin-bottom:12px;">🗑️</div>
+  <div style="font-family:'DM Serif Display',serif;font-size:18px;color:#1A1A1A;margin-bottom:8px;">정말로 삭제하시겠습니까?</div>
+  <div style="font-size:13px;color:#999;margin-bottom:24px;line-height:1.6;">삭제된 레터는 복구할 수 없습니다.</div>
+  <div style="display:flex;gap:10px;">
+    <button onclick="closeDeleteConfirm()" style="flex:1;padding:13px;border-radius:100px;border:1px solid #e0e0e0;background:#fff;font-size:14px;font-weight:500;font-family:'Noto Sans KR',sans-serif;cursor:pointer;color:#666;">아니오</button>
+    <button onclick="confirmDelete()" style="flex:1;padding:13px;border-radius:100px;border:none;background:#d43232;color:#fff;font-size:14px;font-weight:700;font-family:'Noto Sans KR',sans-serif;cursor:pointer;">예, 삭제</button>
+  </div>
+</div>
+</div>
 
 </div><!-- /site -->
-
 
 <!-- ══════════════ DRAWER ══════════════ -->
 <div class="drawer-overlay" id="drawer-overlay" onclick="closeDrawer()"></div>
 <div class="drawer" id="drawer">
-  <div class="drawer-header">
-    <div class="drawer-logo" onclick="closeDrawer(); pageStack=['view-main']; showOnly('view-main');" style="cursor:pointer;">BUT<span>T</span>Y</div>
-    <button class="drawer-close" onclick="closeDrawer()">✕</button>
+<div class="drawer-header">
+  <div class="drawer-logo" onclick="closeDrawer(); pageStack=['view-main']; showOnly('view-main');" style="cursor:pointer;">BUT<span>T</span>Y</div>
+  <button class="drawer-close" onclick="closeDrawer()">✕</button>
+</div>
+<nav class="drawer-nav">
+  <button class="drawer-item" onclick="closeDrawer(); openPage('about')">
+    <div class="drawer-item-icon">🏢</div>
+    <div class="drawer-item-text">
+      <span class="drawer-item-label">회사 소개</span>
+      <span class="drawer-item-sub">BUTTY가 하는 일</span>
+    </div>
+    <span class="drawer-item-arrow">›</span>
+  </button>
+  <button class="drawer-item" onclick="closeDrawer(); openPage('character')">
+    <div class="drawer-item-icon">🐣</div>
+    <div class="drawer-item-text">
+      <span class="drawer-item-label">캐릭터 소개</span>
+      <span class="drawer-item-sub">버티를 소개합니다</span>
+    </div>
+    <span class="drawer-item-arrow">›</span>
+  </button>
+  <div class="drawer-divider"></div>
+  <button class="drawer-item" onclick="closeDrawer(); openPage('letter')">
+    <div class="drawer-item-icon">✉️</div>
+    <div class="drawer-item-text">
+      <span class="drawer-item-label">리더십레터</span>
+      <span class="drawer-item-sub">발행된 레터 모아보기</span>
+    </div>
+    <span class="drawer-item-arrow">›</span>
+  </button>
+  <button class="drawer-item" onclick="closeDrawer(); openPage('collab')">
+    <div class="drawer-item-icon">💬</div>
+    <div class="drawer-item-text">
+      <span class="drawer-item-label">협업 문의</span>
+      <span class="drawer-item-sub">이메일로 연락하기</span>
+    </div>
+    <span class="drawer-item-arrow">›</span>
+  </button>
+  <div class="drawer-divider"></div>
+</nav>
+<a class="drawer-insta" href="https://www.instagram.com/hello.butty/" target="\_blank" onclick="closeDrawer()">
+  <div class="drawer-insta-icon">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+    </svg>
   </div>
-
-  <nav class="drawer-nav">
-    <button class="drawer-item" onclick="closeDrawer(); openPage('about')">
-      <div class="drawer-item-icon">🏢</div>
-      <div class="drawer-item-text">
-        <span class="drawer-item-label">회사 소개</span>
-        <span class="drawer-item-sub">BUTTY가 하는 일</span>
-      </div>
-      <span class="drawer-item-arrow">›</span>
-    </button>
-
-    <button class="drawer-item" onclick="closeDrawer(); openPage('character')">
-      <div class="drawer-item-icon">🐣</div>
-      <div class="drawer-item-text">
-        <span class="drawer-item-label">캐릭터 소개</span>
-        <span class="drawer-item-sub">버티를 소개합니다</span>
-      </div>
-      <span class="drawer-item-arrow">›</span>
-    </button>
-
-    <div class="drawer-divider"></div>
-
-    <button class="drawer-item" onclick="closeDrawer(); openPage('letter')">
-      <div class="drawer-item-icon">✉️</div>
-      <div class="drawer-item-text">
-        <span class="drawer-item-label">리더십레터</span>
-        <span class="drawer-item-sub">발행된 레터 모아보기</span>
-      </div>
-      <span class="drawer-item-arrow">›</span>
-    </button>
-
-    <button class="drawer-item" onclick="closeDrawer(); openPage('collab')">
-      <div class="drawer-item-icon">💬</div>
-      <div class="drawer-item-text">
-        <span class="drawer-item-label">협업 문의</span>
-        <span class="drawer-item-sub">이메일로 연락하기</span>
-      </div>
-      <span class="drawer-item-arrow">›</span>
-    </button>
-
-    <div class="drawer-divider"></div>
-  </nav>
-
-  <a class="drawer-insta" href="https://www.instagram.com/hello.butty/" target="_blank" onclick="closeDrawer()">
-    <div class="drawer-insta-icon">
-      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
-      </svg>
-    </div>
-    <div class="drawer-insta-text">
-      <span class="drawer-insta-label">@hello.butty</span>
-      <span class="drawer-insta-sub">인스타그램 팔로우하기</span>
-    </div>
-    <span style="font-size:14px; color:rgba(200,240,117,0.5);">›</span>
-  </a>
+  <div class="drawer-insta-text">
+    <span class="drawer-insta-label">@hello.butty</span>
+    <span class="drawer-insta-sub">인스타그램 팔로우하기</span>
+  </div>
+  <span style="font-size:14px; color:rgba(200,240,117,0.5);">›</span>
+</a>
 </div>
 
 <script src="app.js"></script>
