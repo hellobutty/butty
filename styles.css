@@ -533,3 +533,164 @@
   #letter-body-editor:focus { border-color: #1A1A1A !important; }
   #letter-body-editor ul { padding-left: 20px; }
   #letter-body-editor hr { border: none; border-top: 1px solid #e0e0e0; margin: 12px 0; }
+
+/* ── INQUIRY MODAL ── */
+.inquiry-overlay {
+  display: none;
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.6);
+  z-index: 600;
+  align-items: flex-end;
+  justify-content: center;
+  animation: inquiry-fade 0.2s ease;
+}
+.inquiry-overlay.open { display: flex; }
+@keyframes inquiry-fade { from { opacity: 0; } to { opacity: 1; } }
+
+.inquiry-sheet {
+  background: #fff;
+  border-radius: 24px 24px 0 0;
+  padding: 20px 24px 36px;
+  width: 100%;
+  max-width: 430px;
+  max-height: 92vh;
+  overflow-y: auto;
+  animation: inquiry-slide 0.28s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+@keyframes inquiry-slide { from { transform: translateY(20px); } to { transform: translateY(0); } }
+
+.inquiry-handle {
+  width: 36px; height: 4px;
+  border-radius: 2px;
+  background: #ddd;
+  margin: 0 auto 16px;
+}
+
+.inquiry-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: 24px;
+  color: #1A1A1A;
+  margin-bottom: 4px;
+}
+.inquiry-subtitle {
+  font-size: 12px;
+  color: #999;
+  margin-bottom: 22px;
+}
+
+.inquiry-product-label {
+  font-size: 10px;
+  font-weight: 700;
+  color: #999;
+  letter-spacing: 1.5px;
+  margin-bottom: 6px;
+  text-transform: uppercase;
+}
+.inquiry-product-name {
+  background: var(--accent-dim, rgba(200,240,117,0.15));
+  border: 1px solid var(--accent-border, rgba(200,240,117,0.4));
+  color: #1A1A1A;
+  padding: 12px 14px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 500;
+  margin-bottom: 20px;
+  line-height: 1.4;
+}
+
+.inquiry-field-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: #999;
+  letter-spacing: 1px;
+  margin-bottom: 6px;
+}
+.inquiry-input,
+.inquiry-textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  font-size: 14px;
+  font-family: 'Noto Sans KR', sans-serif;
+  color: #1A1A1A;
+  outline: none;
+  margin-bottom: 14px;
+  transition: border-color 0.15s;
+  background: #fff;
+}
+.inquiry-textarea {
+  resize: vertical;
+  min-height: 110px;
+  line-height: 1.6;
+}
+.inquiry-input:focus,
+.inquiry-textarea:focus {
+  border-color: #1A1A1A;
+}
+.inquiry-input::placeholder,
+.inquiry-textarea::placeholder {
+  color: #bbb;
+}
+
+.inquiry-error {
+  font-size: 12px;
+  color: #e53935;
+  margin-bottom: 10px;
+  min-height: 16px;
+}
+
+.inquiry-submit-btn {
+  width: 100%;
+  background: #C8F075;
+  color: #1A1A1A;
+  border: none;
+  padding: 15px;
+  border-radius: 100px;
+  font-size: 14px;
+  font-weight: 700;
+  font-family: 'Noto Sans KR', sans-serif;
+  cursor: pointer;
+  margin-bottom: 8px;
+  box-shadow: 0 4px 20px rgba(200,240,117,0.35);
+  transition: opacity 0.15s, transform 0.08s;
+}
+.inquiry-submit-btn:hover { opacity: 0.92; }
+.inquiry-submit-btn:active { transform: scale(0.99); }
+.inquiry-submit-btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.inquiry-cancel-btn {
+  width: 100%;
+  background: none;
+  border: none;
+  color: #999;
+  font-size: 13px;
+  font-family: 'Noto Sans KR', sans-serif;
+  cursor: pointer;
+  padding: 10px;
+}
+
+/* 성공 화면 */
+.inquiry-success-icon {
+  display: flex;
+  justify-content: center;
+  margin: 12px 0 18px;
+}
+.inquiry-success-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: 22px;
+  color: #1A1A1A;
+  text-align: center;
+  margin-bottom: 10px;
+}
+.inquiry-success-desc {
+  font-size: 13px;
+  color: #666;
+  text-align: center;
+  line-height: 1.7;
+  margin-bottom: 28px;
+}

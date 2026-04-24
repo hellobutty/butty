@@ -662,6 +662,49 @@
 </div>
 </div>
 
+<!-- ══ 문의하기 모달 ══ -->
+<div id="inquiry-overlay" class="inquiry-overlay">
+  <div class="inquiry-sheet">
+    <div class="inquiry-handle"></div>
+
+    <!-- 폼 화면 -->
+    <div id="inquiry-form-screen">
+      <div class="inquiry-title">문의하기</div>
+      <div class="inquiry-subtitle">남겨주시면 빠르게 답변드릴게요</div>
+
+      <div class="inquiry-product-label">문의 상품</div>
+      <div id="inquiry-product-name" class="inquiry-product-name">—</div>
+
+      <div class="inquiry-field-label">이름</div>
+      <input id="inquiry-name" type="text" placeholder="이름을 입력해 주세요" class="inquiry-input">
+
+      <div class="inquiry-field-label">이메일</div>
+      <input id="inquiry-email" type="email" placeholder="답변 받으실 이메일" class="inquiry-input" autocomplete="email">
+
+      <div class="inquiry-field-label">문의 내용</div>
+      <textarea id="inquiry-message" placeholder="문의하실 내용을 자유롭게 작성해 주세요" class="inquiry-textarea" rows="5"></textarea>
+
+      <div id="inquiry-error" class="inquiry-error"></div>
+
+      <button id="inquiry-submit-btn" onclick="submitInquiry()" class="inquiry-submit-btn">문의 보내기</button>
+      <button onclick="closeInquiry()" class="inquiry-cancel-btn">닫기</button>
+    </div>
+
+    <!-- 성공 화면 -->
+    <div id="inquiry-success-screen" style="display:none;">
+      <div class="inquiry-success-icon">
+        <svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="28" cy="28" r="28" fill="#C8F075"/>
+          <path d="M17 28.5L24.5 36L39 21" stroke="#1A1A1A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div class="inquiry-success-title">문의가 접수되었습니다</div>
+      <div class="inquiry-success-desc">확인 후 빠르게 답변드릴게요.<br>감사합니다!</div>
+      <button onclick="closeInquiry()" class="inquiry-submit-btn">닫기</button>
+    </div>
+  </div>
+</div>
+
 <!-- ══ 삭제 확인 다이얼로그 ══ -->
 <div id="delete-confirm-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:700;align-items:center;justify-content:center;">
 <div style="background:#fff;border-radius:20px;padding:28px 24px 20px;width:calc(100% - 48px);max-width:320px;text-align:center;">

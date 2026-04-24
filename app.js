@@ -1,5 +1,6 @@
   const ADMIN_PW = 'butty2025';
   const CONTACT_EMAIL = 'hello@butty.kr';
+  const INQUIRY_WEBHOOK = 'https://script.google.com/macros/s/AKfycbxcx-I2y_Gt2ymLLnJqnF5bOtQ7dzboAWAskzvgQ98UJYk2X-H6aCo5srYBlndxMYRl4g/exec';
 
   /* ── DRAWER ── */
   function openDrawer() {
@@ -74,11 +75,71 @@
     showOnly(prev);
   }
 
-  /* ── MAILTO ── */
-  function mailTo(product) {
-    const subject = encodeURIComponent('[BUTTY] ' + product + ' 문의드립니다');
-    const body = encodeURIComponent('안녕하세요, BUTTY 팀!\n\n[' + product + '] 관련하여 문의드립니다.\n\n회사명:\n담당자명:\n연락처:\n\n문의 내용:\n');
-    window.location.href = 'mailto:' + CONTACT_EMAIL + '?subject=' + subject + '&body=' + body;
+  /* ── INQUIRY (문의하기 모달) ── */
+  let currentInquiryProduct = '';
+
+  function mailTo(product) { openInquiry(product); }
+
+  function openInquiry(product) {
+    currentInquiryProduct = product || '상품 문의';
+    document.getElementById('inquiry-product-name').textContent = currentInquiryProduct;
+    document.getElementById('inquiry-name').value = '';
+    document.getElementById('inquiry-email').value = '';
+    document.getElementById('inquiry-message').value = '';
+    document.getElementById('inquiry-error').textContent = '';
+    document.getElementById('inquiry-form-screen').style.display = 'block';
+    document.getElementById('inquiry-success-screen').style.display = 'none';
+    const btn = document.getElementById('inquiry-submit-btn');
+    btn.disabled = false;
+    btn.textContent = '문의 보내기';
+    document.getElementById('inquiry-overlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+    setTimeout(() => document.getElementById('inquiry-name').focus(), 120);
+  }
+
+  function closeInquiry() {
+    document.getElementById('inquiry-overlay').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function validateEmail(v) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+  }
+
+  async function submitInquiry() {
+    const name = document.getElementById('inquiry-name').value.trim();
+    const email = document.getElementById('inquiry-email').value.trim();
+    const message = document.getElementById('inquiry-message').value.trim();
+    const errEl = document.getElementById('inquiry-error');
+
+    if (!name)    { errEl.textContent = '이름을 입력해 주세요.'; return; }
+    if (!email)   { errEl.textContent = '이메일을 입력해 주세요.'; return; }
+    if (!validateEmail(email)) { errEl.textContent = '이메일 형식이 올바르지 않습니다.'; return; }
+    if (!message) { errEl.textContent = '문의 내용을 입력해 주세요.'; return; }
+    errEl.textContent = '';
+
+    const btn = document.getElementById('inquiry-submit-btn');
+    btn.disabled = true;
+    btn.textContent = '보내는 중...';
+
+    try {
+      const res = await fetch(INQUIRY_WEBHOOK, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify({
+          product: currentInquiryProduct,
+          name, email, message
+        })
+      });
+      const json = await res.json().catch(() => ({ ok: false }));
+      if (!json.ok) throw new Error(json.error || '전송 실패');
+      document.getElementById('inquiry-form-screen').style.display = 'none';
+      document.getElementById('inquiry-success-screen').style.display = 'block';
+    } catch (err) {
+      errEl.textContent = '전송에 실패했습니다. 잠시 후 다시 시도해 주세요.';
+      btn.disabled = false;
+      btn.textContent = '문의 보내기';
+    }
   }
 
   /* ── TAB FILTER ── */
@@ -345,4 +406,7 @@
   // 오버레이 배경 클릭 닫기
   document.getElementById('admin-overlay').addEventListener('click', function(e) {
     if (e.target === this) closeAdmin();
+  });
+  document.getElementById('inquiry-overlay').addEventListener('click', function(e) {
+    if (e.target === this) closeInquiry();
   });
